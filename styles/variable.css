@@ -1,0 +1,58 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+:root {
+  --color-dark: #000;
+  --color-dark2: #444;
+  --color-white: #fff;
+  --color-gray: #ccc;
+  --color-gray2: #f5f5f5;
+  --color-gray3: #faf9f9;
+  --color-light: #fff;
+  --color-accent: #dcf97f;
+  /* 커서 스타일 변수 */
+  --cursor-default: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3ccircle cx='30' cy='30' r='18' fill='%23cccccc' fill-opacity='0.4' stroke='%23cccccc' stroke-width='1'/%3e%3c/svg%3e") 30 30, auto;
+  --cursor-accent: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' style='shape-rendering: crispEdges'%3e%3ccircle cx='30' cy='30' r='18' fill='%23DCF97F' fill-opacity='0.9'/%3e%3c/svg%3e") 30 30, pointer;
+}
+
+@font-face {
+  font-family: "Butler_Ultra_Light";
+  src: url("./fonts/Butler_Ultra_Light.otf");
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Butler_Light";
+  src: url("./fonts/Butler_Light.otf");
+  font-style: normal;
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Butler_Regular";
+  src: url("./fonts/Butler_Regular.otf");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Butler_Medium";
+  src: url("./fonts/Butler_Medium.otf");
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Butler_Bold";
+  src: url("./fonts/Butler_Bold.otf");
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Butler_Medium_Stencil";
+  src: url("./fonts/Butler_Medium_Stencil.otf");
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Butler_Ultra_Light";
+  src: url("./fonts/Butler_Ultra_Light.otf");
+  font-style: normal;
+  font-weight: 600;
+}

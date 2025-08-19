@@ -1,0 +1,42 @@
+//
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-break: keep-all;        // 한글 단어 중간에서 끊기지 않음
+  word-wrap: break-word;       // 긴 영단어는 적절히 줄바꿈
+  overflow-wrap: break-word;   // 최신 브라우저 지원
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  
+  // 스크롤바 숨기기
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Pretendard', 'Butler_Medium_Stencil', sans-serif;
+  font-size: 1.6rem;
+  background: #fff;
+  color: #222;
+  min-height: 100vh;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  ul {
+    list-style: none;
+  }
+}

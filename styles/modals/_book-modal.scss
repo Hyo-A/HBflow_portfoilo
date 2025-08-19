@@ -1,0 +1,40 @@
+// 책 확대 보기 모달
+.book-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  
+  .book-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .book-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    padding: 0;
+    max-width: 95vw;
+    max-height: 95vh;
+    
+    .book-modal-image {
+      img {
+        width: auto;
+        height: 600px;
+        object-fit: contain;
+        border-radius: 0;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}

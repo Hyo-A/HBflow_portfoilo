@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HBflow - Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="right-green-bar"></div>
+  <header>
+    <h1><img src="./imgs/hbflow_logo.png" alt="HBFLOW" class="logo-img" /></h1>
+    <nav class="side-nav">
+      <ul>
+        <li data-page="0" class="nav-item">HEADER</li>
+        <li data-page="1" class="nav-item">SKILLS</li>
+        <li data-page="2" class="nav-item project-nav">
+          PROJECT
+          <ul class="PROJECT_li">
+            <li data-page="2" class="nav-item sub-nav">MY WORK</li>
+            <li data-page="3" class="nav-item sub-nav">TEAM WORK</li>
+            <li data-page="4" class="nav-item sub-nav">DESIGN WORK</li>
+          </ul>
+        </li>
+        <li data-page="5" class="nav-item">FOOTER</li>
+      </ul>
+    </nav>
+  </header>
+  <div class="preloader">
+    <div class="grid-background">
+      <!-- 그리드 라인들 (JavaScript로 동적 생성) -->
+      <div class="grid-lines"></div>
+
+    </div>
+    
+    <div class="loader-content">
+        <div class="counter-container">
+        <div class="counter">0</div>
+        <span class="counter-percent">%</span>
+      </div>
+      <div class="title">HBFLOW SHOWCASE</div>
+      <div class="progress-bar">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fullpage-container">
+    <!-- 1. About -->
+    <section class="page about-page">
+      <main class="about-container">
+        <div class="about-bg-title">About me</div>
+        <section class="about-profile">
+          <img src="./imgs/20240406-장효아님-1 1.png" alt="프로필 사진" class="profile-img" />
+          <div class="about-text">
+            <h2>About me</h2>
+            <p>안녕하세요! 3년차 편집 디자이너에서 웹 퍼블리셔가 되고 싶은 장효아 입니다.<br>
+              제품을 만들고, 서비스를 제공함에 있어서 즐거움을 느껴왔습니다.<br>
+              이제는 사용자와의 직접적인 상호작용이 필요한 UX&UI를 제작함을 원하고있고,<br>
+              팀원들과 함께 작업했던 프로젝트에 애정을 가지고 있습니다.
+              <br><br>
+              프론트앤드 공부를 한 기간은 길지 않지만, 빠르게 성장하였고 알찬 경험을 하였다 자부합니다.<br>
+              써보지 않았던 프레임워크나 라이브러리를 공부하며 다양한 작업을 해보고싶습니다.<br>
+              지금 보여드리는 작업물에 그치지 않는 더욱 멋진 프로젝트를 만들어가겠다 약속드립니다.</p>
+              <span class="about-text-line"></span>
+          </div>
+        </section>
+        <section class="history-section">
+          <h3>History</h3>
+          <div class="history-container">
+            <div class="history-list">
+              <div class="history-item history-item-1">
+                <div class="history-title">상명대학교(서울캠)</div>
+                <div class="history-desc">텍스타일 아트 전공,<br>의류학 부전공</div>
+              </div>
+              <div class="history-item history-item-2">
+                <div class="history-title">서울중부교육기술원</div>
+                <div class="history-desc">그래픽디자인 수료</div>
+              </div>
+              <div class="history-item history-item-3">
+                <div class="history-title">에듀인쇄</div>
+                <div class="history-desc">편집디자이너</div>
+              </div>
+              <div class="history-item history-item-4">
+                <div class="history-title">EZEN아카데미</div>
+                <div class="history-desc">UXUI 디자인<br>웹 프론트엔드개발 부트캠프</div>
+              </div>
+            </div>
+            
+            <div class="history-bar">
+              <div class="bar-background"></div>
+              <div class="bar bar1"></div>
+              <div class="bar bar2"></div>
+              <div class="bar bar3"></div>
+              <div class="bar bar4"></div>
+            </div>
+            
+            <div class="history-dates">
+              <div class="date-item date-1">2017.03</div>
+              <div class="date-item date-2">2022.03</div>
+              <div class="date-item date-3">2022.08</div>
+              <div class="date-item date-4">2024.12</div>
+            </div>
+          </div>
+        </section>
+        <section class="info-section">
+          <div class="contact">
+            <h4>Contact</h4>
+            <ul>
+              <li>
+                <h5>TEL</h5>
+                <span class="contact_line"></span>
+                010-5701-0679
+              </li>
+              <li>
+                <h5>Mail</h5>
+                <span class="contact_line"></span>
+                janggydk@daum.net
+              </li>
+            </ul>
+          </div>
+          <div class="license">
+            <h4>License</h4>
+            <ul>
+              <li>
+                <h5>GTQ</h5>
+                <span class="contact_line"></span>
+                Adobe Photoshop
+              </li>
+              <li>
+                <h5>GTQI</h5>
+                <span class="contact_line"></span>
+                Adobe Illustrator
+              </li>
+              <li>
+                <h5>ITQ</h5>
+                <span class="contact_line"></span>
+                엑셀A, 한글A, 파워포인트A
+              </li>
+              <li>
+                <h5>Calligraphy</h5>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </section>
+    <!-- 2. Skills -->
+    <section class="page skills-page">
+      <div class="skills-container">
+                  <h2>Skills</h2>
+          <div class="skills-grid">
+            <!-- 첫 번째 행 -->
+            <div class="skill-item" data-description="사진 편집과 이미지 합성, 레이어 기반 작업으로 이미지 편집을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo1.png" alt="Photoshop"><span>Photoshop</span></div>
+            <div class="skill-item" data-description="벡터 그래픽 디자인, 로고와 아이콘 제작, 확대해도 깨지지 않는 그래픽을 제작할 수 있습니다."><img src="imgs/skilllogo/skilllogo2.png" alt="Illustrator"><span>Illustrator</span></div>
+            <div class="skill-item" data-description="출판물 레이아웃과 타이포그래피, 다중 페이지 문서의 전문적인 편집을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo3.png" alt="Indesign"><span>Indesign</span></div>
+            <div class="skill-item" data-description="협업 기반 UI/UX 디자인, 프로토타입 제작과 디자인 시스템 구축을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo4.png" alt="Figma"><span>Figma</span></div>
+            <div class="skill-item" data-description="프로젝트 관리와 문서 정리, 팀 협업을 위한 효율적인 워크스페이스를 구축할 수 있습니다."><img src="imgs/skilllogo/skilllogo5.png" alt="Notion"><span>Notion</span></div>
+            <div class="skill-item" data-description="버전 관리와 코드 협업, 프로젝트 이력 추적과 팀 개발 환경 구축을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo6.png" alt="Github"><span>Github</span></div>
+            
+            <!-- 두 번째 행 -->
+            <div class="skill-item" data-description="웹 페이지의 구조와 의미를 담는 마크업 언어, 시맨틱한 웹 문서 작성을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo7.png" alt="HTML"><span>HTML</span></div>
+            <div class="skill-item" data-description="웹 페이지의 시각적 표현과 레이아웃, 반응형 디자인과 애니메이션을 구현할 수 있습니다."><img src="imgs/skilllogo/skilllogo8.png" alt="CSS"><span>CSS</span></div>
+            <div class="skill-item" data-description="CSS 전처리기로 변수와 믹스인 활용, 효율적이고 유지보수 가능한 스타일링을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo9.png" alt="SCSS"><span>SCSS</span></div>
+            <div class="skill-item" data-description="빠른 반응형 웹 개발을 위한 CSS 프레임워크, 컴포넌트 기반 UI 구축을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo10.png" alt="Bootstrap"><span>Bootstrap</span></div>
+            <div class="skill-item" data-description="CSS를 직접 제어하며 원하는 스타일을 빠르게 적용할 수 있습니다."><img src="imgs/skilllogo/skilllogo11.png" alt="Tailwind"><span>Tailwind</span></div>
+            <div class="skill-item" data-description="프론트엔드 프로젝트를 빠르고 쉽게 배포하고 호스팅하는 플랫폼으로, CI/CD와 같은 자동화 기능을 제공합니다."><img src="imgs/skilllogo/skilllogo12.png" alt="Netlify"><span>Netlify</span></div>
+            
+            <!-- 세 번째 행 -->
+            <div class="skill-item" data-description="웹 브라우저에서 동적인 상호작용을 구현하는 스크립트 언어를 작성할 수 있습니다."><img src="imgs/skilllogo/skilllogo13.png" alt="Javascript"><span>Javascript</span></div>
+            <div class="skill-item" data-description="자바스크립트에 타입을 추가해 코드의 오류를 줄이고 개발 효율을 높일 수 있습니다."><img src="imgs/skilllogo/skilllogo14.png" alt="Typescript"><span>Typescript</span></div>
+            <div class="skill-item" data-description="React를 기반으로 서버 사이드 렌더링을 지원해 성능과 SEO를 향상시키는 강력한 프레임워크 입니다."><img src="imgs/skilllogo/skilllogo15.png" alt="Next.js"><span>Next.js</span></div>
+            <div class="skill-item" data-description="Node.js 환경에서 Express 프레임워크를 활용하여 서버를 구축, MongoDB에 연결하여 데이터를 처리하였습니다."><img src="imgs/skilllogo/skilllogo16.png" alt="Node.js"><span>Node.js</span></div>
+            <div class="skill-item" data-description="Firebase의 인증, 실시간 데이터베이스, 클라우드 스토리지로 데이터를 처리할 수 있습니다."><img src="imgs/skilllogo/skilllogo17.png" alt="Firebase"><span>Firebase</span></div>
+            <div class="skill-item" data-description="NoSQL 문서 데이터베이스, 유연한 스키마와 JSON 형태 데이터 저장을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo18.png" alt="MongoDB"><span>MongoDB</span></div>
+            
+            <!-- 네 번째 행 -->
+            <div class="skill-item" data-description="사용자 인터페이스를 구축하기 위한 컴포넌트 기반의 자바스크립트 라이브러리입니다."><img src="imgs/skilllogo/skilllogo19.png" alt="React"><span>React</span></div>
+            <div class="skill-item" data-description="React Query를 사용해 서버로부터 데이터를 효율적으로 가져오고, 캐싱 및 동기화 기능을 통해 애플리케이션의 성능을 최적화했습니다."><img src="imgs/skilllogo/skilllogo20.png" alt="React Query"><span>React Query</span></div>
+            <div class="skill-item" data-description="Redux를 활용하여 애플리케이션의 상태를 일관되게 관리함으로써 코드의 유지보수성을 높였습니다."><img src="imgs/skilllogo/skilllogo21.png" alt="Redux"><span>Redux</span></div>
+            <div class="skill-item" data-description="아톰과 셀렉터를 통해 상태를 효율적으로 관리 하였습니다."><img src="imgs/skilllogo/skilllogo22.png" alt="Recoil"><span>Recoil</span></div>
+            <div class="skill-item" data-description="간단하고 가벼운 상태 관리 기능을 구현하여, 애플리케이션의 복잡성을 줄였습니다."><img src="imgs/skilllogo/skilllogo23.png" alt="Zustand"><span>Zustand</span></div>
+            <div class="skill-item" data-description="Apollo Studio를 통해 GraphQL 쿼리를 테스트하고, 데이터 요청 방식을 익혔습니다."><img src="imgs/skilllogo/skilllogo24.png" alt="GraphQL"><span>GraphQL</span></div>
+          </div>
+          
+          <!-- 말풍선 컨테이너 -->
+          <div class="tooltip-container" id="tooltip"></div>
+      </div>
+    </section>
+    <!-- 3. My Work -->
+    <section class="page mywork-page">
+      <div class="project-container">
+        <div class="section-bg"></div>
+        <div class="section-overlay"></div>
+        <div class="project-content">
+          <div class="project-box slideshow">
+            <div class="slide active" onclick="openModal('mywork', 1)">
+              <div class="slide__img">
+                <img src="imgs/mywork/mywork1.jpg" alt="my work 1" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">We design</span>
+                <span class="slide__text-line"> places</span>
+              </div>
+              <div class="slide__subtitle">라이브러리 사용을 통한 인터렉티브 페이지 구현</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          
+            <!-- Slide 2 -->
+            <div class="slide" onclick="openModal('mywork', 2)">
+              <div class="slide__img">
+                <img src="imgs/mywork/mywork2.jpg" alt="my work 2" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">Netflix</span>
+                <span class="slide__text-line">clone coding</span>
+              </div>
+              <div class="slide__subtitle">tmdb api를 이용한 넷플릭스 클론 코딩</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          
+            <!-- Slide 3 -->
+            <div class="slide" onclick="openModal('mywork', 3)">
+              <div class="slide__img">
+                <img src="imgs/mywork/mywork3.jpg" alt="my work 3" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">Fullpage</span>
+                <span class="slide__text-line">
+                  Customizing</span>
+              </div>
+              <div class="slide__subtitle">fullpage 스크롤 페이지 구현</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          
+            <!-- Slide 4 -->
+            <div class="slide" onclick="openModal('mywork', 4)">
+              <div class="slide__img">
+                <img src="imgs/mywork/mywork4.jpg" alt="my work 4" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">Cyworld</span>
+                <span class="slide__text-line">hamseter</span>
+              </div>
+              <div class="slide__subtitle">싸이월드 테마 구현</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          
+            <!-- Slide 5 -->
+            <div class="slide" onclick="openModal('mywork', 5)">
+              <div class="slide__img">
+                <img src="imgs/mywork/mywork5.jpg" alt="my work 5" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">Onebite</span>
+                <span class="slide__text-line">sky</span>
+              </div>
+              <div class="slide__subtitle">도서 추천, 검색 플랫폼</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skip-button">
+            <button onclick="skipMyWork()">
+              <span class="button-text">SKIP MY WORK ⟶</span>
+              <span class="button-text-hover">SKIP MY WORK ⟶</span>
+            </button>
+          </div>
+          
+          <div class="slide-counter">
+            <div class="counter-display">
+              <span class="total-slides">05</span>
+            </div>
+              <span class="counter-separator">/</span>
+            <span class="current-slide">01</span>
+          </div>
+          
+          <!-- 커스텀 커서 -->
+          <div class="custom-cursor">
+            <div class="cursor-arrow prev">←</div>
+            <div class="cursor-arrow next">→</div>
+          </div>
+          
+
+        </div>
+      </div>
+    </section>
+    <!-- 4. Team Work -->
+    <section class="page teamwork-page">
+      <div class="project-container">
+        <div class="section-bg"></div>
+        <div class="section-overlay"></div>
+        <div class="project-content">
+          <div class="project-box slideshow">
+            <div class="slide active" onclick="openModal('teamwork', 1)">
+              <div class="slide__img">
+                <img src="imgs/teamwork/teamwork1.jpg" alt="team project 1" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">ROOKie
+                  </span>
+                <span class="slide__text-line">team project</span>
+              </div>
+              <div class="slide__subtitle">야구 팬들을 위핸 커머스 + OTT 융합 플랫폼</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          
+            <!-- Slide 2 -->
+            <div class="slide" onclick="openModal('teamwork', 2)">
+              <div class="slide__img">
+                <img src="imgs/teamwork/teamwork2.jpg" alt="team project 2" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">Metaphor</span>
+                <span class="slide__text-line">team project</span>
+              </div>
+              <div class="slide__subtitle">KPOP팬을 위한 뮤직 플랫폼</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          
+            <!-- Slide 3 -->
+            <div class="slide" onclick="openModal('teamwork', 3)">
+              <div class="slide__img">
+                <img src="imgs/teamwork/teamwork3.jpg" alt="team project 3" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">농담</span>
+                <span class="slide__text-line">team project</span>
+              </div>
+              <div class="slide__subtitle">못난이 채소 판매 전문 커머스 사이트</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          
+            <!-- Slide 4 -->
+            <div class="slide" onclick="openModal('teamwork', 4)">
+              <div class="slide__img">
+                <img src="imgs/teamwork/teamwork4.jpg" alt="team project 4" />
+              </div>
+              <div class="slide__text">
+                <span class="slide__text-line">PETOPIA</span>
+                <span class="slide__text-line">team project</span>
+              </div>
+              <div class="slide__subtitle">반려동물 육아 도움이 앱</div>
+              <div class="slide__more">
+                <button class="more-btn">more<span class="plus-icon">+</span></button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skip-button">
+            <button onclick="skipTeamWork()">
+              <span class="button-text">SKIP TEAM WORK ⟶</span>
+              <span class="button-text-hover">SKIP TEAM WORK ⟶</span>
+            </button>
+          </div>
+          
+          <div class="slide-counter">
+            <div class="counter-display">
+              <span class="total-slides">04</span>
+            </div>
+              <span class="counter-separator">/</span>
+            <span class="current-slide">01</span>
+          </div>
+          
+          <!-- 커스텀 커서 -->
+          <div class="custom-cursor">
+            <div class="cursor-arrow prev">←</div>
+            <div class="cursor-arrow next">→</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 5. Design Work -->
+    <section class="page designwork-page">
+      <div class="project-container">
+        <!-- 중앙 내용박스 -->
+        <div class="design-content-box">
+          <!-- 배경 텍스트 (카테고리에 따라 변경) -->
+          <div class="design-bg-title" id="designBgTitle">Character</div>
+          
+          <!-- 카테고리 버튼들 -->
+          <div class="category-buttons">
+            <button class="category-btn active" data-category="character">캐릭터</button>
+            <button class="category-btn" data-category="bookcover">책표지</button>
+            <button class="category-btn" data-category="brochure">브로슈어</button>
+            <button class="category-btn" data-category="etc">기타</button>
+          </div>
+          
+          <!-- 프로젝트 보기 영역 2개 -->
+          <div class="design-projects">
+            <div class="design-project-box" onclick="openModal('designwork', 'character', 1)">
+              <div class="project-image">
+                <img src="imgs/character1.jpg" alt="목으로 말해요 기롱이" />
+              </div>
+              <div class="project-info">
+                <div class="project-subtitle">[이모티콘 디자인]</div>
+                <div class="project-title">목으로 말해요 기롱이</div>
+                <div class="project-more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+              <div class="project-line"></div>
+            </div>
+            <div class="design-project-box" onclick="openModal('designwork', 'character', 2)">
+              <div class="project-image">
+                <img src="imgs/character2.jpg" alt="학과별 캐릭터" />
+              </div>
+              <div class="project-info">
+                <div class="project-subtitle">[강릉중앙고]</div>
+                <div class="project-title">학과별 캐릭터</div>
+                <div class="project-more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+              <div class="project-line"></div>
+            </div>
+          </div>
+          
+          <!-- 책표지 그리드 영역 (5x2) -->
+          <div class="book-covers-grid" id="bookCoversGrid" style="display: none;">
+            <div class="book-item" data-book="1">
+              <img src="imgs/bookcover/book1.png" alt="책표지 1" />
+            </div>
+            <div class="book-item" data-book="2">
+              <img src="imgs/bookcover/book2.png" alt="책표지 2" />
+            </div>
+            <div class="book-item" data-book="3">
+              <img src="imgs/bookcover/book3.png" alt="책표지 3" />
+            </div>
+            <div class="book-item" data-book="4">
+              <img src="imgs/bookcover/book4.png" alt="책표지 4" />
+            </div>
+            <div class="book-item" data-book="5">
+              <img src="imgs/bookcover/book5.png" alt="책표지 5" />
+            </div>
+            <div class="book-item" data-book="6">
+              <img src="imgs/bookcover/book6.png" alt="책표지 6" />
+            </div>
+            <div class="book-item" data-book="7">
+              <img src="imgs/bookcover/book7.png" alt="책표지 7" />
+            </div>
+            <div class="book-item" data-book="8">
+              <img src="imgs/bookcover/book8.png" alt="책표지 8" />
+            </div>
+            <div class="book-item" data-book="9">
+              <img src="imgs/bookcover/book9.png" alt="책표지 9" />
+            </div>
+            <div class="book-item" data-book="10">
+              <img src="imgs/bookcover/book10.png" alt="책표지 10" />
+            </div>
+          </div>
+          
+          <!-- 브로슈어 그리드 영역 (3x2) -->
+          <div class="brochure-grid" id="brochureGrid" style="display: none;">
+            <div class="brochure-item" data-brochure="1">
+              <img src="imgs/brochure/brochure1.png" alt="브로슈어 1" />
+              <div class="brochure-overlay">
+                <div class="brochure-description">
+                  <span class="description-line1">계양고등학교</span>
+                  <span class="description-line2">브로슈어</span>
+                </div>
+              </div>
+            </div>
+            <div class="brochure-item" data-brochure="2">
+              <img src="imgs/brochure/brochure2.png" alt="브로슈어 2" />
+              <div class="brochure-overlay">
+                <div class="brochure-description">
+                  <span class="description-line1">수원원일중학교</span>
+                  <span class="description-line2">브로슈어</span>
+                </div>
+              </div>
+            </div>
+            <div class="brochure-item" data-brochure="3">
+              <img src="imgs/brochure/brochure3.png" alt="브로슈어 3" />
+              <div class="brochure-overlay">
+                <div class="brochure-description">
+                  <span class="description-line1">송악고등학교</span>
+                  <span class="description-line2">브로슈어</span>
+                </div>
+              </div>
+            </div>
+            <div class="brochure-item" data-brochure="4">
+              <img src="imgs/brochure/brochure4.png" alt="브로슈어 4" />
+              <div class="brochure-overlay">
+                <div class="brochure-description">
+                  <span class="description-line1">평택여자고등학교</span>
+                  <span class="description-line2">브로슈어</span>
+                </div>
+              </div>
+            </div>
+            <div class="brochure-item" data-brochure="5">
+              <img src="imgs/brochure/brochure5.png" alt="브로슈어 5" />
+              <div class="brochure-overlay">
+                <div class="brochure-description">
+                  <span class="description-line1">배곧고등학교</span>
+                  <span class="description-line2">브로슈어 내지</span>
+                </div>
+              </div>
+            </div>
+            <div class="brochure-item" data-brochure="6">
+              <img src="imgs/brochure/brochure6.png" alt="브로슈어 6" />
+              <div class="brochure-overlay">
+                <div class="brochure-description">
+                  <span class="description-line1">배곧고등학교</span>
+                  <span class="description-line2">브로슈어 내지</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 기타 카테고리 그리드 영역 (3x2) -->
+          <div class="etc-grid" id="etcGrid" style="display: none;">
+            <div class="etc-item" data-etc="1">
+              <img src="imgs/etc/etc1.jpg" alt="기타 1" />
+              <div class="etc-overlay">
+                <div class="etc-description">
+                  <span class="description-line1">성일고등학교</span>
+                  <span class="description-line2">종이컵</span>
+                </div>
+              </div>
+            </div>
+            <div class="etc-item" data-etc="2">
+              <img src="imgs/etc/etc2.jpg" alt="기타 2" />
+              <div class="etc-overlay">
+                <div class="etc-description">
+                  <span class="description-line1">성일고등학교</span>
+                  <span class="description-line2">종이컵 패키지</span>
+                </div>
+              </div>
+            </div>
+            <div class="etc-item" data-etc="3">
+              <img src="imgs/etc/etc3.jpg" alt="기타 3" />
+              <div class="etc-overlay">
+                <div class="etc-description">
+                  <span class="description-line1">효돈중학교</span>
+                  <span class="description-line2">쇼핑백</span>
+                </div>
+              </div>
+            </div>
+            <div class="etc-item" data-etc="4">
+              <img src="imgs/etc/etc4.jpg" alt="기타 4" />
+              <div class="etc-overlay">
+                <div class="etc-description">
+                  <span class="description-line1">한국생명과학고등학교</span>
+                  <span class="description-line2">스프링 플래너</span>
+                </div>
+              </div>
+            </div>
+            <div class="etc-item" data-etc="5">
+              <img src="imgs/etc/etc5.jpg" alt="기타 5" />
+              <div class="etc-overlay">
+                <div class="etc-description">
+                  <span class="description-line1">부천여자고등학교</span>
+                  <span class="description-line2">달력</span>
+                </div>
+              </div>
+            </div>
+            <div class="etc-item" data-etc="6">
+              <img src="imgs/etc/etc6.jpg" alt="기타 6" />
+              <div class="etc-overlay">
+                <div class="etc-description">
+                  <span class="description-line1">다원유치원</span>
+                  <span class="description-line2">O링 바인더</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 제목 영역 -->
+          <div class="design-title-section">
+            <h2 class="design-main-title">CHARACTER</h2>
+            <h3 class="design-sub-title">DESIGN WORK</h3>
+            <div class="title-underline"></div>
+          </div>
+        </div>
+        
+        <div class="skip-button">
+          <button onclick="skipDesignWork()">
+            <span class="button-text">SKIP DESIGN WORK ⟶</span>
+            <span class="button-text-hover">SKIP DESIGN WORK ⟶</span>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- 6. Contact Me -->
+    <section class="page contact-page">
+      <div class="contact-container">
+        <div class="contact-left">
+          <h2><span>FLOW</span> with me</h2>
+          <p>사용자 최적화된 역량있는 웹퍼블리셔가 되겠습니다.<br>
+          아래 이메일 혹은 제출양식으로 연락해주세요.</p>
+          <form class="contact-form">
+            <input type="text" name="name" placeholder="Name" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="text" name="title" placeholder="Title" required />
+            <textarea name="message" placeholder="Message" required></textarea>
+            <div class="contact-form-bottom">
+              <button type="submit">Send</button>
+              <span class="or-contact">or <b>Contact</b> janggydk@daum.net</span>
+              <button type="button" class="copy-btn" onclick="copyEmail()">Copy</button>
+            </div>
+          </form>
+          <footer class="contact-footer">
+            <span>© 2025 HBFLOW.com</span>
+          </footer>
+        </div>
+        <div class="contact-right">
+          <div class="contact-visual">
+            <img src="imgs/footer-visual.gif" alt="footer visual" />
+          </div>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/" target="_blank">
+          <span class="button-text">Git-hub ⟶</span>
+          <span class="button-text-hover">Git-hub ⟶</span>
+        </a>
+        <a href="https://notion.so/" target="_blank">
+          <span class="button-text">Notion ⟶</span>
+          <span class="button-text-hover">Notion ⟶</span>
+        </a>
+        <a href="#" onclick="goToTop()">
+          <span class="button-text">GO TO TOP ⟶</span>
+          <span class="button-text-hover">GO TO TOP ⟶</span>
+        </a>
+      </div>
+    </section>
+  </div>
+  <!-- 프로젝트 모달 (Character 모달과 동일한 스타일) -->
+  <div id="projectModal" class="character-modal">
+    <div class="character-modal-overlay" onclick="closeModal()"></div>
+    <div class="character-modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      
+      <!-- 프로젝트 상세 내용 -->
+      <div class="character-page" id="projectPage1">
+        <div class="character-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="character-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="character-modal-title" id="modalTitle">프로젝트 상세<span>[프로젝트 정보]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="character-right-section">
+            <div class="character-section">
+              <p class="section-content" id="modalContent">--의 내용입니다</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 책 확대 보기 모달 -->
+  <div id="bookModal" class="book-modal">
+    <div class="book-modal-overlay" onclick="closeBookModal()"></div>
+    <div class="book-modal-content">
+      <div class="book-modal-image">
+        <img id="bookModalImage" src="" alt="책표지 확대" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Character 모달 -->
+  <div id="characterModal" class="character-modal">
+    <div class="character-modal-overlay" onclick="closeCharacterModal()"></div>
+    <div class="character-modal-content">
+      <span class="close" onclick="closeCharacterModal()">&times;</span>
+      
+      <!-- 1페이지: 캐릭터 소개 -->
+      <div class="character-page" id="characterPage1">
+        <div class="character-modal-container">
+          <!-- 왼쪽 섹션: 제목 + 캐릭터 이미지 + Name + Keyword -->
+          <div class="character-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="character-modal-title">목으로 말해요 기롱이<span>[이모티콘 디자인]</span></h2>
+            
+            <!-- 캐릭터 이미지 (기롱1.jpg - 컬러가이드 포함) -->
+            <div class="character-main-image">
+              <img src="imgs/기롱이/기롱1.jpg" alt="기롱이 캐릭터와 컬러가이드" />
+            </div>
+            
+            <!-- 왼쪽 하단: Name + Keyword -->
+            <div class="character-left-bottom">
+              <div class="character-section">
+                <h4 class="section-title">Name</h4>
+                <p class="section-content">목으로 말해요 기롱이</p>
+              </div>
+              
+              <div class="character-section">
+                <h4 class="section-title">Keyword & Visual Motif</h4>
+                <p class="section-content">기분 좋을 때에 자신도 모르게 꼬리가 돌아가는 강아지의 사랑스러움을 모티브로 하여 기린을 모티브로 제작하였습니다.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 오른쪽 섹션: Story + Sketch (더 많은 공간) -->
+          <div class="character-right-section">
+            <!-- 스토리 -->
+            <div class="character-section">
+              <h4 class="section-title">Story</h4>
+              <p class="section-content">일상을 살아가는 우리들의 모습과 같이 평범한 오늘을 살고 있는 기롱이. 하지만 소소한 일상 속에 위로를 느끼며 달하게 살아가는 기린입니다. 기롱이의 목과 보리는 기분에 따라 격하게 움직이기도, 쑥 처지기도 합니다. 또한 좋은 기분이 좋을 때에는 꽃이 되기도, 사랑을 느낄 때에는 하트가 되어버리기도 합니다. 본연적인 색상에선 용매서 기롱이 드러나니는 솔직한 매력 소유자입니다.</p>
+            </div>
+            
+            <!-- 스케치 -->
+            <div class="character-section">
+              <h4 class="section-title">Sketch</h4>
+              <div class="sketch-container">
+                <img src="imgs/기롱이/기롱2.jpg" alt="기롱이 스케치" class="sketch-image" />
+              </div>
+            </div>
+          </div>
+          
+          <!-- 1페이지 전용 화살표 (다음 페이지만) -->
+          <div class="character-next-arrow" onclick="nextCharacterPage()">
+            <span class="arrow-icon">→</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2페이지: 이모티콘 그리드 -->
+      <div class="character-page" id="characterPage2" style="display: none;">
+        <div class="character-modal-container">
+          <!-- 왼쪽 섹션: 제목 + 이모티콘 이미지 -->
+          <div class="character-left-section">
+            <!-- 모달 제목 (왼쪽 상단) - 1페이지와 동일한 위치 -->
+            <h2 class="character-modal-title">목으로 말해요 기롱이<span>[이모티콘 디자인]</span></h2>
+            
+            <!-- 이모티콘 이미지 (기롱3.jpg) -->
+            <div class="character-main-image2">
+              <img src="imgs/기롱이/기롱3.jpg" alt="기롱이 이모티콘" />
+            </div>
+          </div>
+          
+          <!-- 오른쪽 섹션: 빈 공간 (향후 콘텐츠 추가 가능) -->
+          <div class="character-right-section">
+            <!-- 빈 공간 -->
+          </div>
+          
+          <!-- 양쪽 화살표 (이전/다음 페이지) -->
+          <div class="character-prev-arrow" onclick="prevCharacterPage()">
+            <span class="arrow-icon">←</span>
+          </div>
+          <div class="character-next-arrow" onclick="nextCharacterPage()">
+            <span class="arrow-icon">→</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 3페이지: 응용 굿즈 디자인 -->
+      <div class="character-page" id="characterPage3" style="display: none;">
+        <div class="character-page3-container">
+          <!-- 모달 제목 (상단 중앙) - 다른 페이지와 동일한 위치 -->
+          <h2 class="character-modal-title">목으로 말해요 기롱이<span>[응용 굿즈 디자인]</span></h2>
+          
+          <!-- 메인 콘텐츠 영역: 가로 배열 -->
+          <div class="character-content-row">
+            <!-- 1. 기롱4 이미지 (크게) -->
+            <div class="character-main-image-section">
+              <img src="imgs/기롱이/기롱4.jpg" alt="기롱이 이모티콘 실제 적용 예시" />
+            </div>
+            
+            <!-- 2. 설명글씨 4묶음 -->
+            <div class="character-description-section">
+              <div class="description-item">
+                <span class="item-number">1</span>
+                <span class="item-text">기롱이 이모티콘 실제 적용 예시</span>
+              </div>
+              <div class="description-item">
+                <span class="item-number">2</span>
+                <span class="item-text">기린 무늬 포장재 디자인과 기룽이 명함 작가 정보와 기통이 스토리</span>
+              </div>
+              <div class="description-item">
+                <span class="item-number">3</span>
+                <span class="item-text">파스텔 블루 컬러와 화이트 패턴을 이용 해 디자인한 머그컵과 박스 패키지</span>
+              </div>
+              <div class="description-item">
+                <span class="item-number">4</span>
+                <span class="item-text">파스텔 블루와 코랄 컬러를 배경색으로 기룽이의 얼굴로 구성한 양말 디자인</span>
+              </div>
+            </div>
+            
+            <!-- 3. 기롱5,6,7 이미지 세로정렬 (작게) -->
+            <div class="character-goods-images-section">
+              <div class="goods-image-item">
+                <img src="imgs/기롱이/기롱5.jpg" alt="기린 무늬 포장재 디자인" />
+              </div>
+              <div class="goods-image-item">
+                <img src="imgs/기롱이/기롱6.jpg" alt="머그컵과 박스 패키지" />
+              </div>
+              <div class="goods-image-item">
+                <img src="imgs/기롱이/기롱7.jpg" alt="양말 디자인" />
+              </div>
+            </div>
+          </div>
+          
+          <!-- 이전 페이지 화살표만 (3페이지는 마지막 페이지) -->
+          <div class="character-prev-arrow" onclick="prevCharacterPage()">
+            <span class="arrow-icon">←</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tiger 모달 -->
+  <div id="tigerModal" class="tiger-modal">
+    <div class="tiger-modal-overlay" onclick="closeTigerModal()"></div>
+    <div class="tiger-modal-content">
+      <span class="close" onclick="closeTigerModal()">&times;</span>
+      
+      <!-- 호랑이 캐릭터 소개 (1페이지만) -->
+      <div class="tiger-page">
+        <div class="tiger-modal-container">
+          <div class="tiger-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="tiger-modal-title">학과별 캐릭터<span>[강릉중앙고]</span></h2>
+            
+            <!-- 정보 영역 -->
+            <div class="tiger-left-bottom">
+              <div class="tiger-info-item">
+                <p>강릉중앙고의 5가지 학과의 대표 캐릭터 입니다.
+                  강릉의 상징동물 호랑이와 학과의 특성을 보여줄수 있는 착장을 더한 다지인입니다.
+                  고객과 다이렉트로 소통하며 캐릭터 기획부터 굿즈 실제작까지 진행하였습니다.</p>
+              </div>
+            </div>
+
+          <!-- 호랑이 메인 이미지 (호랑이1.jpg) -->
+          <div class="tiger-main-image">
+            <img src="imgs/호랑이/호랑이1.png" alt="학과별 캐릭터 호랑이" />
+          </div>
+          </div>
+          
+          <!-- 아래쪽 섹션: 설명 + 응용 이미지들 -->
+          <div class="tiger-right-section">
+            
+            <div class="tiger-applications">
+              <h4>캐릭터 굿즈</h4>
+              <div class="tiger-app-images">
+                <div class="tiger-app-item">
+                  <img src="imgs/호랑이/호랑이2.jpg" alt="서류가방" />
+                  
+                </div>
+                <div class="tiger-app-item">
+                  <img src="imgs/호랑이/호랑이3.jpg" alt="자판기 음료" />
+                </div>
+                <div class="tiger-app-text">
+                  <span>1. 고객의 니즈에 맟춤제작한 도무송스티커</span>
+                  <span>2. 학교의 대표컬러인 청록색을 배경으로 주문제작한 종이컵</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+// Project Modal
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  .modal-content {
+    background-color: var(--color-light);
+    margin: 10% auto;
+    padding: 3rem;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 2.8rem;
+      font-weight: bold;
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      cursor: pointer;
+      
+      &:hover {
+        color: var(--color-dark);
+      }
+    }
+    
+    h3 {
+      font-family: 'Butler_Medium_Stencil', 'Pretendard', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    
+    p {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      color: var(--color-dark2);
+    }
+  }
+}

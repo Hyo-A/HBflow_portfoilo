@@ -1,0 +1,12 @@
+// 메인 SCSS 파일 - 모든 스타일 import
+
+// 기존 스타일들
+@import './reset.scss';
+@import './variable.scss';
+@import './res.scss';
+
+// 모달 스타일들
+@import './modals/character-modal';
+@import './modals/tiger-modal';
+@import './modals/book-modal';
+@import './modals/project-modal';
