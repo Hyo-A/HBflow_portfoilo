@@ -1,6 +1,15 @@
 @import './styles/main.scss';
 @import './styles/res.scss';
 
+// 공통 skip 버튼과 contact-links 화살표 아이콘 스타일
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 12px;
+}
+
 // 공통 more+ 버튼 스타일 믹스인
 @mixin more-button-style($position-top: null, $position-bottom: null) {
   .slide__more {
@@ -22,7 +31,6 @@
       border-radius: 16px;
       font-size: 1.6rem;
       font-weight: 500 !important;
-      cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
@@ -125,6 +133,7 @@
     opacity: 0;
     color: var(--color-dark2);
     transition: opacity 0.3s ease;
+    pointer-events: none;  // 화살표 클릭 방지
   }
 
   .cursor.active,
@@ -140,33 +149,24 @@
     transform: scale(1);
     width: 45px;
     height: 45px;
+    background: transparent;  // 화살표일 때 배경 투명하게
+    border: 1px solid var(--color-gray);  // 화살표일 때 원 보더 표시
   }
 
   .cursor.prev .cursor-arrow.prev,
   .cursor.next .cursor-arrow.next,
   .custom-cursor.prev .cursor-arrow.prev,
-.custom-cursor.next .cursor-arrow.next {
-  opacity: 1;
+  .custom-cursor.next .cursor-arrow.next {
+    opacity: 1;
+  }
+
+  // 화살표가 보이지 않을 때 완전히 투명하게
+  .cursor-arrow:not(.prev):not(.next) {
+    opacity: 0 !important;
+  }
 }
 
-// 화살표를 원래 중앙으로 복구
-.cursor-arrow.prev,
-.cursor-arrow.next {
-  top: 50%;   // 원래대로 복구
-  left: 50%;  // 원래대로 복구
-}
-}
 
-// 커서 원 위치 미세 조정 (믹스인 외부에 배치) - 더 구체적인 선택자
-.mywork-page .mywork-page .custom-cursor.prev {
-  margin-top: -20px !important;    // -22.5px에서 조정 (위로 2.5px)
-  margin-left: -20px !important;   // -22.5px에서 조정 (왼쪽으로 2.5px)
-}
-
-.mywork-page .mywork-page .custom-cursor.next {
-  margin-top: -25px !important;    // -22.5px에서 조정 (아래로 2.5px)
-  margin-left: -25px !important;   // -22.5px에서 조정 (오른쪽으로 2.5px)
-}
 
 // SKILLS 페이지 말풍선 스타일 (개선됨)
 .skills-page {
@@ -186,6 +186,8 @@
       font-size: 1.4rem;  // 최소 너비 설정
       font-weight: 200;  // 폰트 가중치 설정
       text-align: center;  // 중앙 정렬
+      word-break: keep-all;  // 단어 중간에서 끊기지 않도록 설정
+      word-wrap: break-word;  // 긴 단어는 적절히 줄바꿈
     }
   }
   
@@ -416,7 +418,7 @@ header .side-nav .sub-nav {
   position: fixed;
   top: 0;
   right: 0;
-  width: 6px;
+  width: 8px;
   height: 0;
   background: #B6E23A;
   z-index: 100;
@@ -440,7 +442,7 @@ header {
   }
   .side-nav {
     position: fixed;
-    right: 25px;
+    right: 38px;
     top: 50%;
     transform: translateY(-50%);
     ul {
@@ -467,7 +469,7 @@ header {
           content: '';
           position: absolute;
           top: -10px; // 글씨보다 약간 위쪽
-          right: -10px; // 글씨 오른쪽
+          right: -14px; // 글씨 오른쪽
           width: 12px;
           height: 12px;
           background-color: var(--color-accent);
@@ -557,7 +559,7 @@ header {
 .about-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 4rem 2rem 2rem 2rem;
+  padding: 3.5rem 2rem 2rem 2rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -566,8 +568,8 @@ header {
   min-height: 100vh;
   .about-bg-title {
     position: absolute;
-    top: -1%;
-    right: -13%;
+    top: 1%;
+    right: -16%;
     font-size: 18rem;
     color: var(--color-gray2);
     font-family: 'Butler_Medium_Stencil', 'Pretendard', sans-serif;
@@ -579,113 +581,113 @@ header {
   .about-profile {
     display: flex;
     align-items: center;
-    gap: 4rem;
+    gap: 3rem;
     position: relative;
     z-index: 1;
     
     .profile-img {
-      width: 300px;
+      width: 280px;
       object-fit: cover;
       transition: all 0.3s ease;
       cursor: var(--cursor-accent);
     }
     
     .about-text {
-      margin-top: 24px;
+      margin-top: 20px;
       h2 {
         font-family: 'Butler_Medium_Stencil';
-        font-size: 5rem;
-        margin-bottom: 1.2rem;
+        font-size: 4.5rem;
+        margin-bottom: 1rem;
       }
       p {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         line-height: 1.5;
         font-weight: 300;
       }
       .about-text-line {
         display: block;
-        width: 616px;
+        width: 580px;
         height: 1px;
         background: var(--color-dark2);
-        margin-top: 35px;
+        margin-top: 30px;
       }
     }
   }
   .history-section {
     width: 100%;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 70px;
+    margin-bottom: 70px;
     > h3 {
       font-family: 'Butler_Medium_Stencil';
-      font-size: 3rem;
-      margin-bottom: 37px;
+      font-size: 2.8rem;
+      margin-bottom: 32px;
     }
-    .history-container {
-      position: relative;
-      width: 100%;
-      height: 140px;
-      
-      .history-list {
+          .history-container {
         position: relative;
-        display: flex;
-        justify-content: flex-start;
-        margin-bottom: 20px;
+        width: 100%;
+        height: 130px;
         
-        .history-item {
-          position: absolute;
-          min-width: 0;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        .history-list {
+          position: relative;
+          display: flex;
+          justify-content: flex-start;
+          margin-bottom: 18px;
           
-          &:nth-child(1) {
-            left: 0;
-            width: 31%;
-            margin-top: 0;
-          }
-          
-          &:nth-child(2) {
-            left: 31%;
-            width: 19%;
-            margin-top: 15px;
-          }
-          
-          &:nth-child(3) {
-            left: 50%;
-            width: 26%;
-            margin-top: 0;
-          }
-          
-          &:nth-child(4) {
-            left: 76%;
-            width: 24%;
-            margin-top: 15px;
-          }
-          
-          &.show {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          
-          .history-title {
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-          }
-          .history-desc {
-            font-size: 1.6rem;
-            font-weight: 300;
-            line-height: 1.5;
-            margin-bottom: 0.2rem;
+          .history-item {
+            position: absolute;
+            min-width: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            
+            &:nth-child(1) {
+              left: 0;
+              width: 31%;
+              margin-top: 0;
+            }
+            
+            &:nth-child(2) {
+              left: 31%;
+              width: 19%;
+              margin-top: 12px;
+            }
+            
+            &:nth-child(3) {
+              left: 50%;
+              width: 26%;
+              margin-top: 0;
+            }
+            
+            &:nth-child(4) {
+              left: 76%;
+              width: 24%;
+              margin-top: 12px;
+            }
+            
+            &.show {
+              opacity: 1;
+              transform: translateY(0);
+            }
+            
+            .history-title {
+              font-size: 1.5rem;
+              font-weight: 600;
+              margin-bottom: 0.3rem;
+            }
+            .history-desc {
+              font-size: 1.5rem;
+              font-weight: 300;
+              line-height: 1.5;
+              margin-bottom: 0.2rem;
+            }
           }
         }
-      }
-      
-      .history-bar {
-        position: relative;
-        height: 14px;
-        margin-top: 90px;
-        margin-bottom: 15px;
+        
+        .history-bar {
+          position: relative;
+          height: 14px;
+          margin-top: 82px;
+          margin-bottom: 15px;
         
         .bar-background {
           position: absolute;
@@ -768,44 +770,44 @@ header {
   .info-section {
     width: 100%;
     display: flex;
-    gap: 4rem;
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
+    gap: 3.5rem;
+    margin-top: 2.2rem;
+    margin-bottom: 2.2rem;
     > div {
       flex: 1;
       display: flex;
-      gap: 40px;
+      gap: 35px;
     }
     h4 {
       font-family: 'Butler_Medium_Stencil';
-      font-size: 3rem;
-      margin-bottom: 0.7rem;
+      font-size: 2.8rem;
+      margin-bottom: 0.6rem;
     }
     h5 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 600;
     }
     ul {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
     li {
       display: flex;
       align-items: center;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       margin-bottom: 0.3rem;
       
       h5 {
-        min-width: 52px;
+        min-width: 48px;
       }
       
       .contact_line {
         width: 1px;
-        height: 16px;
+        height: 15px;
         background: var(--color-dark);
-        margin: 0 8px 0 0;
+        margin: 0 7px 0 0;
         flex-shrink: 0;
       }
     }
@@ -1105,47 +1107,53 @@ top: 4rem; position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 
   .contact-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 60px 0 0 0;
     width: 100%;
 
     .contact-left {
-      flex: 1;
-      max-width: 600px;
+      width: 740px;
       h2 {
-        font-size: 2.8rem;
-        font-family: 'Butler_Medium_Stencil', Pretendard, sans-serif;
+        font-size: 5rem;
+        font-family: 'Butler_Medium_Stencil';
         margin-bottom: 1.2rem;
-        span {
-          font-family: 'Butler_Black', Pretendard, sans-serif;
-        }
       }
       p {
-        font-size: 1.2rem;
-        color: var(--color-dark2);
+        font-size: 1.6rem;
         margin-bottom: 2.2rem;
       }
       .contact-form {
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: 1rem;
         input, textarea {
           width: 100%;
-          padding: 1rem;
+          padding-left: 23px;
           border: none;
           background: var(--color-gray2);
-          border-radius: 6px;
-          font-size: 1.1rem;
-          font-family: 'Pretendard', sans-serif;
+          font-size: 1.6rem;
+          font-family: 'Pretendard';
+          &:focus {
+            outline: none;
+            &::placeholder {
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            }
+          }
+        }
+        input {
+          height: 55px;
         }
         textarea {
-          min-height: 80px;
+          padding-top: 20px;
+          min-height: 115px;
           resize: vertical;
         }
         .contact-form-bottom {
@@ -1153,58 +1161,56 @@ top: 4rem; position: absolute;
           align-items: center;
           gap: 1rem;
           margin-top: 0.5rem;
-          button[type='submit'] {
-            background: #eee;
+          button {
+            background: var(--color-gray2);
             border: none;
-            border-radius: 20px;
-            padding: 0.5rem 2.5rem;
-            font-size: 1.1rem;
-            cursor: pointer;
+            border-radius: 16px;
+            padding: 8px 22px;
+            font-size: 1.6rem;
             margin-right: 1rem;
+            transition: all 0.3s ease;
+            &:hover {
+              background-color: var(--color-dark) ;
+              color: var(--color-accent) ;
+              font-weight: 400 ;
+            }
           }
           .or-contact {
-            font-size: 1rem;
-            color: #888;
-            b { color: #222; }
-          }
-          .copy-btn {
-            background: #eee;
-            border: none;
-            border-radius: 20px;
-            padding: 0.5rem 1.5rem;
-            font-size: 1rem;
-            cursor: pointer;
+            font-size: 1.6rem;
           }
         }
       }
-      .contact-footer {
-        margin-top: 2.5rem;
-        color: #b6b6b6;
-        font-size: 1rem;
-      }
     }
     .contact-right {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-              align-items: center;
+      width: 500px;
         .contact-visual {
           img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
           }
         }
     }
   }
+  .copyright {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--color-dark2);
+    margin-top: 2rem;
+    position: absolute;
+    bottom: 68px;
+    left: 50px;
+  }
   .contact-links {
+    position: absolute;
+    bottom: 68px;
+    right: 42px;
     display: flex;
-    justify-content: flex-end;
-    gap: 2rem;
-    margin: 2rem 3rem 0 0;
+    justify-content: space-between;
+    gap: 40px;
     
     a {
-      color: #222;
-      font-size: 1rem;
+      color: var(--color-dark2);
+      font-size: 1.6rem;
       text-decoration: none;
       position: relative;
       overflow: hidden;

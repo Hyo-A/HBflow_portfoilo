@@ -1318,7 +1318,9 @@ function initSlideshow() {
 
       // 마우스 이동 이벤트
       pageElement.addEventListener("mousemove", (e) => {
-        const rect = pageElement.getBoundingClientRect();
+        // 커서는 .project-content (position: relative) 기준으로 배치됨
+        const positionContext = cursor.parentElement || pageElement;
+        const rect = positionContext.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
@@ -1346,12 +1348,12 @@ function initSlideshow() {
           skipY >= 0 &&
           skipY <= skipRect.height;
 
-        // 커서 위치 업데이트
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
+        // 커서 위치 업데이트 (부모 기준 보정)
+        cursor.style.left = x + "px";
+        cursor.style.top = y + "px";
 
         // 화면 영역에 따른 커서 상태 변경
-        const pageWidth = rect.width;
+        const pageWidth = pageElement.getBoundingClientRect().width;
         const leftArea = pageWidth * 0.3; // 왼쪽 30% 영역
         const rightArea = pageWidth * 0.7; // 오른쪽 70% 영역
 
