@@ -642,26 +642,60 @@
       </div>
     </section>
   </div>
-  <!-- 프로젝트 모달 (Character 모달과 동일한 스타일) -->
+  <!-- 프로젝트 모달 (My Work, Team Work용) -->
   <div id="projectModal" class="character-modal">
     <div class="character-modal-overlay" onclick="closeModal()"></div>
     <div class="character-modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
       
-      <!-- 프로젝트 상세 내용 -->
+      <!-- ROOKie 모달 1페이지: 프로젝트 소개 -->
       <div class="character-page" id="projectPage1">
-        <div class="character-modal-container">
+        <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
-          <div class="character-left-section">
+          <div class="teamwork-left-section">
             <!-- 모달 제목 (왼쪽 상단) -->
-            <h2 class="character-modal-title" id="modalTitle">프로젝트 상세<span>[프로젝트 정보]</span></h2>
+            <h2 class="teamwork-modal-title" id="modalTitle">ROOKie<span>[팀 프로젝트]</span></h2>
           </div>
           
           <!-- 오른쪽 섹션: 프로젝트 설명 -->
-          <div class="character-right-section">
-            <div class="character-section">
+          <div class="teamwork-right-section">
+            <!-- ROOKie 프로젝트 이미지 스크롤 박스 -->
+            <div class="rookie-image-scroll-box">
+              <img src="imgs/teamwork/teamwork1-1.jpg" alt="ROOKie 프로젝트 이미지" />
+            </div>
+            
+            <!-- 모달 내용 (JavaScript에서 참조용) -->
+            <div class="character-section" style="display: none;">
               <p class="section-content" id="modalContent">--의 내용입니다</p>
             </div>
+          </div>
+          
+          <!-- 1페이지 전용 화살표 (다음 페이지만) -->
+          <div class="character-next-arrow" onclick="nextProjectPage()">
+            <span class="arrow-icon">→</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- ROOKie 모달 2페이지: 상세 내용 -->
+      <div class="character-page" id="projectPage2" style="display: none;">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="teamwork-modal-title">ROOKie<span>[팀 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
+            <div class="character-section">
+              <p class="section-content">--의 내용입니다</p>
+            </div>
+          </div>
+          
+          <!-- 2페이지 전용 화살표 (이전 페이지만) -->
+          <div class="character-prev-arrow" onclick="prevProjectPage()">
+            <span class="arrow-icon">←</span>
           </div>
         </div>
       </div>
@@ -697,27 +731,33 @@
               <img src="imgs/기롱이/기롱1.jpg" alt="기롱이 캐릭터와 컬러가이드" />
             </div>
             
-            <!-- 왼쪽 하단: Name + Keyword -->
+            <!-- 왼쪽 하단 Keyword -->
             <div class="character-left-bottom">
-              <div class="character-section">
-                <h4 class="section-title">Name</h4>
-                <p class="section-content">목으로 말해요 기롱이</p>
-              </div>
-              
-              <div class="character-section">
-                <h4 class="section-title">Keyword & Visual Motif</h4>
-                <p class="section-content">기분 좋을 때에 자신도 모르게 꼬리가 돌아가는 강아지의 사랑스러움을 모티브로 하여 기린을 모티브로 제작하였습니다.</p>
-              </div>
+            <!-- 스토리 -->
+            <div class="character-section">
+              <h4 class="section-title">Story</h4>
+              <p class="section-content">일상을 살아가는   우리들의 모습과 같이 평범한 오늘을 살고 있는 기롱이,
+              하지만 소소한 일상 속에 희로애락을 느끼며 당차게 살아가는 기린입니다.
+              기롱이의 목과 꼬리는 기분에 따라 격하게 움직이기도, 축 처지기도 합니다.
+              또한 뿔은 기분이 좋을 때에는 꽃이 되기도, 사랑을 느낄 때에는 하트가 되어버리기도 합니다. 
+              본인의 의사와는 상관없이 몸에서 기분이 드러나버리는 솔직한 매력의 소유자입니다.
+              </p>
+            </div>
             </div>
           </div>
           
           <!-- 오른쪽 섹션: Story + Sketch (더 많은 공간) -->
           <div class="character-right-section">
-            <!-- 스토리 -->
             <div class="character-section">
-              <h4 class="section-title">Story</h4>
-              <p class="section-content">일상을 살아가는 우리들의 모습과 같이 평범한 오늘을 살고 있는 기롱이. 하지만 소소한 일상 속에 위로를 느끼며 달하게 살아가는 기린입니다. 기롱이의 목과 보리는 기분에 따라 격하게 움직이기도, 쑥 처지기도 합니다. 또한 좋은 기분이 좋을 때에는 꽃이 되기도, 사랑을 느낄 때에는 하트가 되어버리기도 합니다. 본연적인 색상에선 용매서 기롱이 드러나니는 솔직한 매력 소유자입니다.</p>
+              <h4 class="section-title">Name</h4>
+              <p class="section-content">목으로 말해요 기롱이</p>
             </div>
+            <div class="character-section">
+              <h4 class="section-title">Keyword & Visual Motif</h4>
+              <p class="section-content">기분이 좋을 때에 자신도 모르게 ‘꼬리 콥터’가 붕붕 돌아가는 강아지의 사랑스러움을 떠올리며 컨셉을 잡았습니다. 목, 귀, 꼬리, 뿔 등을 통한 풍부한 연출이 콘셉트를 잘 살릴 수 있겠다 판단하여 기린을 모티브로 제작하였습니다.
+              </p>
+            </div>
+            
             
             <!-- 스케치 -->
             <div class="character-section">
@@ -767,46 +807,52 @@
       <!-- 3페이지: 응용 굿즈 디자인 -->
       <div class="character-page" id="characterPage3" style="display: none;">
         <div class="character-page3-container">
-          <!-- 모달 제목 (상단 중앙) - 다른 페이지와 동일한 위치 -->
+          <!-- 모달 제목 (상단 중앙) - 고정 위치 -->
           <h2 class="character-modal-title">목으로 말해요 기롱이<span>[응용 굿즈 디자인]</span></h2>
           
-          <!-- 메인 콘텐츠 영역: 가로 배열 -->
-          <div class="character-content-row">
-            <!-- 1. 기롱4 이미지 (크게) -->
-            <div class="character-main-image-section">
-              <img src="imgs/기롱이/기롱4.jpg" alt="기롱이 이모티콘 실제 적용 예시" />
-            </div>
-            
-            <!-- 2. 설명글씨 4묶음 -->
-            <div class="character-description-section">
-              <div class="description-item">
-                <span class="item-number">1</span>
-                <span class="item-text">기롱이 이모티콘 실제 적용 예시</span>
-              </div>
-              <div class="description-item">
-                <span class="item-number">2</span>
-                <span class="item-text">기린 무늬 포장재 디자인과 기룽이 명함 작가 정보와 기통이 스토리</span>
-              </div>
-              <div class="description-item">
-                <span class="item-number">3</span>
-                <span class="item-text">파스텔 블루 컬러와 화이트 패턴을 이용 해 디자인한 머그컵과 박스 패키지</span>
-              </div>
-              <div class="description-item">
-                <span class="item-number">4</span>
-                <span class="item-text">파스텔 블루와 코랄 컬러를 배경색으로 기룽이의 얼굴로 구성한 양말 디자인</span>
+          <!-- 메인 콘텐츠 영역: 3열 그리드 레이아웃 -->
+          <div class="character-page3-grid">
+            <!-- 1. 왼쪽: 큰 이미지 1개 -->
+            <div class="character-page3-left">
+              <div class="character-main-image-large">
+                <img src="imgs/기롱이/기롱4.jpg" alt="기롱이 이모티콘 실제 적용 예시" />
               </div>
             </div>
             
-            <!-- 3. 기롱5,6,7 이미지 세로정렬 (작게) -->
-            <div class="character-goods-images-section">
-              <div class="goods-image-item">
-                <img src="imgs/기롱이/기롱5.jpg" alt="기린 무늬 포장재 디자인" />
+            <!-- 2. 중앙: 설명 텍스트 4개 (하단 정렬) -->
+            <div class="character-page3-center">
+              <div class="character-descriptions">
+                <div class="description-item">
+                  <span class="item-number">1</span>
+                  <span class="item-text">기롱이 이모티콘 실제 적용 예시</span>
+                </div>
+                <div class="description-item">
+                  <span class="item-number">2</span>
+                  <span class="item-text">기린 무늬 포장재 디자인과 기룽이 명함 작가 정보와 기통이 스토리</span>
+                </div>
+                <div class="description-item">
+                  <span class="item-number">3</span>
+                  <span class="item-text">파스텔 블루 컬러와 화이트 패턴을 이용 해 디자인한 머그컵과 박스 패키지</span>
+                </div>
+                <div class="description-item">
+                  <span class="item-number">4</span>
+                  <span class="item-text">파스텔 블루와 코랄 컬러를 배경색으로 기룽이의 얼굴로 구성한 양말 디자인</span>
+                </div>
               </div>
-              <div class="goods-image-item">
-                <img src="imgs/기롱이/기롱6.jpg" alt="머그컵과 박스 패키지" />
-              </div>
-              <div class="goods-image-item">
-                <img src="imgs/기롱이/기롱7.jpg" alt="양말 디자인" />
+            </div>
+            
+            <!-- 3. 오른쪽: 작은 이미지 3개 (세로 정렬) -->
+            <div class="character-page3-right">
+              <div class="character-goods-images-vertical">
+                <div class="goods-image-item">
+                  <img src="imgs/기롱이/기롱5.jpg" alt="기린 무늬 포장재 디자인" />
+                </div>
+                <div class="goods-image-item">
+                  <img src="imgs/기롱이/기롱6.jpg" alt="머그컵과 박스 패키지" />
+                </div>
+                <div class="goods-image-item">
+                  <img src="imgs/기롱이/기롱7.jpg" alt="양말 디자인" />
+                </div>
               </div>
             </div>
           </div>
@@ -862,8 +908,14 @@
                   <img src="imgs/호랑이/호랑이3.jpg" alt="자판기 음료" />
                 </div>
                 <div class="tiger-app-text">
-                  <span>1. 고객의 니즈에 맟춤제작한 도무송스티커</span>
-                  <span>2. 학교의 대표컬러인 청록색을 배경으로 주문제작한 종이컵</span>
+                  <div class="description-item">
+                    <span class="item-number">1</span>
+                    <span class="item-text">고객의 니즈에 맟춤제작한 도무송스티커</span>
+                  </div>
+                  <div class="description-item">
+                    <span class="item-number">2</span>
+                    <span class="item-text">학교의 대표컬러인 청록색을 배경으로 주문제작한 종이컵</span>
+                  </div>
                 </div>
               </div>
             </div>

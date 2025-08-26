@@ -1,0 +1,270 @@
+.character-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+.character-modal .character-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: var(--cursor-accent);
+}
+.character-modal .character-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px;
+  height: 680px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 60px 100px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: visible;
+}
+.character-modal .character-modal-content .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #666;
+  cursor: var(--cursor-accent);
+  z-index: 10;
+}
+.character-modal .character-modal-content .close:hover {
+  color: #333;
+}
+.character-modal .character-modal-content .character-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.character-modal .character-modal-content .character-page .character-modal-container {
+  display: flex;
+  height: 100%;
+  gap: 40px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section {
+  flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-modal-title {
+  text-align: left;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-modal-title span {
+  font-size: 1.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-main-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-main-image img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-main-image img {
+  border-radius: 0;
+  border: none;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom {
+  margin-top: 10px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section {
+  margin-bottom: 15px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section:last-child {
+  margin-bottom: 0;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section .section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section .section-content {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 0;
+  text-align: justify;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 25px;
+  padding-right: 60px;
+  padding-left: 20px;
+  position: relative;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 0;
+  display: block;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .section-content {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 0;
+  text-align: justify;
+  display: block;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .sketch-container {
+  margin-top: 15px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .sketch-container .sketch-image {
+  width: 100%;
+  height: auto;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .goods-image {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .goods-image img {
+  width: 100%;
+  height: auto;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 0;
+  border: none;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-page3-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-page3-container .character-modal-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-page3-container .character-modal-title span {
+  font-size: 1.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  margin-top: 0;
+  flex: 1;
+  min-height: 0;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-main-image-section {
+  flex: 0 0 45%;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-main-image-section img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+  border: none;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-description-section {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-description-section .description-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-description-section .description-item .item-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  flex-shrink: 0;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-description-section .description-item .item-text {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: #666;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-goods-images-section {
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-content-row .character-goods-images-section .goods-image-item img {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 0;
+  border: none;
+}
+.character-modal .character-modal-content .character-page .character-next-arrow,
+.character-modal .character-modal-content .character-page .character-prev-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background-color: #f8f8f8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: var(--cursor-accent);
+  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+  z-index: 2001;
+}
+.character-modal .character-modal-content .character-page .character-next-arrow:hover,
+.character-modal .character-modal-content .character-page .character-prev-arrow:hover {
+  background-color: #333;
+  border-color: #333;
+}
+.character-modal .character-modal-content .character-page .character-next-arrow:hover .arrow-icon,
+.character-modal .character-modal-content .character-page .character-prev-arrow:hover .arrow-icon {
+  color: white;
+}
+.character-modal .character-modal-content .character-page .character-next-arrow .arrow-icon,
+.character-modal .character-modal-content .character-page .character-prev-arrow .arrow-icon {
+  font-size: 20px;
+  font-weight: bold;
+  color: #666;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+}
+.character-modal .character-modal-content .character-page .character-next-arrow {
+  right: -72px;
+}
+.character-modal .character-modal-content .character-page .character-prev-arrow {
+  left: -72px;
+}
+
+/*# sourceMappingURL=_character-modal.css.map */

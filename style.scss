@@ -1,13 +1,18 @@
 @import './styles/main.scss';
 @import './styles/res.scss';
 
-// 공통 skip 버튼과 contact-links 화살표 아이콘 스타일
+// SKIP 버튼용
+.button-text .arrow-icon,
+.button-text-hover .arrow-icon {
+  margin-left: 12px;
+}
+
+// 모달 내 화살표용 (기본 스타일)
 .arrow-icon {
   width: 16px;
   height: 16px;
   display: inline-block;
   vertical-align: middle;
-  margin-left: 12px;
 }
 
 // 공통 more+ 버튼 스타일 믹스인
@@ -24,30 +29,38 @@
     z-index: 10;
     
     .more-btn {
-      background-color: var(--color-gray2) !important;
-      color: var(--color-dark) !important;
-      border: none !important;
+      background-color: var(--color-gray2);
+      color: var(--color-dark);
+      border: none;
       padding: 8px 20px;
       border-radius: 16px;
       font-size: 1.6rem;
-      font-weight: 500 !important;
+      font-weight: 300;
+      font-family: 'Pretendard';
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 4px;
+      cursor: var(--cursor-accent);
       
       .plus-icon {
-        transition: transform 0.6s ease;
         display: inline-block;
+        width: 1em;
+        height: 1em;
+        line-height: 1em;
+        text-align: center;
+        /* 글리프 중심 보정: 시각 중심이 약간 위라 Y축을 58%로 내려서 회전 */
+        transform-origin: 50% 58%;
+        transition: transform 0.6s ease;
       }
     }
   }
   
   &:hover {
     .slide__more .more-btn {
-      background-color: var(--color-dark) !important;
-      color: var(--color-accent) !important;
-      font-weight: 400 !important;
+      background-color: var(--color-dark);
+      color: var(--color-accent);
+      font-weight: 400;
       
       .plus-icon {
         transform: rotate(360deg);
@@ -162,7 +175,7 @@
 
   // 화살표가 보이지 않을 때 완전히 투명하게
   .cursor-arrow:not(.prev):not(.next) {
-    opacity: 0 !important;
+    opacity: 0;
   }
 }
 
@@ -255,7 +268,7 @@ body {
 
 // 커스텀 커서가 활성화될 때 기본 커서 숨기기
 body.custom-cursor-active {
-  cursor: none !important;
+  cursor: none;
 }
 
 // 네비게이션 요소들에 대한 더 구체적인 선택자
@@ -263,29 +276,29 @@ header .side-nav ul li,
 header .side-nav .nav-item,
 header .side-nav .project-nav,
 header .side-nav .sub-nav {
-  cursor: var(--cursor-accent) !important;
+  cursor: var(--cursor-accent);
 }
 
 // 프로젝트 박스에 대한 더 구체적인 선택자
 .project-container .project-box {
-  cursor: var(--cursor-accent) !important;
+  cursor: var(--cursor-accent);
 }
 
 // 모달 닫기 버튼에 대한 더 구체적인 선택자
 .modal .close {
-  cursor: var(--cursor-accent) !important;
+  cursor: var(--cursor-accent);
 }
 
 // Contact Me 폼 버튼들에 대한 더 구체적인 선택자
 .contact-form button,
 .contact-form .copy-btn {
-  cursor: var(--cursor-accent) !important;
+  cursor: var(--cursor-accent);
 }
 
 // Contact Me 링크들에 대한 더 구체적인 선택자
 .contact-links a,
 .contact-links button {
-  cursor: var(--cursor-accent) !important;
+  cursor: var(--cursor-accent);
 }
 
 //preloader
@@ -505,9 +518,9 @@ header {
       margin-top: 2rem;
       
       li {
-        font-size: 1.4rem !important;
+        font-size: 1.4rem;
         font-family: 'Butler_Light';
-        color: var(--color-dark2)!important;
+        color: var(--color-dark2);
         transition: all 0.3s ease;
         margin: 0;
         padding: 0;
@@ -515,7 +528,7 @@ header {
         
         &.active {
           font-family: 'Butler_Bold';
-          color:  var(--color-dark)!important;
+          color: var(--color-dark);
           
           // 활성화된 서브 항목 옆에 초록 동그라미 표시
           &::after {
@@ -1211,6 +1224,7 @@ top: 4rem; position: absolute;
     a {
       color: var(--color-dark2);
       font-size: 1.6rem;
+      font-family: 'Pretendard', sans-serif;
       text-decoration: none;
       position: relative;
       overflow: hidden;
@@ -1420,7 +1434,7 @@ top: 4rem; position: absolute;
           transition: all 0.3s ease;
           font-weight: 300;
           background-color: var(--color-gray2);
-          cursor: var(--cursor-accent) !important; // 커스텀 커서 추가
+          cursor: var(--cursor-accent);
           
           &.active {
             background-color: var(--color-dark);
@@ -1448,16 +1462,16 @@ top: 4rem; position: absolute;
           height: 528px;
           position: relative;
           background-color: var(--color-light);
-          cursor: var(--cursor-accent) !important;
+          cursor: var(--cursor-accent);
           overflow: hidden;
           
           &:hover {
             background-color: var(--color-gray3);
             
             .project-info .project-more .more-btn {
-              background-color: var(--color-dark) !important;
-              color: var(--color-accent) !important;
-              font-weight: 400 !important;
+              background-color: var(--color-dark);
+              color: var(--color-accent);
+              font-weight: 400;
               
               .plus-icon {
                 transform: rotate(360deg);
@@ -1502,21 +1516,29 @@ top: 4rem; position: absolute;
               right: 10px;
               
               .more-btn {
-                background-color: var(--color-gray2) !important;
-                color: var(--color-dark) !important;
-                border: none !important;
+                background-color: var(--color-gray2);
+                color: var(--color-dark);
+                border: none;
                 padding: 8px 20px;
                 border-radius:16px;
                 font-size: 1.6rem;
-                font-weight: 500 !important;
+                font-weight: 500;
+                font-family: 'Pretendard', sans-serif;
                 transition: all 0.3s ease;
                 display: flex;
                 align-items: center;
                 gap: 4px;
+                cursor: var(--cursor-accent);
                 
                 .plus-icon {
-                  transition: transform 0.6s ease;
                   display: inline-block;
+                  width: 1em;
+                  height: 1em;
+                  line-height: 1em;
+                  text-align: center;
+                  /* 글리프 중심 보정 */
+                  transform-origin: 50% 58%;
+                  transition: transform 0.6s ease;
                 }
               }
             }
@@ -1641,8 +1663,9 @@ top: 4rem; position: absolute;
     background: transparent;
     border: none;
     font-size: 1.6rem;
+    font-family: 'Pretendard', sans-serif;
     text-transform: uppercase;
-    cursor: var(--cursor-accent) !important;
+    cursor: var(--cursor-accent);
     position: relative;
     overflow: hidden;
     height: 30px; // 버튼 높이 고정
@@ -1694,7 +1717,7 @@ top: 4rem; position: absolute;
   .brochure-item {
     width: 246px;
     height: 246px;
-    cursor: var(--cursor-accent) !important;
+    cursor: var(--cursor-accent);
     transition: all 0.3s ease;
     overflow: hidden;
     position: relative;
@@ -1767,7 +1790,7 @@ top: 4rem; position: absolute;
   .etc-item {
     width: 246px;
     height: 246px;
-    cursor: var(--cursor-accent) !important;
+    cursor: var(--cursor-accent);
     transition: all 0.3s ease;
     overflow: hidden;
     position: relative;
@@ -1840,7 +1863,7 @@ top: 4rem; position: absolute;
   .book-item {
     width: 174px;
     height: 250px;
-    cursor: var(--cursor-accent) !important;
+    cursor: var(--cursor-accent);
     transition: all 0.3s ease;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);

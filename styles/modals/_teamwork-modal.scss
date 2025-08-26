@@ -1,0 +1,75 @@
+// ===== Team Work 모달 전용 스타일 =====
+
+// 프로젝트 이미지 스크롤 박스 (ROOKie 모달 전용)
+.rookie-image-scroll-box {
+  width: 900px;
+  height: 480px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow-y: auto; // 세로 스크롤 활성화
+  overflow-x: hidden; // 가로 스크롤 숨김
+  background-color: #f8f8f8;
+  position: relative;
+  margin: 20px auto;
+  
+  // 스크롤바 스타일링
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+  
+  img {
+    width: 900px;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+// Team Work 모달 제목 스타일
+.teamwork-modal-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  
+  span {
+    font-size: 1.8rem;
+    font-weight: 200;
+    padding-left: 5px;
+    color: #666;
+  }
+}
+
+// Team Work 모달 컨테이너
+.teamwork-modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+// Team Work 모달 왼쪽 섹션 (제목)
+.teamwork-left-section {
+  flex: 0 0 auto;
+}
+
+// Team Work 모달 오른쪽 섹션 (내용)
+.teamwork-right-section {
+  height: 500px;
+  display: flex;
+  align-items: center;
+}

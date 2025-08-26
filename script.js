@@ -669,12 +669,88 @@ function openModal(type, slideNumber) {
   const title = document.getElementById("modalTitle");
   const content = document.getElementById("modalContent");
 
+  // 페이지별 표시/숨김 처리
+  const page1 = document.getElementById("projectPage1");
+  const page2 = document.getElementById("projectPage2");
+
   if (type === "mywork") {
-    title.innerHTML = `My Work ${slideNumber} 상세<span>[개인 프로젝트]</span>`;
+    // My Work: 1페이지만 표시 (화살표 숨김)
+    if (page1 && page2) {
+      page1.style.display = "block";
+      page2.style.display = "none";
+    }
+
+    // My Work에서는 화살표 숨김
+    const arrows = modal.querySelectorAll(
+      ".character-next-arrow, .character-prev-arrow"
+    );
+    arrows.forEach((arrow) => (arrow.style.display = "none"));
+
+    // My Work 프로젝트별 실제 제목 설정
+    let projectTitle = "";
+    switch (slideNumber) {
+      case 1:
+        projectTitle = "We design places";
+        break;
+      case 2:
+        projectTitle = "Netflix clone coding";
+        break;
+      case 3:
+        projectTitle = "Fullpage Customizing";
+        break;
+      case 4:
+        projectTitle = "Cyworld hamseter";
+        break;
+      case 5:
+        projectTitle = "Onebite sky";
+        break;
+      default:
+        projectTitle = `My Work ${slideNumber}`;
+    }
+
+    title.innerHTML = projectTitle;
     content.textContent = "--의 내용입니다";
   } else if (type === "teamwork") {
-    title.innerHTML = `Team Work ${slideNumber} 상세<span>[팀 프로젝트]</span>`;
-    content.textContent = "--의 내용입니다";
+    // Team Work: 1페이지만 표시 (2페이지는 화살표로 이동)
+    if (page1 && page2) {
+      page1.style.display = "block";
+      page2.style.display = "none";
+    }
+
+    // Team Work에서는 화살표 표시
+    const arrows = modal.querySelectorAll(
+      ".character-next-arrow, .character-prev-arrow"
+    );
+    arrows.forEach((arrow) => (arrow.style.display = "flex"));
+
+    // Team Work 프로젝트별 실제 제목 설정
+    let projectTitle = "";
+    switch (slideNumber) {
+      case 1:
+        projectTitle = "ROOKie";
+        break;
+      case 2:
+        projectTitle = "Metaphor";
+        break;
+      case 3:
+        projectTitle = "농담";
+        break;
+      case 4:
+        projectTitle = "PETOPIA";
+        break;
+      default:
+        projectTitle = `Team Work ${slideNumber}`;
+    }
+
+    title.innerHTML = `${projectTitle}<span>[팀 프로젝트]</span>`;
+
+    // ROOKie 모달의 경우 이미지만 보여주고 텍스트는 숨김
+    if (slideNumber === 1) {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+      content.textContent = "--의 내용입니다";
+    }
   } else if (type === "designwork") {
     const category = slideNumber; // slideNumber가 실제로는 category임
     const projectNum = arguments[2] || 1; // 세 번째 인자가 프로젝트 번호
@@ -718,6 +794,35 @@ function closeModal() {
   const modal = document.getElementById("projectModal");
   modal.style.display = "none";
   document.body.style.overflow = "auto";
+
+  // 모달 닫을 때 1페이지로 초기화
+  const page1 = document.getElementById("projectPage1");
+  const page2 = document.getElementById("projectPage2");
+  if (page1 && page2) {
+    page1.style.display = "block";
+    page2.style.display = "none";
+  }
+}
+
+// 프로젝트 모달 페이지 이동 함수들
+function nextProjectPage() {
+  const page1 = document.getElementById("projectPage1");
+  const page2 = document.getElementById("projectPage2");
+
+  if (page1 && page2) {
+    page1.style.display = "none";
+    page2.style.display = "block";
+  }
+}
+
+function prevProjectPage() {
+  const page1 = document.getElementById("projectPage1");
+  const page2 = document.getElementById("projectPage2");
+
+  if (page1 && page2) {
+    page1.style.display = "block";
+    page2.style.display = "none";
+  }
 }
 
 function closeBookModal() {
@@ -746,7 +851,8 @@ function closeCharacterModal() {
 }
 
 function nextCharacterPage() {
-  const currentPage = document.querySelector(
+  const characterModal = document.getElementById("characterModal");
+  const currentPage = characterModal.querySelector(
     '.character-page:not([style*="display: none"])'
   );
   const nextPage = currentPage.nextElementSibling;
@@ -758,7 +864,8 @@ function nextCharacterPage() {
 }
 
 function prevCharacterPage() {
-  const currentPage = document.querySelector(
+  const characterModal = document.getElementById("characterModal");
+  const currentPage = characterModal.querySelector(
     '.character-page:not([style*="display: none"])'
   );
   const prevPage = currentPage.previousElementSibling;

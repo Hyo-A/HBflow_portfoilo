@@ -37,3 +37,6 @@ body a {
 body ul {
   list-style: none;
 }
+body button {
+  font-family: "Pretendard", sans-serif;
+}

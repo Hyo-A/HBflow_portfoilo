@@ -15,7 +15,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    cursor: var(--cursor-accent) !important;
+    cursor: var(--cursor-accent);
   }
   
   .tiger-modal-content {
@@ -38,13 +38,12 @@
       font-size: 28px;
       font-weight: bold;
       color: #666;
-      cursor: pointer;
       z-index: 10;
       transition: all 0.3s ease;
       
       &:hover {
         color: #333;
-        cursor: var(--cursor-accent) !important;
+        cursor: var(--cursor-accent);
       }
     }
     
@@ -84,9 +83,9 @@
           .tiger-left-bottom {
             .tiger-info-item {
               p {
-                width: 471px;
-                font-size: 1.4rem;
-                line-height: 1.2;
+                width: 600px;
+                font-size: 1.2rem;
+                line-height: 2rem;
               }
             }
           }
@@ -133,11 +132,21 @@
                 flex-direction: column;
                 gap: 15px;
                 margin-left: 20px;
-                
-                span {
-                  font-size: 1.2rem;
-                  font-weight: 200;
-                  line-height: 2rem;
+                .description-item {
+                  display: flex;
+                  align-items: flex-start;
+                  gap: 10px;
+                  
+                                  .item-number {
+                                    font-size: 1.2rem;
+                                    font-weight: bold;
+                                    flex-shrink: 0;
+                                  }
+                                  
+                                  .item-text {
+                                    font-size: 1.2rem;
+                                    line-height: 1.4;
+                                  }
                 }
               }
             }
