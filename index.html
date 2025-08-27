@@ -659,9 +659,9 @@
           
           <!-- 오른쪽 섹션: 프로젝트 설명 -->
           <div class="teamwork-right-section">
-            <!-- ROOKie 프로젝트 이미지 스크롤 박스 -->
-            <div class="rookie-image-scroll-box">
-              <img src="imgs/teamwork/teamwork1-1.jpg" alt="ROOKie 프로젝트 이미지" />
+            <!-- 프로젝트 이미지 스크롤 박스 -->
+            <div class="project-image-scroll-box">
+              <img id="projectImage" src="imgs/teamwork/teamwork1-1.jpg" alt="프로젝트 이미지" />
             </div>
             
             <!-- 모달 내용 (JavaScript에서 참조용) -->
@@ -688,8 +688,125 @@
           
           <!-- 오른쪽 섹션: 프로젝트 설명 -->
           <div class="teamwork-right-section">
-            <div class="character-section">
-              <p class="section-content">--의 내용입니다</p>
+            <div class="rookie-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="rookie-description">
+                <p>ROOKie는 두 단계의 프로젝트를 통해 야구 팬덤의 일상 속으로 깊숙이 스며들어 새로운 팬 경험의 중심이 되는<br> <b>커머스와 OTT를 아우르는 야구 통합 플랫폼</b>으로 확장되었습니다.</p>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="rookie-features">
+                <div class="feature-header">
+                  <div class="feature-icon">🎲</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>로그인 회원가입 마이페이지파트를 담당하여 사용자 정보를 관리</li>
+                  <li>ROOKie 사이트 내에 전체적인 Firebase database 담당하여 전체 팀원들의 데이터 베이스 관리에 도움을 줌</li>
+                  <li>처음 방문한 순간부터 '내 팀'과의 연결감이 끊기지 않도록, 콘텐츠 커머스 커뮤니티를 잇는 부드러운 진입 경험을 설계의도</li>
+                  <li>Zustand와 Firebase Authentication이 전역에서 세션을 관리</li>
+                  <li>persist 미들웨어로 새로고침 후에도 상태를 유지해 끊김 없는 팬 활동을 보장</li>
+                  <li>마이페이지에서 일반 사용자는 ROOKie 파트너를 신청할 수 있고, ROOKie 파트너 사용자는 상품등록 요청을 할 수 있음</li>
+                  <li>쇼핑 관련 현황과, 내가 좋아요한 동영상을 확인</li>
+                  <li>사이트 로고, 구조적 디자인 설계</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="rookie-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">💬</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">React-Query</span>
+                  <span class="tech-tag">Styled-component</span>
+                  <span class="tech-tag">Zustand</span>
+                  <span class="tech-tag">Firebase</span>
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Figma</span>
+                  <span class="tech-tag">Illustrator</span>
+                </div>
+              </div>
+              
+              <!-- Go to Site 버튼 -->
+              <div class="rookie-goto-site">
+                <a href="https://rookie-dd013.web.app/" target="_blank" class="goto-site-btn">
+                  Go to Site
+                  <span class="site-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2페이지 전용 화살표 (이전 페이지만) -->
+          <div class="character-prev-arrow" onclick="prevProjectPage()">
+            <span class="arrow-icon">←</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Metaphor 모달 2페이지: 상세 내용 -->
+      <div class="character-page" id="metaphorPage2" style="display: none;">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="teamwork-modal-title">Metaphor<span>[팀 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
+            <div class="metaphor-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="metaphor-description">
+                <p>Metaphor는 <b>메타버스 기반의 가상 현실 체험 플랫폼</b>으로, 사용자들이 현실과 가상을 넘나들며<br>새로운 경험을 할 수 있도록 설계된 혁신적인 프로젝트입니다.</p>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="metaphor-features">
+                <div class="feature-header">
+                  <div class="feature-icon">🌐</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>3D 가상 공간에서의 실시간 상호작용 및 커뮤니케이션</li>
+                  <li>사용자 아바타 커스터마이징 및 개인화된 가상 공간 제작</li>
+                  <li>AI 기반 자연어 처리로 현실감 있는 대화 시스템 구현</li>
+                  <li>VR/AR 디바이스 지원으로 몰입감 있는 체험 제공</li>
+                  <li>실시간 멀티플레이어 기능으로 동시 접속자 간 상호작용</li>
+                  <li>가상 경제 시스템을 통한 디지털 자산 거래 및 관리</li>
+                  <li>크로스 플랫폼 지원으로 다양한 디바이스에서 접근 가능</li>
+                  <li>사용자 행동 분석을 통한 개인화된 콘텐츠 추천</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="metaphor-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">🚀</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">Unity</span>
+                  <span class="tech-tag">C#</span>
+                  <span class="tech-tag">WebGL</span>
+                  <span class="tech-tag">Three.js</span>
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">MongoDB</span>
+                  <span class="tech-tag">WebRTC</span>
+                  <span class="tech-tag">Blender</span>
+                </div>
+              </div>
+              
+              <!-- Go to Site 버튼 -->
+              <div class="metaphor-goto-site">
+                <a href="https://metaphor-project-demo.com" target="_blank" class="goto-site-btn">
+                  Go to Site
+                  <span class="site-arrow-icon">→</span>
+                </a>
+              </div>
             </div>
           </div>
           

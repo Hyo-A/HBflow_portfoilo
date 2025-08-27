@@ -742,12 +742,43 @@ function openModal(type, slideNumber) {
         projectTitle = `Team Work ${slideNumber}`;
     }
 
+    // 현재 프로젝트 번호 업데이트
+    currentProjectNumber = slideNumber;
+
     title.innerHTML = `${projectTitle}<span>[팀 프로젝트]</span>`;
 
-    // ROOKie 모달의 경우 이미지만 보여주고 텍스트는 숨김
+    // 프로젝트별 이미지 변경
+    const projectImage = document.getElementById("projectImage");
+    if (projectImage) {
+      switch (slideNumber) {
+        case 1:
+          projectImage.src = "imgs/teamwork/teamwork1-1.jpg";
+          projectImage.alt = "ROOKie 프로젝트 이미지";
+          break;
+        case 2:
+          projectImage.src = "imgs/teamwork/teamwork2-1.jpg";
+          projectImage.alt = "Metaphor 프로젝트 이미지";
+          break;
+        case 3:
+          projectImage.src = "imgs/teamwork/teamwork3-1.jpg";
+          projectImage.alt = "농담 프로젝트 이미지";
+          break;
+        case 4:
+          projectImage.src = "imgs/teamwork/teamwork4-1.jpg";
+          projectImage.alt = "PETOPIA 프로젝트 이미지";
+          break;
+        default:
+          projectImage.src = "imgs/teamwork/teamwork1-1.jpg";
+          projectImage.alt = "프로젝트 이미지";
+      }
+    }
+
+    // 프로젝트별로 다른 모달 내용 설정
     if (slideNumber === 1) {
+      // ROOKie: 이미지만 보여주고 텍스트는 숨김
       content.style.display = "none";
     } else {
+      // 다른 프로젝트들: 기본 텍스트 표시
       content.style.display = "block";
       content.textContent = "--의 내용입니다";
     }
@@ -798,30 +829,57 @@ function closeModal() {
   // 모달 닫을 때 1페이지로 초기화
   const page1 = document.getElementById("projectPage1");
   const page2 = document.getElementById("projectPage2");
-  if (page1 && page2) {
+  const metaphorPage2 = document.getElementById("metaphorPage2");
+
+  if (page1) {
     page1.style.display = "block";
-    page2.style.display = "none";
+
+    // 모든 2페이지 숨기기
+    if (page2) page2.style.display = "none";
+    if (metaphorPage2) metaphorPage2.style.display = "none";
   }
 }
+
+// 현재 활성화된 프로젝트 번호를 추적하는 변수
+let currentProjectNumber = 1;
 
 // 프로젝트 모달 페이지 이동 함수들
 function nextProjectPage() {
   const page1 = document.getElementById("projectPage1");
   const page2 = document.getElementById("projectPage2");
+  const metaphorPage2 = document.getElementById("metaphorPage2");
 
   if (page1 && page2) {
     page1.style.display = "none";
-    page2.style.display = "block";
+
+    // 현재 프로젝트에 따라 다른 2페이지 보여주기
+    if (currentProjectNumber === 1) {
+      // ROOKie 프로젝트
+      page2.style.display = "block";
+      if (metaphorPage2) metaphorPage2.style.display = "none";
+    } else if (currentProjectNumber === 2) {
+      // Metaphor 프로젝트
+      if (metaphorPage2) metaphorPage2.style.display = "block";
+      page2.style.display = "none";
+    } else {
+      // 기본 2페이지
+      page2.style.display = "block";
+      if (metaphorPage2) metaphorPage2.style.display = "none";
+    }
   }
 }
 
 function prevProjectPage() {
   const page1 = document.getElementById("projectPage1");
   const page2 = document.getElementById("projectPage2");
+  const metaphorPage2 = document.getElementById("metaphorPage2");
 
-  if (page1 && page2) {
+  if (page1) {
     page1.style.display = "block";
-    page2.style.display = "none";
+
+    // 모든 2페이지 숨기기
+    if (page2) page2.style.display = "none";
+    if (metaphorPage2) metaphorPage2.style.display = "none";
   }
 }
 
