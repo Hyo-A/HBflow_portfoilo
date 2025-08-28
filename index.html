@@ -649,24 +649,19 @@
       <span class="close" onclick="closeModal()">&times;</span>
       
       <!-- ROOKie 모달 1페이지: 프로젝트 소개 -->
-      <div class="character-page" id="projectPage1">
+      <div class="character-page rookie-modal-page" id="rookiePage1">
         <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="teamwork-left-section">
             <!-- 모달 제목 (왼쪽 상단) -->
-            <h2 class="teamwork-modal-title" id="modalTitle">ROOKie<span>[팀 프로젝트]</span></h2>
+            <h2 class="teamwork-modal-title">ROOKie<span>[팀 프로젝트]</span></h2>
           </div>
           
           <!-- 오른쪽 섹션: 프로젝트 설명 -->
           <div class="teamwork-right-section">
             <!-- 프로젝트 이미지 스크롤 박스 -->
             <div class="project-image-scroll-box">
-              <img id="projectImage" src="imgs/teamwork/teamwork1-1.jpg" alt="프로젝트 이미지" />
-            </div>
-            
-            <!-- 모달 내용 (JavaScript에서 참조용) -->
-            <div class="character-section" style="display: none;">
-              <p class="section-content" id="modalContent">--의 내용입니다</p>
+              <img id="projectImage" src="imgs/teamwork/teamwork1-1.jpg" alt="ROOKie 프로젝트 이미지" />
             </div>
           </div>
           
@@ -678,7 +673,7 @@
       </div>
       
       <!-- ROOKie 모달 2페이지: 상세 내용 -->
-      <div class="character-page" id="projectPage2" style="display: none;">
+      <div class="character-page rookie-modal-page" id="rookiePage2" style="display: none;">
         <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="teamwork-left-section">
@@ -747,8 +742,32 @@
         </div>
       </div>
       
+      <!-- Metaphor 모달 1페이지: 프로젝트 소개 -->
+      <div class="character-page metaphor-modal-page" id="metaphorPage1" style="display: none;">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="teamwork-modal-title">Metaphor<span>[팀 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
+            <!-- 프로젝트 이미지 스크롤 박스 -->
+            <div class="project-image-scroll-box">
+              <img src="imgs/teamwork/teamwork2-1.jpg" alt="Metaphor 프로젝트 이미지" />
+            </div>
+          </div>
+          
+          <!-- 1페이지 전용 화살표 (다음 페이지만) -->
+          <div class="character-next-arrow" onclick="nextProjectPage()">
+            <span class="arrow-icon">→</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Metaphor 모달 2페이지: 상세 내용 -->
-      <div class="character-page" id="metaphorPage2" style="display: none;">
+      <div class="character-page metaphor-modal-page" id="metaphorPage2" style="display: none;">
         <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="teamwork-left-section">
@@ -761,7 +780,7 @@
             <div class="metaphor-detail-content">
               <!-- 프로젝트 설명 -->
               <div class="metaphor-description">
-                <p>Metaphor는 <b>메타버스 기반의 가상 현실 체험 플랫폼</b>으로, 사용자들이 현실과 가상을 넘나들며<br>새로운 경험을 할 수 있도록 설계된 혁신적인 프로젝트입니다.</p>
+                <p>MZ세대가 즐기는 K-POP 팬덤 문화를 기반으로 한 차별화된 커뮤니티 플랫폼<br>콘텐츠, 차트, 매거진을 아우르는 <b>팬덤 중심 올인원 서비스</b>입니다.</p>
               </div>
               
               <!-- 주요 기능 및 특징 -->
@@ -771,14 +790,13 @@
                   <h3>주요 기능 및 특징</h3>
                 </div>
                 <ul class="feature-list">
-                  <li>3D 가상 공간에서의 실시간 상호작용 및 커뮤니케이션</li>
-                  <li>사용자 아바타 커스터마이징 및 개인화된 가상 공간 제작</li>
-                  <li>AI 기반 자연어 처리로 현실감 있는 대화 시스템 구현</li>
-                  <li>VR/AR 디바이스 지원으로 몰입감 있는 체험 제공</li>
-                  <li>실시간 멀티플레이어 기능으로 동시 접속자 간 상호작용</li>
-                  <li>가상 경제 시스템을 통한 디지털 자산 거래 및 관리</li>
-                  <li>크로스 플랫폼 지원으로 다양한 디바이스에서 접근 가능</li>
-                  <li>사용자 행동 분석을 통한 개인화된 콘텐츠 추천</li>
+                  <li>아이돌 그룹 박스를 클릭하면 나오는 디테일페이지를 담당</li>
+                  <li>전체 페이지의 일관적인 디자인을 총괄하여 기획, 배너등의 디자인툴이 필요한 요소 제작</li>
+                  <li>AI 의존 없이 순수 개발 스킬로 제작한 애플리케이션</li>
+                  <li>기획, 디자인, 구현, 발표 후에 팀원들과 다시 모여서 피드백 받은 내용을 2차 디벨롭</li>
+                  <li>2차 디벨롭으로 로그인, 로그아웃, 회원가입 페이지의 디자인과 기능을 구체화</li>
+                  <li>회원가입 데이터를 브라우저 로컬 스토리지에 자동 저장되도록 설계</li>
+                  <li>2차 디벨롭으로 Magazine 페이지의 디자인을 구체화</li>
                 </ul>
               </div>
               
@@ -789,21 +807,198 @@
                   <h3>사용 기술 및 언어</h3>
                 </div>
                 <div class="tech-tags">
-                  <span class="tech-tag">Unity</span>
-                  <span class="tech-tag">C#</span>
-                  <span class="tech-tag">WebGL</span>
-                  <span class="tech-tag">Three.js</span>
-                  <span class="tech-tag">Node.js</span>
-                  <span class="tech-tag">MongoDB</span>
-                  <span class="tech-tag">WebRTC</span>
-                  <span class="tech-tag">Blender</span>
+                  <span class="tech-tag">HTML</span>
+                  <span class="tech-tag">CSS</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">jQuery</span>
+                  <span class="tech-tag">Slick Slider</span>
+                  <span class="tech-tag">Firebase</span>
+                  <span class="tech-tag">Figma</span>
                 </div>
               </div>
               
               <!-- Go to Site 버튼 -->
               <div class="metaphor-goto-site">
-                <a href="https://metaphor-project-demo.com" target="_blank" class="goto-site-btn">
+                <a href="https://metaphor-8079a.web.app" target="_blank" class="goto-site-btn">
                   Go to Site
+                  <span class="site-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2페이지 전용 화살표 (이전 페이지만) -->
+          <div class="character-prev-arrow" onclick="prevProjectPage()">
+            <span class="arrow-icon">←</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NONGDAM 모달 1페이지: 프로젝트 소개 -->
+      <div class="character-page nongdam-modal-page" id="nongdamPage1" style="display: none;">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="teamwork-modal-title">NONGDAM<span>[팀 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
+            <!-- 프로젝트 이미지 스크롤 박스 -->
+            <div class="project-image-scroll-box">
+              <img src="imgs/teamwork/teamwork3-1.jpg" alt="NONGDAM 프로젝트 이미지" />
+            </div>
+          </div>
+          
+          <!-- 1페이지 전용 화살표 (다음 페이지만) -->
+          <div class="character-next-arrow" onclick="nextProjectPage()">
+            <span class="arrow-icon">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NONGDAM 모달 2페이지: 상세 내용 -->
+      <div class="character-page nongdam-modal-page" id="nongdamPage2" style="display: none;">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="teamwork-modal-title">NONGDAM<span>[팀 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
+            <div class="nongdam-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="nongdam-description">
+                <p>수확 및 가공 단계에서 버려지는 농산물등을 판매하는, <br>지구과 환경을 위한 <b>못난이 채소 판매 전문 커머스</b> 사이트입나다.</p>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="nongdam-features">
+                <div class="feature-header">
+                  <div class="feature-icon">🥗</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>이벤트 프로모션 페이지를 담당하여 룰렛 돌리기 게임을 제작</li>
+                  <li>팀원들과의 UI/UX 회의 참여 및 전체 디자인 피드백</li>
+                  <li>PPT 제작 총괄 및 디자인 툴이 필요한 로고, 배너 제작</li>
+                  <li>기획, 디자인, 구현, 발표 후에 팀원들과 다시 모여서 피드백 받은 내용을 2차 디벨롭</li>
+                  <li>2차 디벨롭으로 디테일한 마우스 오버 효과나, 부자연스러운 반응형 수정</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="nongdam-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">🌱</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">HTML</span>
+                  <span class="tech-tag">CSS</span>
+                  <span class="tech-tag">SCSS</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">jQuery</span>
+                  <span class="tech-tag">Slick Slider</span>
+                  <span class="tech-tag">Figma</span>
+                </div>
+              </div>
+              
+              <!-- Go to Site 버튼 -->
+              <div class="nongdam-goto-site">
+                <a href="https://nongdam.netlify.app/index.html" target="_blank" class="goto-site-btn">
+                  Go to Site
+                  <span class="site-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2페이지 전용 화살표 (이전 페이지만) -->
+          <div class="character-prev-arrow" onclick="prevProjectPage()">
+            <span class="arrow-icon">←</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PETOPIA 모달 1페이지: 프로젝트 소개 -->
+      <div class="character-page last-teamwork-modal-page" id="lastTeamworkPage1" style="display: none;">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="teamwork-modal-title">PETOPIA<span>[팀 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
+            <!-- 프로젝트 이미지 스크롤 박스 -->
+            <div class="project-image-scroll-box">
+              <img src="imgs/teamwork/teamwork4-1.jpg" alt="마지막 프로젝트 이미지" />
+            </div>
+          </div>
+          
+          <!-- 1페이지 전용 화살표 (다음 페이지만) -->
+          <div class="character-next-arrow" onclick="nextProjectPage()">
+            <span class="arrow-icon">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PETOPIA 프로젝트 모달 2페이지: 상세 내용 -->
+      <div class="character-page last-teamwork-modal-page" id="lastTeamworkPage2" style="display: none;">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
+            <!-- 모달 제목 (왼쪽 상단) -->
+            <h2 class="teamwork-modal-title">마지막 프로젝트<span>[팀 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
+            <div class="last-teamwork-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="last-teamwork-description">
+                <p>반려동물 1000만 시대가 된 지금, 우리 곁에는 다양한 형태의 반려동물들이 우리들의 곁에 함께하고 있습니다. 
+                <br>반려동물과 사람 더 건강하게 함께 행복할 수 있음을 희망하며 “펫토피아”라는 <b>반려동물 육아 도움이 앱</b>을 제작하였습니다.</p>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="last-teamwork-features">
+                <div class="feature-header">
+                  <div class="feature-icon">🤝</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>Figma를 통하여 디자인을 처음 접해본 팀원들과 앱 을 완성해보는 경험</li>
+                  <li>서비스가 실제 사업성이 있을지 고려하였고, 기존의 앱 리뷰분석을 통하여 사용자들의 니즈를 파악</li>
+                  <li>앱 사용자의 관점에서 문제를 정의하고 솔루션을 도출</li>
+                  <li>브랜드 디자인을 통하여 귀여운 캐릭터와 반복적으로 이용되는 요소 디자인</li>
+                  <li>PPT 제작 총괄 및 회원가입, 메인페이지, 챗봇 기능 디자인페이지 역활 및, 전체 앱 페이지 디자인 피드백을 맡음</li>
+                  <li>Figma의 prototype 기능을 사용하여 실제 구현된듯한 시안을 만들어 낼 수 있었음</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="last-teamwork-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">⚡</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">Figma</span>
+                  <span class="tech-tag">Illustrator</span>
+                  <span class="tech-tag">Photoshop</span>
+                </div>
+              </div>
+              
+              <!-- Go to Site 버튼 -->
+              <div class="last-teamwork-goto-site">
+                <a href="https://www.figma.com/proto/cJr6PeSaGW7VWhJCcH2Heb/Myportfoilo?node-id=92-30252&t=iEJn3SbLZ3G8TnjO-0&scaling=min-zoom&content-scaling=fixed&page-id=92%3A88" target="_blank" class="goto-site-btn">
+                  Go to Figma Prototype
                   <span class="site-arrow-icon">→</span>
                 </a>
               </div>
@@ -871,7 +1066,7 @@
             </div>
             <div class="character-section">
               <h4 class="section-title">Keyword & Visual Motif</h4>
-              <p class="section-content">기분이 좋을 때에 자신도 모르게 ‘꼬리 콥터’가 붕붕 돌아가는 강아지의 사랑스러움을 떠올리며 컨셉을 잡았습니다. 목, 귀, 꼬리, 뿔 등을 통한 풍부한 연출이 콘셉트를 잘 살릴 수 있겠다 판단하여 기린을 모티브로 제작하였습니다.
+              <p class="section-content">기분이 좋을 때에 자신도 모르게 '꼬리 콥터'가 붕붕 돌아가는 강아지의 사랑스러움을 떠올리며 컨셉을 잡았습니다. 목, 귀, 꼬리, 뿔 등을 통한 풍부한 연출이 콘셉트를 잘 살릴 수 있겠다 판단하여 기린을 모티브로 제작하였습니다.
               </p>
             </div>
             

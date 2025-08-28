@@ -711,10 +711,39 @@ function openModal(type, slideNumber) {
     title.innerHTML = projectTitle;
     content.textContent = "--의 내용입니다";
   } else if (type === "teamwork") {
-    // Team Work: 1페이지만 표시 (2페이지는 화살표로 이동)
-    if (page1 && page2) {
-      page1.style.display = "block";
-      page2.style.display = "none";
+    // Team Work: 기본 모달 표시
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+
+    // 프로젝트별로 올바른 1페이지 표시
+    currentProjectNumber = slideNumber;
+
+    // 모든 teamwork 모달 페이지 숨기기
+    const allTeamworkPages = modal.querySelectorAll(".character-page");
+    allTeamworkPages.forEach((page) => (page.style.display = "none"));
+
+    // 현재 프로젝트의 1페이지만 표시
+    let currentPage1Id = "";
+    switch (slideNumber) {
+      case 1:
+        currentPage1Id = "rookiePage1";
+        break;
+      case 2:
+        currentPage1Id = "metaphorPage1";
+        break;
+      case 3:
+        currentPage1Id = "nongdamPage1";
+        break;
+      case 4:
+        currentPage1Id = "lastTeamworkPage1";
+        break;
+      default:
+        currentPage1Id = "rookiePage1";
+    }
+
+    const currentPage1 = document.getElementById(currentPage1Id);
+    if (currentPage1) {
+      currentPage1.style.display = "block";
     }
 
     // Team Work에서는 화살표 표시
@@ -733,7 +762,7 @@ function openModal(type, slideNumber) {
         projectTitle = "Metaphor";
         break;
       case 3:
-        projectTitle = "농담";
+        projectTitle = "NONGDAM";
         break;
       case 4:
         projectTitle = "PETOPIA";
@@ -742,46 +771,7 @@ function openModal(type, slideNumber) {
         projectTitle = `Team Work ${slideNumber}`;
     }
 
-    // 현재 프로젝트 번호 업데이트
-    currentProjectNumber = slideNumber;
-
     title.innerHTML = `${projectTitle}<span>[팀 프로젝트]</span>`;
-
-    // 프로젝트별 이미지 변경
-    const projectImage = document.getElementById("projectImage");
-    if (projectImage) {
-      switch (slideNumber) {
-        case 1:
-          projectImage.src = "imgs/teamwork/teamwork1-1.jpg";
-          projectImage.alt = "ROOKie 프로젝트 이미지";
-          break;
-        case 2:
-          projectImage.src = "imgs/teamwork/teamwork2-1.jpg";
-          projectImage.alt = "Metaphor 프로젝트 이미지";
-          break;
-        case 3:
-          projectImage.src = "imgs/teamwork/teamwork3-1.jpg";
-          projectImage.alt = "농담 프로젝트 이미지";
-          break;
-        case 4:
-          projectImage.src = "imgs/teamwork/teamwork4-1.jpg";
-          projectImage.alt = "PETOPIA 프로젝트 이미지";
-          break;
-        default:
-          projectImage.src = "imgs/teamwork/teamwork1-1.jpg";
-          projectImage.alt = "프로젝트 이미지";
-      }
-    }
-
-    // 프로젝트별로 다른 모달 내용 설정
-    if (slideNumber === 1) {
-      // ROOKie: 이미지만 보여주고 텍스트는 숨김
-      content.style.display = "none";
-    } else {
-      // 다른 프로젝트들: 기본 텍스트 표시
-      content.style.display = "block";
-      content.textContent = "--의 내용입니다";
-    }
   } else if (type === "designwork") {
     const category = slideNumber; // slideNumber가 실제로는 category임
     const projectNum = arguments[2] || 1; // 세 번째 인자가 프로젝트 번호
@@ -845,41 +835,43 @@ let currentProjectNumber = 1;
 
 // 프로젝트 모달 페이지 이동 함수들
 function nextProjectPage() {
-  const page1 = document.getElementById("projectPage1");
-  const page2 = document.getElementById("projectPage2");
-  const metaphorPage2 = document.getElementById("metaphorPage2");
-
-  if (page1 && page2) {
-    page1.style.display = "none";
-
-    // 현재 프로젝트에 따라 다른 2페이지 보여주기
-    if (currentProjectNumber === 1) {
-      // ROOKie 프로젝트
-      page2.style.display = "block";
-      if (metaphorPage2) metaphorPage2.style.display = "none";
-    } else if (currentProjectNumber === 2) {
-      // Metaphor 프로젝트
-      if (metaphorPage2) metaphorPage2.style.display = "block";
-      page2.style.display = "none";
-    } else {
-      // 기본 2페이지
-      page2.style.display = "block";
-      if (metaphorPage2) metaphorPage2.style.display = "none";
-    }
+  // 현재 프로젝트에 따라 다른 2페이지 보여주기
+  if (currentProjectNumber === 1) {
+    // ROOKie 프로젝트
+    showProjectPage("rookiePage1", "rookiePage2");
+  } else if (currentProjectNumber === 2) {
+    // Metaphor 프로젝트
+    showProjectPage("metaphorPage1", "metaphorPage2");
+  } else if (currentProjectNumber === 3) {
+    // NONGDAM 프로젝트
+    showProjectPage("nongdamPage1", "nongdamPage2");
+  } else if (currentProjectNumber === 4) {
+    // 마지막 팀워크 프로젝트
+    showProjectPage("lastTeamworkPage1", "lastTeamworkPage2");
   }
 }
 
 function prevProjectPage() {
-  const page1 = document.getElementById("projectPage1");
-  const page2 = document.getElementById("projectPage2");
-  const metaphorPage2 = document.getElementById("metaphorPage2");
+  // 현재 프로젝트에 따라 1페이지로 돌아가기
+  if (currentProjectNumber === 1) {
+    showProjectPage("rookiePage2", "rookiePage1");
+  } else if (currentProjectNumber === 2) {
+    showProjectPage("metaphorPage2", "metaphorPage1");
+  } else if (currentProjectNumber === 3) {
+    showProjectPage("nongdamPage2", "nongdamPage1");
+  } else if (currentProjectNumber === 4) {
+    showProjectPage("lastTeamworkPage2", "lastTeamworkPage1");
+  }
+}
 
-  if (page1) {
-    page1.style.display = "block";
+// 프로젝트 페이지 전환 헬퍼 함수
+function showProjectPage(hidePageId, showPageId) {
+  const hidePage = document.getElementById(hidePageId);
+  const showPage = document.getElementById(showPageId);
 
-    // 모든 2페이지 숨기기
-    if (page2) page2.style.display = "none";
-    if (metaphorPage2) metaphorPage2.style.display = "none";
+  if (hidePage && showPage) {
+    hidePage.style.display = "none";
+    showPage.style.display = "block";
   }
 }
 
