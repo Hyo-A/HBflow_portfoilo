@@ -9,7 +9,7 @@ $breakpoints: (
 
 // 미디어 쿼리 믹스인
 @mixin mobile {
-  @media (max-width: 479px) {
+  @media (max-width: 767px) {
     @content;
   }
 }

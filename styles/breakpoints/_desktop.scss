@@ -5,9 +5,9 @@
 header {
   @include desktop {
     top: 50px;
-    left: 0;
-    width: 100%;
-    padding: 0 var(--page-gutter);
+    left: 50px;
+    right: 50px;
+    width: calc(100% - 100px);
     
     .logo-img {
       height: 40px;
@@ -37,8 +37,10 @@ header {
 // About 페이지 데스크톱 (현재 스타일과 동일)
 .about-container {
   @include desktop {
-    max-width: 1000px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 3rem 50px;
     
     .about-bg-title {
       font-size: 18rem;
@@ -125,33 +127,33 @@ header {
   }
 }
 
-// Skills 페이지 데스크톱 (현재 스타일과 동일)
-.skills-container {
+// Skills 페이지 데스크톱
+.skills-page .skills-container {
   @include desktop {
-    width: 80%;
-    max-width: 1420px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
+    width: 100%;
+    padding: 3rem 50px;
     
     h2 {
       font-size: 5.6rem;
+      text-align: left;
     }
     
     .skills-grid {
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: repeat(4, 1fr);
       gap: 20px;
+      min-height: 420px;
       
       .skill-item {
         padding: 10px;
         
         img {
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
         }
         
         span {
-          font-size: 2rem;
+          font-size: 1.6rem;
         }
       }
     }
@@ -161,12 +163,13 @@ header {
 // 프로젝트 페이지 데스크톱 (현재 스타일과 동일)
 .project-container {
   @include desktop {
-    padding: 4rem 2rem 2rem 2rem;
+    width: 100%;
+    padding: 4rem 50px 2rem 50px;
     
     .project-content {
       .project-box {
         width: 900px;
-        height: 630px;
+        height: 66vh;
       }
     }
     
@@ -179,10 +182,6 @@ header {
         top: 495px;
         left: 2rem;
         max-width: 60%;
-        
-        .slide__text-line {
-          font-size: 4.5rem;
-        }
       }
       
       .slide__subtitle {
@@ -198,7 +197,8 @@ header {
 .designwork-page {
   @include desktop {
     .project-container {
-      padding: 0;
+      width: 100%;
+      padding: 0 50px;
       
       .design-content-box {
         width: 1500px;
@@ -480,12 +480,67 @@ header {
   }
 }
 
+// Teamwork & Mywork 페이지 데스크톱 테스트
+.teamwork-page,
+.mywork-page {
+  @include desktop {
+    .project-container .slide .slide__text .slide__text-line {
+      font-size: 4.2rem; // 기본 4.5rem에서 4.2rem으로 줄임
+    }
+  }
+}
+
+// Teamwork & Mywork 페이지 데스크톱 반응형
+.teamwork-page,
+.mywork-page {
+  @include desktop {
+    .slide {
+      .slide__top {
+        .slide__more {
+          top: 2rem;
+          right: 2rem;
+          
+          .more-btn {
+            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+          }
+        }
+      }
+      
+      .slide__bottom {
+        padding: 2rem;
+        
+        .slide__text .slide__text-line {
+          font-size: 4.2rem;
+        }
+        
+        .slide__subtitle {
+          font-size: 1.4rem;
+          margin-bottom: 2rem;
+        }
+      }
+    }
+    
+    // 모달 제목들
+    .teamwork-modal-title,
+    .mywork-modal-title {
+      font-size: 3rem;
+    }
+    
+    .teamwork-modal-title span,
+    .mywork-modal-title span {
+      font-size: 1.8rem;
+    }
+  }
+}
+
 // Contact 페이지 데스크톱 (현재 스타일과 동일)
 .contact-page {
   @include desktop {
     .contact-container {
       flex-direction: row;
-      padding: 3rem 2rem;
+      width: 100%;
+      padding: 3rem 50px;
       gap: 4rem;
       
       .contact-left {

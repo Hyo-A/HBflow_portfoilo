@@ -8,16 +8,16 @@
 header {
   @include tablet {
     top: 40px;
-    left: 0;
-    width: 100%;
-    padding: 0 var(--page-gutter);
+    left: 40px;
+    right: 40px;
+    width: calc(100% - 80px);
     
     .logo-img {
       height: 38px;
     }
 
     // 1023px 이하에서도 햄버거 메뉴 노출, 기존 사이드 내비는 숨김
-    .hamburger-menu { display: flex; right: var(--page-gutter); }
+    .hamburger-menu { display: flex; right: 0; }
     .side-nav {
       display: none;
     }
@@ -32,7 +32,8 @@ header {
 // About 페이지 태블릿
 .about-page .about-container {
   @include tablet {
-    padding: 3rem 2rem;
+    width: 100%;
+    padding: 3rem 50px;
     
     .about-bg-title {
       font-size: 12rem;
@@ -119,38 +120,35 @@ header {
 }
 
 // Skills 페이지 태블릿
-.skills-container {
+.skills-page .skills-container {
   @include tablet {
-    width: 85%;
-    padding: 3rem 2rem;
+    width: 100%;
+    padding: 3rem 50px;
     
     h2 {
       font-size: 4.5rem;
-    }
-  }
-}
-
-.skills-page .skills-container .skills-grid {
-  @include tablet {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    gap: 18px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-}
-
-.skills-container .skills-grid .skill-item {
-  @include tablet {
-    padding: 12px;
-    
-    img {
-      width: 35px;
-      height: 35px;
+      text-align: left;
     }
     
-    span {
-      font-size: 1.6rem;
+    .skills-grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 18px;
+      margin: 0;
+      min-height: 540px;
+      
+      .skill-item {
+        padding: 12px;
+        
+        img {
+          width: 32px;
+          height: 32px;
+        }
+        
+        span {
+          font-size: 1.4rem;
+        }
+      }
     }
   }
 }
@@ -158,13 +156,14 @@ header {
 // 프로젝트 페이지 태블릿
 .project-container {
   @include tablet {
-    padding: 3rem 2rem;
+    width: 100%;
+    padding: 3rem 50px;
     
     .project-content {
       .project-box {
         width: 100%;
         max-width: 800px;
-        height: 550px;
+        height: 55vh;
       }
     }
     
@@ -177,10 +176,6 @@ header {
         top: 420px;
         left: 2rem;
         max-width: 70%;
-        
-        .slide__text-line {
-          font-size: 3.5rem;
-        }
       }
       
       .slide__subtitle {
@@ -196,7 +191,8 @@ header {
 .designwork-page {
   @include tablet {
     .project-container {
-      padding: 2rem;
+      width: 100%;
+      padding: 2rem 50px;
       
       .design-content-box {
         width: 100%;
@@ -482,12 +478,67 @@ header {
   }
 }
 
+// Teamwork & Mywork 페이지 태블릿 테스트
+.teamwork-page,
+.mywork-page {
+  @include tablet {
+    .project-container .slide .slide__text .slide__text-line {
+      font-size: 4rem; // 기본 4.5rem에서 3.8rem으로 줄임
+    }
+  }
+}
+
+// Teamwork & Mywork 페이지 태블릿 반응형
+.teamwork-page,
+.mywork-page {
+  @include tablet {
+    .slide {
+      .slide__top {
+        .slide__more {
+          top: 1.5rem;
+          right: 1.5rem;
+          
+          .more-btn {
+            font-size: 1rem;
+            padding: 0.7rem 1.2rem;
+          }
+        }
+      }
+      
+      .slide__bottom {
+        padding: 1.8rem;
+        
+        .slide__text .slide__text-line {
+          font-size: 3.5rem;
+        }
+        
+        .slide__subtitle {
+          font-size: 1.2rem;
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+    
+    // 모달 제목들
+    .teamwork-modal-title,
+    .mywork-modal-title {
+      font-size: 2.5rem;
+    }
+    
+    .teamwork-modal-title span,
+    .mywork-modal-title span {
+      font-size: 1.6rem;
+    }
+  }
+}
+
 // Contact 페이지 태블릿
 .contact-page {
   @include tablet {
     .contact-container {
       flex-direction: row;
-      padding: 3rem 2rem;
+      width: 100%;
+      padding: 3rem 50px;
       gap: 3rem;
       
       .contact-left {
