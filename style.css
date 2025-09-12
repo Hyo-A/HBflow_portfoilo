@@ -264,7 +264,8 @@ body button {
   width: 100%;
   height: auto;
   max-height: 100%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 0;
   border: none;
 }
@@ -326,7 +327,8 @@ body button {
   width: 100%;
   height: auto;
   max-height: 160px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 0;
   border: none;
 }
@@ -378,7 +380,8 @@ body button {
   width: 100%;
   height: auto;
   max-height: 100%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 0;
   border: none;
 }
@@ -422,7 +425,8 @@ body button {
 .character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-right .character-goods-images-vertical .goods-image-item img {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 0;
   border: none;
 }
@@ -456,7 +460,8 @@ body button {
   width: 900px;
   height: auto;
   display: block;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .rookie-detail-content {
@@ -1225,7 +1230,8 @@ body button {
   width: 100%;
   height: auto;
   max-height: 300px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 0;
   border: none;
 }
@@ -1296,7 +1302,8 @@ body button {
 .book-modal .book-modal-content .book-modal-image img {
   width: auto;
   height: 600px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 0;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
 }
@@ -3109,7 +3116,8 @@ header {
 header > h1 .logo-img {
   height: 40px;
   width: auto;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 header .hamburger-menu {
   display: flex;
@@ -3422,7 +3430,9 @@ header.nav-open .side-nav .PROJECT_li {
   color: var(--color-gray2);
   font-family: "Butler_Medium_Stencil", "Pretendard", sans-serif;
   z-index: 0;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   pointer-events: none;
   font-weight: 500;
 }
@@ -3436,7 +3446,8 @@ header.nav-open .side-nav .PROJECT_li {
 }
 .about-container .about-profile .profile-img {
   width: 280px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   transition: all 0.3s ease;
   cursor: var(--cursor-accent);
 }
@@ -3681,7 +3692,8 @@ header.nav-open .side-nav .PROJECT_li {
 .skills-container .skills-grid .skill-item img {
   width: 40px;
   height: 40px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .skills-container .skills-grid .skill-item span {
   font-size: 2rem;
@@ -3944,6 +3956,11 @@ header.nav-open .side-nav .PROJECT_li {
 .contact-page .contact-container .contact-left .contact-form input:focus, .contact-page .contact-container .contact-left .contact-form textarea:focus {
   outline: none;
 }
+.contact-page .contact-container .contact-left .contact-form input:focus::-moz-placeholder, .contact-page .contact-container .contact-left .contact-form textarea:focus::-moz-placeholder {
+  opacity: 0;
+  -moz-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
 .contact-page .contact-container .contact-left .contact-form input:focus::placeholder, .contact-page .contact-container .contact-left .contact-form textarea:focus::placeholder {
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -4169,7 +4186,8 @@ header.nav-open .side-nav .PROJECT_li {
   transform: scale(0);
   transition: transform 0.3s ease;
   background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
 }
 .mywork-page .cursor.prev, .mywork-page .cursor.next, .mywork-page .cursor.active,
 .mywork-page .custom-cursor.prev,
@@ -4325,7 +4343,8 @@ header.nav-open .side-nav .PROJECT_li {
   transform: scale(0);
   transition: transform 0.3s ease;
   background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
 }
 .teamwork-page .cursor.prev, .teamwork-page .cursor.next, .teamwork-page .cursor.active,
 .teamwork-page .custom-cursor.prev,
@@ -4434,7 +4453,9 @@ header.nav-open .side-nav .PROJECT_li {
   color: var(--color-gray2);
   font-family: "Butler_Medium_Stencil", "Pretendard", sans-serif;
   z-index: 0;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   pointer-events: none;
   font-weight: 500;
   transition: all 0.5s ease;
@@ -4501,7 +4522,8 @@ header.nav-open .side-nav .PROJECT_li {
 .designwork-page .project-container .design-content-box .design-projects .design-project-box .project-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   transition: transform 0.3s ease;
 }
 .designwork-page .project-container .design-content-box .design-projects .design-project-box .project-info {
@@ -4698,7 +4720,8 @@ header.nav-open .side-nav .PROJECT_li {
 .brochure-grid .brochure-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   transition: all 0.3s ease;
   z-index: 0;
 }
@@ -4761,7 +4784,8 @@ header.nav-open .side-nav .PROJECT_li {
 .etc-grid .etc-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   transition: all 0.3s ease;
   z-index: 0;
 }
@@ -4822,7 +4846,8 @@ header.nav-open .side-nav .PROJECT_li {
 .book-covers-grid .book-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   transition: transform 0.3s ease;
 }
 
