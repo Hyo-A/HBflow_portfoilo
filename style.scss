@@ -1,5 +1,11 @@
 @import './styles/main.scss';
 @import './styles/res.scss';
+@import './styles/_responsive.scss';
+@import './styles/breakpoints/_mobile.scss';
+@import './styles/breakpoints/_tablet.scss';
+@import './styles/breakpoints/_desktop.scss';
+@import './styles/components/_header-responsive.scss';
+@import './styles/components/_modal-responsive.scss';
 
 // SKIP 버튼용
 .button-text .arrow-icon,
@@ -438,14 +444,18 @@ header .side-nav .sub-nav {
   transition: height 0.3s ease;
 }
 
+// 글로벌 가터 변수 (페이지 좌우 여백)
+:root { --page-gutter: 50px; }
+
 //header footer
 header {
   position: fixed;
   top: 50px;
-  left: 50px;
+  left: 0;
   width: 100%;
   z-index: 1000;
   background: transparent; 
+  padding: 0 var(--page-gutter); // 좌우 여백을 변수로 통일
   > h1 {
     .logo-img {
       height: 40px;
@@ -453,9 +463,52 @@ header {
       object-fit: contain;
     }
   }
+  
+  // 햄버거 메뉴 버튼 (기본: 보임, 1440px 이상에서만 숨김)
+  .hamburger-menu {
+    display: flex;
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    width: 15px;
+    height: 15px;
+    background: transparent;
+    border: none;
+    cursor: var(--cursor-accent);
+    z-index: 1001;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    
+    .hamburger-line {
+      width: 100%;
+      height: 1px;
+      background-color: var(--color-dark2);
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    
+    // 햄버거 메뉴가 열렸을 때 X 버튼으로 변환
+    &.active {
+      .hamburger-line {
+        &:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        &:nth-child(2) {
+          opacity: 0;
+          transform: scaleX(0);
+        }
+        &:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+      }
+    }
+  }
+  
   .side-nav {
     position: fixed;
-    right: 38px;
+    display: none; // 기본: 숨김 (1440px 이상에서 표시)
+    right: var(--page-gutter);
     top: 50%;
     transform: translateY(-50%);
     ul {
@@ -564,6 +617,189 @@ header {
       }
     }
   }
+  
+  // 모바일 네비게이션 오버레이 (기본적으로 숨김)
+  .mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.05); // 더욱 투명한 배경
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    
+    &.active {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    // 오버레이는 배경 역할만. 내부 콘텐츠는 사용하지 않음(중복 방지)
+    .mobile-nav-content {
+      display: none;
+      position: absolute;
+      top: 50%;
+      right: 50px;
+      transform: translateY(-50%) translateX(30px);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      background: transparent;
+      
+      .mobile-nav-close {
+        position: absolute;
+        top: -50px;
+        right: 0;
+        background: transparent;
+        border: none;
+        font-size: 3rem;
+        color: var(--color-dark2);
+        cursor: var(--cursor-accent);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          color: var(--color-dark);
+          transform: scale(1.1);
+        }
+      }
+      
+      .mobile-nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: flex-end;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        .mobile-nav-item {
+          font-size: 1.6rem;
+          font-family: 'Butler_Medium';
+          color: var(--color-dark2);
+          letter-spacing: 0.05em;
+          transition: all 0.3s ease;
+          text-align: right;
+          position: relative;
+          cursor: var(--cursor-accent);
+          
+          &.active {
+            font-family: 'Butler_Bold';
+            color: var(--color-dark);
+            
+            // 활성화된 항목 옆에 초록 동그라미 표시
+            &::after {
+              content: '';
+              position: absolute;
+              top: -10px;
+              right: -14px;
+              width: 12px;
+              height: 12px;
+              background-color: var(--color-accent);
+              border-radius: 50%;
+              opacity: 0;
+              transform: scale(0);
+              animation: navDotAppear 0.4s ease forwards;
+            }
+          }
+          
+          &:hover {
+            color: var(--color-dark);
+            transform: translateX(-5px);
+          }
+        }
+        
+        .mobile-PROJECT_li {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          list-style: none;
+          padding: 0;
+          margin-top: 2rem;
+          
+          .mobile-sub-nav {
+            font-size: 1.4rem;
+            font-family: 'Butler_Light';
+            color: var(--color-dark2);
+            transition: all 0.3s ease;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            
+            &.active {
+              font-family: 'Butler_Bold';
+              color: var(--color-dark);
+              
+              // 활성화된 서브 항목 옆에 초록 동그라미 표시
+              &::after {
+                content: '';
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                width: 10px;
+                height: 10px;
+                background-color: var(--color-accent);
+                border-radius: 50%;
+                opacity: 0;
+                transform: scale(0);
+                animation: navDotAppearSmall 0.4s ease forwards;
+              }
+            }
+            
+            &:hover {
+              color: var(--color-dark);
+              transform: translateX(-5px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 햄버거 열림 상태에서 기존 side-nav를 오버레이 위에 표시 (≤1439px)
+header.nav-open {
+  .side-nav {
+    display: block;
+    position: fixed;
+    right: 50px;
+    top: 80px;
+    transform: none;
+    z-index: 1002;
+    
+    > ul { // 상위 레벨 목록에만 박스 스타일 적용
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      padding: 40px 26px;
+      border-radius: 12px;
+      gap: 32px; // 상하 간격 확대
+    }
+
+    // PROJECT 하위 항목은 표시하되, 박스 효과 제거 (깨끗한 리스트)
+    .PROJECT_li {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-top: 2rem;
+      gap: 12px;
+    }
+  }
+}
+
+// 1440px 이상: 햄버거 숨김, 사이드 내비 표시 (base 규칙 이후에 위치시켜 우선 적용)
+@include large {
+  header {
+    .hamburger-menu { display: none; }
+    .side-nav { display: block; right: 50px; }
+  }
 }
 
 
@@ -572,7 +808,6 @@ header {
 .about-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 3.5rem 2rem 2rem 2rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -591,7 +826,8 @@ header {
     pointer-events: none;
     font-weight: 500;
   }
-  .about-profile {
+  .about-profile { 
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 3rem;
@@ -607,6 +843,7 @@ header {
     
     .about-text {
       margin-top: 20px;
+      width: 100%;
       h2 {
         font-family: 'Butler_Medium_Stencil';
         font-size: 4.5rem;
@@ -619,7 +856,6 @@ header {
       }
       .about-text-line {
         display: block;
-        width: 580px;
         height: 1px;
         background: var(--color-dark2);
         margin-top: 30px;
@@ -1896,3 +2132,27 @@ top: 4rem; position: absolute;
 // Book Modal은 별도 파일로 분리됨
 
 // Character Modal은 별도 파일로 분리됨
+
+// --------- Hamburger visibility overrides (order-safe) ---------
+// 기본 규칙(header .hamburger-menu { display: none; })이 파일 하단에 있어 미디어쿼리보다 뒤에서 우선 적용될 수 있음.
+// 최종적으로 1440px 이하 전 구간에서 버튼이 확실히 보이도록 강제합니다.
+@include mobile {
+  header {
+    .hamburger-menu { display: flex; }
+    .side-nav { display: none; }
+  }
+}
+
+@include tablet {
+  header {
+    .hamburger-menu { display: flex; }
+    .side-nav { display: none; }
+  }
+}
+
+@include desktop {
+  header {
+    .hamburger-menu { display: flex; }
+    .side-nav { display: none; }
+  }
+}

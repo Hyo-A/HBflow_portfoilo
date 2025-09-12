@@ -1,0 +1,74 @@
+// 헤더 반응형 스타일
+
+// 작은 모바일 (480px ~ 767px)
+header {
+  @include small-mobile {
+    top: 30px;
+    left: 30px;
+    
+    .logo-img {
+      height: 35px;
+    }
+    
+    .side-nav {
+      right: 30px;
+      
+      ul {
+        gap: 25px;
+      }
+      
+      li {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  
+  // 태블릿 (768px ~ 1023px)
+  @include tablet {
+    top: 40px;
+    left: 40px;
+    
+    .logo-img {
+      height: 38px;
+    }
+    
+    .side-nav {
+      right: 35px;
+      
+      ul {
+        gap: 28px;
+      }
+      
+      li {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  
+  // 데스크톱 (1024px ~ 1439px) - 현재 스타일과 동일
+  @include desktop {
+    // 현재 스타일 유지
+  }
+  
+  // 큰 화면 (1440px+)
+  @include large {
+    top: 60px;
+    left: 60px;
+    
+    .logo-img {
+      height: 45px;
+    }
+    
+    .side-nav {
+      right: 45px;
+      
+      ul {
+        gap: 35px;
+      }
+      
+      li {
+        font-size: 1.7rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,597 @@
+// 태블릿 스타일 (768px ~ 1023px)
+// 모바일과 데스크톱 사이의 중간 단계
+
+// 가터 변수(태블릿 공통)
+@include tablet { :root { --page-gutter: 40px; } }
+
+// 헤더 태블릿 스타일
+header {
+  @include tablet {
+    top: 40px;
+    left: 0;
+    width: 100%;
+    padding: 0 var(--page-gutter);
+    
+    .logo-img {
+      height: 38px;
+    }
+
+    // 1023px 이하에서도 햄버거 메뉴 노출, 기존 사이드 내비는 숨김
+    .hamburger-menu { display: flex; right: var(--page-gutter); }
+    .side-nav {
+      display: none;
+    }
+    .mobile-nav-overlay {
+      display: block;
+    }
+    
+    // (참고) 태블릿 구간에서는 기존 사이드 내비 설정을 사용하지 않음
+  }
+}
+
+// About 페이지 태블릿
+.about-page .about-container {
+  @include tablet {
+    padding: 3rem 2rem;
+    
+    .about-bg-title {
+      font-size: 12rem;
+      right: -12%;
+      top: 2%;
+    }
+    
+    .about-profile {
+      flex-direction: row;
+      
+      .profile-img {
+        width: 240px;
+      }
+      
+      .about-text {
+        h2 {
+          font-size: 3.2rem;
+        }
+        
+        p {
+          font-size: 1.4rem;
+        }
+        
+        .about-text-line {
+          width: 100%;
+        }
+      }
+    }
+    
+    .history-section {
+      margin-top: 4rem;
+      
+      h3 {
+        font-size: 2.2rem;
+      }
+      
+      .history-container {
+        height: 100px;
+        
+        .history-list {
+          .history-item {
+            .history-title {
+              font-size: 1.2rem;
+            }
+            
+            .history-desc {
+              font-size: 1.2rem;
+            }
+          }
+        }
+        
+        .history-bar {
+          margin-top: 70px;
+        }
+        
+        .history-dates {
+          .date-item {
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+    
+    .info-section {
+      gap: 2.5rem;
+      
+      > div {
+        gap: 25px;
+      }
+      
+      h4 {
+        font-size: 2.2rem;
+      }
+      
+      h5 {
+        font-size: 1.2rem;
+      }
+      
+      li {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+// Skills 페이지 태블릿
+.skills-container {
+  @include tablet {
+    width: 85%;
+    padding: 3rem 2rem;
+    
+    h2 {
+      font-size: 4.5rem;
+    }
+  }
+}
+
+.skills-page .skills-container .skills-grid {
+  @include tablet {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.skills-container .skills-grid .skill-item {
+  @include tablet {
+    padding: 12px;
+    
+    img {
+      width: 35px;
+      height: 35px;
+    }
+    
+    span {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+// 프로젝트 페이지 태블릿
+.project-container {
+  @include tablet {
+    padding: 3rem 2rem;
+    
+    .project-content {
+      .project-box {
+        width: 100%;
+        max-width: 800px;
+        height: 550px;
+      }
+    }
+    
+    .slide {
+      .slide__img {
+        height: 400px;
+      }
+      
+      .slide__text {
+        top: 420px;
+        left: 2rem;
+        max-width: 70%;
+        
+        .slide__text-line {
+          font-size: 3.5rem;
+        }
+      }
+      
+      .slide__subtitle {
+        bottom: 2rem;
+        right: 2rem;
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+// Design Work 페이지 태블릿
+.designwork-page {
+  @include tablet {
+    .project-container {
+      padding: 2rem;
+      
+      .design-content-box {
+        width: 100%;
+        max-width: 1200px;
+        height: 580px;
+        
+        .design-bg-title {
+          font-size: 14rem;
+          right: -10%;
+          top: -12%;
+        }
+        
+        .category-buttons {
+          gap: 0.8rem;
+          
+          .category-btn {
+            width: 90px;
+            height: 28px;
+            font-size: 1.4rem;
+          }
+        }
+        
+        .design-projects {
+          gap: 40px;
+          
+          .design-project-box {
+            width: 420px;
+            height: 480px;
+            
+            .project-image {
+              width: 420px;
+              height: 340px;
+            }
+            
+            .project-info {
+              height: 140px;
+              
+              .project-subtitle {
+                font-size: 1.8rem;
+                margin-top: 30px;
+              }
+              
+              .project-title {
+                font-size: 2.2rem;
+                margin-top: 25px;
+              }
+              
+              .project-more {
+                bottom: 30px;
+                right: 8px;
+                
+                .more-btn {
+                  font-size: 1.4rem;
+                  padding: 6px 16px;
+                }
+              }
+            }
+          }
+        }
+        
+        .design-title-section {
+          .design-main-title {
+            font-size: 4rem;
+          }
+          
+          .design-sub-title {
+            font-size: 3rem;
+          }
+        }
+        
+        // 카테고리별 제목영역 너비 조정 (태블릿)
+        &.character-category .design-title-section {
+          width: 360px;
+        }
+        
+        &.bookcover-category .design-title-section {
+          width: 360px;
+        }
+        
+        &.brochure-category .design-title-section {
+          width: 520px;
+        }
+        
+        &.etc-category .design-title-section {
+          width: 520px;
+        }
+      }
+    }
+  }
+}
+
+// 그리드 레이아웃 태블릿 조정
+.brochure-grid {
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 700px;
+    
+    .brochure-item {
+      width: 220px;
+      height: 220px;
+      
+      .brochure-overlay {
+        .brochure-description {
+          .description-line1,
+          .description-line2 {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.etc-grid {
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 700px;
+    
+    .etc-item {
+      width: 220px;
+      height: 220px;
+      
+      .etc-overlay {
+        .etc-description {
+          .description-line1,
+          .description-line2 {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.book-covers-grid {
+  @include tablet {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 900px;
+    
+    .book-item {
+      width: 200px;
+      height: 280px;
+    }
+  }
+}
+
+// 모달 태블릿 스타일
+.modal {
+  @include tablet {
+    padding: 1rem;
+    
+    .modal-content {
+      width: 85%;
+      height: 80%;
+      margin: 10% auto;
+    }
+  }
+}
+
+// Character 모달 태블릿
+.character-modal {
+  @include tablet {
+    .character-modal-container {
+      flex-direction: row;
+      height: 100%;
+    }
+    
+    .character-left-section {
+      width: 40%;
+      padding: 2rem;
+      
+      .character-modal-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .character-main-image {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    .character-right-section {
+      width: 60%;
+      padding: 2rem;
+      
+      .character-section {
+        margin-bottom: 2rem;
+        
+        .section-title {
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+        }
+        
+        .section-content {
+          font-size: 1.5rem;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}
+
+// My Work 모달 태블릿
+.mywork-modal-container {
+  @include tablet {
+    flex-direction: row;
+    height: 100%;
+    
+    .mywork-left-section {
+      width: 35%;
+      padding: 2rem;
+      
+      .mywork-modal-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    .mywork-right-section {
+      width: 65%;
+      height: 100%;
+      padding: 2rem;
+      
+      .mywork-detail-content {
+        gap: 2rem;
+        
+        .mywork-description {
+          p {
+            font-size: 1.5rem;
+          }
+        }
+        
+        .mywork-images {
+          flex-direction: row;
+          gap: 1.5rem;
+          
+          .mywork-image-item {
+            width: 200px;
+            height: 120px;
+          }
+        }
+        
+        .mywork-features {
+          .feature-header {
+            h3 {
+              font-size: 1.8rem;
+            }
+          }
+          
+          .feature-list {
+            li {
+              font-size: 1.5rem;
+            }
+          }
+        }
+        
+        .mywork-technologies {
+          .tech-header {
+            h3 {
+              font-size: 1.8rem;
+            }
+          }
+          
+          .tech-tags {
+            gap: 0.8rem;
+            
+            .tech-tag {
+              font-size: 1.3rem;
+              padding: 0.4rem 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Contact 페이지 태블릿
+.contact-page {
+  @include tablet {
+    .contact-container {
+      flex-direction: row;
+      padding: 3rem 2rem;
+      gap: 3rem;
+      
+      .contact-left {
+        width: 60%;
+        
+        h2 {
+          font-size: 4rem;
+        }
+        
+        p {
+          font-size: 1.5rem;
+        }
+        
+        .contact-form {
+          input, textarea {
+            font-size: 1.5rem;
+            padding-left: 20px;
+          }
+          
+          input {
+            height: 52px;
+          }
+          
+          textarea {
+            min-height: 110px;
+            padding-top: 18px;
+          }
+          
+          button {
+            font-size: 1.5rem;
+            padding: 7px 20px;
+          }
+        }
+      }
+      
+      .contact-right {
+        width: 40%;
+      }
+    }
+    
+    .copyright {
+      font-size: 1.5rem;
+    }
+    
+    .contact-links {
+      gap: 35px;
+      
+      a {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+// Skip 버튼 태블릿
+.skip-button {
+  @include tablet {
+    bottom: 60px;
+    left: 40px;
+    
+    button {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// 커서 스타일 태블릿 (터치 디바이스에서는 비활성화)
+@include tablet {
+  .custom-cursor {
+    display: none;
+  }
+  
+  body.custom-cursor-active {
+    cursor: auto;
+  }
+}
+
+// 슬라이드 카운터 태블릿
+.slide-counter {
+  @include tablet {
+    bottom: 60px;
+    right: 40px;
+    font-size: 1.1rem;
+    
+    .current-slide {
+      font-size: 4rem;
+    }
+    
+    .counter-separator {
+      font-size: 1.8rem;
+    }
+    
+    .total-slides {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+// More 버튼 태블릿
+.slide__more {
+  @include tablet {
+    .more-btn {
+      font-size: 1.5rem;
+      padding: 7px 18px;
+    }
+  }
+}

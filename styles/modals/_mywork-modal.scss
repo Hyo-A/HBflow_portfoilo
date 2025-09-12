@@ -1,0 +1,278 @@
+// My Work 모달 스타일 - Teamwork 모달 2페이지와 동일한 디자인
+.mywork-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+
+  .mywork-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: var(--cursor-accent);
+  }
+
+  .mywork-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1100px;
+    height: 680px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 60px 100px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: visible;
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #666;
+      cursor: var(--cursor-accent);
+      z-index: 10;
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+}
+
+// My Work 모달 페이지 스타일
+.mywork-modal-page {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  &:first-child {
+    display: block;
+  }
+}
+
+// My Work 모달 컨테이너
+.mywork-modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+// My Work 모달 왼쪽 섹션 (제목)
+.mywork-left-section {
+  flex: 0 0 auto;
+}
+
+// My Work 모달 오른쪽 섹션 (내용)
+.mywork-right-section {
+  height: 520px;
+  align-items: center;
+}
+
+// My Work 모달 제목 스타일
+.mywork-modal-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+
+  span {
+    font-size: 1.8rem;
+    font-weight: 200;
+    padding-left: 5px;
+    color: #666;
+  }
+}
+
+// My Work 상세 내용 컨테이너
+.mywork-detail-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 20px;
+
+  // 스크롤바 스타일링
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+}
+
+// 프로젝트 설명
+.mywork-description {
+
+  p {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: var(--color-dark2);
+    margin: 0;
+    text-align: justify;
+  }
+}
+
+// 프로젝트 이미지 3개
+.mywork-images {
+  display: flex;
+  gap: 20px;
+
+  .mywork-image-item {
+    width: 288px;
+    height: 138px;
+    background: #f5f5f5;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e0e0e0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+    }
+  }
+}
+
+// 주요 기능 및 특징
+.mywork-features {
+
+  .feature-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-right: 12px;
+    }
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  .feature-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      padding-left: 20px;
+      position: relative;
+
+      &::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// 사용 기술 및 언어
+.mywork-technologies {
+
+  .tech-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .tech-icon {
+      font-size: 2rem;
+      margin-right: 12px;
+    }
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .tech-tag {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray);
+      border-radius: 20px;
+      padding: 8px 24px;
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--color-gray2);
+        border-color: var(--color-gray);
+      }
+    }
+  }
+}
+
+// Overview 버튼
+.mywork-overview {
+  text-align: center;
+  width: 100%;
+
+  .overview-btn {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-gray2);
+    color: var(--color-dark2);
+    text-decoration: none;
+    padding: 10px 0;
+    border-radius: 20px;
+    border: 1px solid var(--color-gray);
+    font-size: 1.6rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    cursor: var(--cursor-accent);
+
+    .overview-arrow-icon {
+      margin-left: 8px;
+      font-size: 1.8rem;
+      color: var(--color-dark2);
+    }
+
+    &:hover {
+      background: var(--color-gray);
+    }
+  }
+}

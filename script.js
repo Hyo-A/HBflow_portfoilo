@@ -674,45 +674,83 @@ function openModal(type, slideNumber) {
   const page2 = document.getElementById("projectPage2");
 
   if (type === "mywork") {
-    // My Work: 1페이지만 표시 (화살표 숨김)
-    if (page1 && page2) {
-      page1.style.display = "block";
-      page2.style.display = "none";
+    // 모든 다른 모달 숨기기
+    const projectModal = document.getElementById("projectModal");
+    const characterModal = document.getElementById("characterModal");
+    const tigerModal = document.getElementById("tigerModal");
+    const bookModal = document.getElementById("bookModal");
+
+    if (projectModal) {
+      projectModal.style.display = "none";
+      projectModal.style.visibility = "hidden";
+      projectModal.style.opacity = "0";
+    }
+    if (characterModal) {
+      characterModal.style.display = "none";
+      characterModal.style.visibility = "hidden";
+      characterModal.style.opacity = "0";
+    }
+    if (tigerModal) {
+      tigerModal.style.display = "none";
+      tigerModal.style.visibility = "hidden";
+      tigerModal.style.opacity = "0";
+    }
+    if (bookModal) {
+      bookModal.style.display = "none";
+      bookModal.style.visibility = "hidden";
+      bookModal.style.opacity = "0";
     }
 
-    // My Work에서는 화살표 숨김
-    const arrows = modal.querySelectorAll(
-      ".character-next-arrow, .character-prev-arrow"
-    );
-    arrows.forEach((arrow) => (arrow.style.display = "none"));
+    // My Work 전용 모달 표시
+    const myworkModal = document.getElementById("myworkModal");
+    if (myworkModal) {
+      myworkModal.style.display = "block";
+      myworkModal.style.visibility = "visible";
+      myworkModal.style.opacity = "1";
+      document.body.style.overflow = "hidden";
 
-    // My Work 프로젝트별 실제 제목 설정
-    let projectTitle = "";
-    switch (slideNumber) {
-      case 1:
-        projectTitle = "We design places";
-        break;
-      case 2:
-        projectTitle = "Netflix clone coding";
-        break;
-      case 3:
-        projectTitle = "Fullpage Customizing";
-        break;
-      case 4:
-        projectTitle = "Cyworld hamseter";
-        break;
-      case 5:
-        projectTitle = "Onebite sky";
-        break;
-      default:
-        projectTitle = `My Work ${slideNumber}`;
+      // 모든 mywork 페이지 숨기기
+      const allMyworkPages = myworkModal.querySelectorAll(".mywork-modal-page");
+      allMyworkPages.forEach((page) => (page.style.display = "none"));
+
+      // 현재 프로젝트 페이지 표시
+      const currentPage = document.getElementById(`mywork${slideNumber}`);
+      if (currentPage) {
+        currentPage.style.display = "block";
+      }
     }
-
-    title.innerHTML = projectTitle;
-    content.textContent = "--의 내용입니다";
   } else if (type === "teamwork") {
+    // 모든 다른 모달 숨기기
+    const myworkModal = document.getElementById("myworkModal");
+    const characterModal = document.getElementById("characterModal");
+    const tigerModal = document.getElementById("tigerModal");
+    const bookModal = document.getElementById("bookModal");
+
+    if (myworkModal) {
+      myworkModal.style.display = "none";
+      myworkModal.style.visibility = "hidden";
+      myworkModal.style.opacity = "0";
+    }
+    if (characterModal) {
+      characterModal.style.display = "none";
+      characterModal.style.visibility = "hidden";
+      characterModal.style.opacity = "0";
+    }
+    if (tigerModal) {
+      tigerModal.style.display = "none";
+      tigerModal.style.visibility = "hidden";
+      tigerModal.style.opacity = "0";
+    }
+    if (bookModal) {
+      bookModal.style.display = "none";
+      bookModal.style.visibility = "hidden";
+      bookModal.style.opacity = "0";
+    }
+
     // Team Work: 기본 모달 표시
     modal.style.display = "block";
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
 
     // 프로젝트별로 올바른 1페이지 표시
@@ -776,13 +814,17 @@ function openModal(type, slideNumber) {
     const category = slideNumber; // slideNumber가 실제로는 category임
     const projectNum = arguments[2] || 1; // 세 번째 인자가 프로젝트 번호
 
+    console.log("Design work modal opening:", { category, projectNum });
+
     if (category === "character") {
       // 프로젝트 번호에 따라 다른 모달 열기
       if (projectNum === 1) {
         // 첫 번째 캐릭터: 기롱이 모달
+        console.log("Opening character modal 1");
         openCharacterModal();
       } else if (projectNum === 2) {
         // 두 번째 캐릭터: 호랑이 모달
+        console.log("Opening tiger modal");
         openTigerModal();
       }
       return; // 기존 모달 열기 방지
@@ -808,15 +850,55 @@ function openModal(type, slideNumber) {
   }
 
   modal.style.display = "block";
+  modal.style.visibility = "visible";
+  modal.style.opacity = "1";
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
-  const modal = document.getElementById("projectModal");
-  modal.style.display = "none";
+  // Team Work 모달 닫기
+  const projectModal = document.getElementById("projectModal");
+  if (projectModal) {
+    projectModal.style.display = "none";
+    projectModal.style.visibility = "hidden";
+    projectModal.style.opacity = "0";
+  }
+
+  // My Work 모달 닫기
+  const myworkModal = document.getElementById("myworkModal");
+  if (myworkModal) {
+    myworkModal.style.display = "none";
+    myworkModal.style.visibility = "hidden";
+    myworkModal.style.opacity = "0";
+  }
+
+  // Character 모달 닫기
+  const characterModal = document.getElementById("characterModal");
+  if (characterModal) {
+    characterModal.style.display = "none";
+    characterModal.style.visibility = "hidden";
+    characterModal.style.opacity = "0";
+  }
+
+  // Tiger 모달 닫기
+  const tigerModal = document.getElementById("tigerModal");
+  if (tigerModal) {
+    tigerModal.style.display = "none";
+    tigerModal.style.visibility = "hidden";
+    tigerModal.style.opacity = "0";
+  }
+
+  // Book 모달 닫기
+  const bookModal = document.getElementById("bookModal");
+  if (bookModal) {
+    bookModal.style.display = "none";
+    bookModal.style.visibility = "hidden";
+    bookModal.style.opacity = "0";
+  }
+
   document.body.style.overflow = "auto";
 
-  // 모달 닫을 때 1페이지로 초기화
+  // Team Work 모달 닫을 때 1페이지로 초기화
   const page1 = document.getElementById("projectPage1");
   const page2 = document.getElementById("projectPage2");
   const metaphorPage2 = document.getElementById("metaphorPage2");
@@ -828,6 +910,50 @@ function closeModal() {
     if (page2) page2.style.display = "none";
     if (metaphorPage2) metaphorPage2.style.display = "none";
   }
+}
+
+function closeMyworkModal() {
+  // Team Work 모달 닫기
+  const projectModal = document.getElementById("projectModal");
+  if (projectModal) {
+    projectModal.style.display = "none";
+    projectModal.style.visibility = "hidden";
+    projectModal.style.opacity = "0";
+  }
+
+  // My Work 모달 닫기
+  const myworkModal = document.getElementById("myworkModal");
+  if (myworkModal) {
+    myworkModal.style.display = "none";
+    myworkModal.style.visibility = "hidden";
+    myworkModal.style.opacity = "0";
+  }
+
+  // Character 모달 닫기
+  const characterModal = document.getElementById("characterModal");
+  if (characterModal) {
+    characterModal.style.display = "none";
+    characterModal.style.visibility = "hidden";
+    characterModal.style.opacity = "0";
+  }
+
+  // Tiger 모달 닫기
+  const tigerModal = document.getElementById("tigerModal");
+  if (tigerModal) {
+    tigerModal.style.display = "none";
+    tigerModal.style.visibility = "hidden";
+    tigerModal.style.opacity = "0";
+  }
+
+  // Book 모달 닫기
+  const bookModal = document.getElementById("bookModal");
+  if (bookModal) {
+    bookModal.style.display = "none";
+    bookModal.style.visibility = "hidden";
+    bookModal.style.opacity = "0";
+  }
+
+  document.body.style.overflow = "auto";
 }
 
 // 현재 활성화된 프로젝트 번호를 추적하는 변수
@@ -848,6 +974,11 @@ function nextProjectPage() {
   } else if (currentProjectNumber === 4) {
     // 마지막 팀워크 프로젝트
     showProjectPage("lastTeamworkPage1", "lastTeamworkPage2");
+  } else if (currentProjectNumber >= 1 && currentProjectNumber <= 6) {
+    // My Work 프로젝트들
+    const myworkPage1Id = `myworkPage${(currentProjectNumber - 1) * 2 + 1}`;
+    const myworkPage2Id = `myworkPage${(currentProjectNumber - 1) * 2 + 2}`;
+    showProjectPage(myworkPage1Id, myworkPage2Id);
   }
 }
 
@@ -861,6 +992,11 @@ function prevProjectPage() {
     showProjectPage("nongdamPage2", "nongdamPage1");
   } else if (currentProjectNumber === 4) {
     showProjectPage("lastTeamworkPage2", "lastTeamworkPage1");
+  } else if (currentProjectNumber >= 1 && currentProjectNumber <= 6) {
+    // My Work 프로젝트들
+    const myworkPage1Id = `myworkPage${(currentProjectNumber - 1) * 2 + 1}`;
+    const myworkPage2Id = `myworkPage${(currentProjectNumber - 1) * 2 + 2}`;
+    showProjectPage(myworkPage2Id, myworkPage1Id);
   }
 }
 
@@ -885,10 +1021,17 @@ function closeBookModal() {
 
 // Character 모달 관련 함수들
 function openCharacterModal() {
+  console.log("openCharacterModal called");
   const modal = document.getElementById("characterModal");
+  console.log("Character modal element:", modal);
   if (modal) {
     modal.style.display = "block";
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
+    console.log("Character modal opened successfully");
+  } else {
+    console.error("Character modal element not found!");
   }
 }
 
@@ -896,6 +1039,8 @@ function closeCharacterModal() {
   const modal = document.getElementById("characterModal");
   if (modal) {
     modal.style.display = "none";
+    modal.style.visibility = "hidden";
+    modal.style.opacity = "0";
     document.body.style.overflow = "auto";
   }
 }
@@ -928,10 +1073,17 @@ function prevCharacterPage() {
 
 // Tiger 모달 관련 함수들
 function openTigerModal() {
+  console.log("openTigerModal called");
   const modal = document.getElementById("tigerModal");
+  console.log("Tiger modal element:", modal);
   if (modal) {
     modal.style.display = "block";
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
+    console.log("Tiger modal opened successfully");
+  } else {
+    console.error("Tiger modal element not found!");
   }
 }
 
@@ -939,6 +1091,8 @@ function closeTigerModal() {
   const modal = document.getElementById("tigerModal");
   if (modal) {
     modal.style.display = "none";
+    modal.style.visibility = "hidden";
+    modal.style.opacity = "0";
     document.body.style.overflow = "auto";
   }
 }
@@ -978,22 +1132,6 @@ function skipMyWork() {
   const container = document.querySelector(".fullpage-container");
   const pages = document.querySelectorAll(".page");
 
-  // Team Work 페이지로 이동 (페이지 인덱스 3)
-  container.scrollTo({
-    top: pages[3].offsetTop,
-    behavior: "smooth",
-  });
-
-  // 네비게이션 활성화
-  setTimeout(() => {
-    updateActiveNav(3);
-  }, 100);
-}
-
-function skipTeamWork() {
-  const container = document.querySelector(".fullpage-container");
-  const pages = document.querySelectorAll(".page");
-
   // Design Work 페이지로 이동 (페이지 인덱스 4)
   container.scrollTo({
     top: pages[4].offsetTop,
@@ -1006,13 +1144,41 @@ function skipTeamWork() {
   }, 100);
 }
 
-function skipDesignWork() {
+// 페이지 위치 계산 함수 (전역)
+function getPagePositionsGlobal() {
   const container = document.querySelector(".fullpage-container");
   const pages = document.querySelectorAll(".page");
+  const pageHeights = Array.from(pages).map((p) => p.offsetHeight);
+  const positions = [0];
+  for (let i = 1; i < pageHeights.length; i++) {
+    positions.push(positions[i - 1] + pageHeights[i - 1]);
+  }
+  return positions;
+}
 
-  // Contact Me 페이지로 이동 (페이지 인덱스 5)
+function skipTeamWork() {
+  const container = document.querySelector(".fullpage-container");
+  const positions = getPagePositionsGlobal();
+
+  // My Work 페이지로 이동 (페이지 인덱스 3)
   container.scrollTo({
-    top: pages[5].offsetTop,
+    top: positions[3],
+    behavior: "smooth",
+  });
+
+  // 네비게이션 활성화
+  setTimeout(() => {
+    updateActiveNav(3);
+  }, 100);
+}
+
+function skipDesignWork() {
+  const container = document.querySelector(".fullpage-container");
+  const positions = getPagePositionsGlobal();
+
+  // Footer 페이지로 이동 (페이지 인덱스 5)
+  container.scrollTo({
+    top: positions[5],
     behavior: "smooth",
   });
 
@@ -1386,7 +1552,7 @@ function initSlideshow() {
             } else {
               // 마지막 슬라이드에서 다음 섹션으로 이동
               container.scrollTo({
-                top: pages[3].offsetTop, // Team Work 섹션
+                top: pages[4].offsetTop, // Design Work 섹션 (페이지 4)
                 behavior: "smooth",
               });
             }
@@ -1397,7 +1563,7 @@ function initSlideshow() {
             } else {
               // 첫 번째 슬라이드에서 이전 섹션으로 이동
               container.scrollTo({
-                top: pages[1].offsetTop, // Skills 섹션
+                top: pages[2].offsetTop, // Team Work 섹션 (페이지 2)
                 behavior: "smooth",
               });
             }
@@ -1437,8 +1603,10 @@ function initSlideshow() {
               nextTeamWorkSlide();
             } else {
               // 마지막 슬라이드에서 다음 섹션으로 이동
+              const positions = getPagePositionsGlobal();
+
               container.scrollTo({
-                top: pages[4].offsetTop, // Design Work 섹션
+                top: positions[3], // My Work 섹션 (페이지 3)
                 behavior: "smooth",
               });
             }
@@ -1448,8 +1616,10 @@ function initSlideshow() {
               prevTeamWorkSlide();
             } else {
               // 첫 번째 슬라이드에서 이전 섹션으로 이동
+              const positions = getPagePositionsGlobal();
+
               container.scrollTo({
-                top: pages[2].offsetTop, // My Work 섹션
+                top: positions[1], // Skills 섹션 (페이지 1)
                 behavior: "smooth",
               });
             }
@@ -1552,7 +1722,7 @@ function initSlideshow() {
               if (myworkCurrentSlide === 0) {
                 // 첫 번째 슬라이드에서 이전 섹션으로 이동
                 container.scrollTo({
-                  top: pages[1].offsetTop, // Skills 섹션
+                  top: pages[2].offsetTop, // Team Work 섹션 (페이지 2)
                   behavior: "smooth",
                 });
               } else {
@@ -1562,7 +1732,7 @@ function initSlideshow() {
               if (teamworkCurrentSlide === 0) {
                 // 첫 번째 슬라이드에서 이전 섹션으로 이동
                 container.scrollTo({
-                  top: pages[2].offsetTop, // My Work 섹션
+                  top: pages[1].offsetTop, // Skills 섹션 (페이지 1)
                   behavior: "smooth",
                 });
               } else {
@@ -1575,7 +1745,7 @@ function initSlideshow() {
               if (myworkCurrentSlide === myworkSlides.length - 1) {
                 // 마지막 슬라이드에서 다음 섹션으로 이동
                 container.scrollTo({
-                  top: pages[3].offsetTop, // Team Work 섹션
+                  top: pages[4].offsetTop, // Design Work 섹션 (페이지 4)
                   behavior: "smooth",
                 });
               } else {
@@ -1585,7 +1755,7 @@ function initSlideshow() {
               if (teamworkCurrentSlide === teamworkSlides.length - 1) {
                 // 마지막 슬라이드에서 다음 섹션으로 이동
                 container.scrollTo({
-                  top: pages[4].offsetTop, // Design Work 섹션
+                  top: pages[3].offsetTop, // My Work 섹션 (페이지 3)
                   behavior: "smooth",
                 });
               } else {
@@ -1623,28 +1793,48 @@ function initSlideshow() {
 
 // Design Work 버튼 이벤트 초기화
 function initDesignWorkButtons() {
+  console.log("Initializing design work buttons...");
+
+  // more-btn은 관상용이므로 클릭 이벤트를 제거하고 호버 효과만 유지
   const moreButtons = document.querySelectorAll(
     ".design-project-box .more-btn"
   );
 
   moreButtons.forEach((button, index) => {
+    // more-btn 클릭 시 부모 이벤트를 차단하지 않도록 수정
     button.addEventListener("click", (e) => {
-      e.stopPropagation(); // 부모 클릭 이벤트 방지
-      const projectNumber = index + 1;
-      openModal("designwork", "character", projectNumber);
+      // stopPropagation 제거 - 부모 박스의 클릭 이벤트가 실행되도록 함
+      console.log(`More button ${index + 1} clicked (decorative only)`);
+      // 실제 모달 열기는 부모 박스의 onclick에서 처리됨
+    });
+  });
+
+  // 프로젝트 박스 전체 클릭 이벤트 확인
+  const projectBoxes = document.querySelectorAll(".design-project-box");
+  console.log("Found design project boxes:", projectBoxes.length);
+
+  projectBoxes.forEach((box, index) => {
+    // onclick 속성이 이미 있으므로 추가 이벤트 리스너는 필요 없음
+    // 하지만 디버깅을 위해 클릭 이벤트 추가
+    box.addEventListener("click", (e) => {
+      console.log(`Design project box ${index + 1} clicked`);
+      // onclick 속성의 openModal 함수가 실행됨
     });
   });
 }
 
 // 책표지 클릭 이벤트 초기화
 function initBookCovers() {
+  console.log("Initializing book covers...");
   const bookItems = document.querySelectorAll(".book-item");
+  console.log("Found book items:", bookItems.length);
 
-  bookItems.forEach((item) => {
+  bookItems.forEach((item, index) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
       const bookNumber = item.getAttribute("data-book");
       const bookImage = item.querySelector("img").src;
+      console.log(`Book item ${index + 1} clicked:`, { bookNumber, bookImage });
       openBookModal(bookImage, bookNumber);
     });
   });
@@ -1652,13 +1842,19 @@ function initBookCovers() {
 
 // 브로슈어 클릭 이벤트 초기화
 function initBrochures() {
+  console.log("Initializing brochures...");
   const brochureItems = document.querySelectorAll(".brochure-item");
+  console.log("Found brochure items:", brochureItems.length);
 
-  brochureItems.forEach((item) => {
+  brochureItems.forEach((item, index) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
       const brochureNumber = item.getAttribute("data-brochure");
       const brochureImage = item.querySelector("img").src;
+      console.log(`Brochure item ${index + 1} clicked:`, {
+        brochureNumber,
+        brochureImage,
+      });
       openBookModal(brochureImage, brochureNumber); // 책표지와 동일한 모달 사용
     });
   });
@@ -1666,13 +1862,16 @@ function initBrochures() {
 
 // 기타 카테고리 클릭 이벤트 초기화
 function initEtc() {
+  console.log("Initializing etc items...");
   const etcItems = document.querySelectorAll(".etc-item");
+  console.log("Found etc items:", etcItems.length);
 
-  etcItems.forEach((item) => {
+  etcItems.forEach((item, index) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
       const etcNumber = item.getAttribute("data-etc");
       const etcImage = item.querySelector("img").src;
+      console.log(`Etc item ${index + 1} clicked:`, { etcNumber, etcImage });
       openBookModal(etcImage, etcNumber); // 책표지와 동일한 모달 사용
     });
   });
@@ -1680,13 +1879,22 @@ function initEtc() {
 
 // 책표지 모달 열기
 function openBookModal(imageSrc, bookNumber) {
+  console.log("openBookModal called:", { imageSrc, bookNumber });
   const modal = document.getElementById("bookModal");
   const modalImage = document.getElementById("bookModalImage");
+
+  console.log("Book modal element:", modal);
+  console.log("Book modal image element:", modalImage);
 
   if (modal && modalImage) {
     modalImage.src = imageSrc;
     modal.style.display = "block";
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
+    console.log("Book modal opened successfully");
+  } else {
+    console.error("Book modal elements not found!");
   }
 }
 
@@ -1695,6 +1903,8 @@ function closeBookModal() {
   const modal = document.getElementById("bookModal");
   if (modal) {
     modal.style.display = "none";
+    modal.style.visibility = "hidden";
+    modal.style.opacity = "0";
     document.body.style.overflow = "auto";
   }
 }
@@ -1762,12 +1972,14 @@ function initSkillsTooltip() {
 
 // 페이지 로드 후 슬라이드쇼 초기화
 window.addEventListener("load", () => {
+  console.log("Page loaded, initializing all components...");
   initSlideshow();
   initDesignWorkCategories();
   initBookCovers();
   initBrochures();
   initEtc();
   initSkillsTooltip(); // 말풍선 기능 초기화 추가
+  console.log("All components initialized");
 });
 
 // Design Work 페이지 카테고리 기능
@@ -1925,3 +2137,151 @@ function initDesignWorkCategories() {
     });
   });
 }
+
+// 햄버거 메뉴 토글 기능
+function initHamburgerMenu() {
+  const hamburgerMenu = document.getElementById("hamburgerMenu");
+  const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+  const mobileNavClose = document.getElementById("mobileNavClose");
+  const mobileNavItems = document.querySelectorAll(".mobile-nav-item");
+
+  // 햄버거 메뉴 클릭 이벤트
+  if (hamburgerMenu) {
+    hamburgerMenu.addEventListener("click", () => {
+      toggleMobileMenu();
+    });
+  }
+
+  // 모바일 네비게이션 닫기 버튼 클릭 이벤트
+  if (mobileNavClose) {
+    mobileNavClose.addEventListener("click", () => {
+      closeMobileMenu();
+    });
+  }
+
+  // 모바일 네비게이션 오버레이 클릭 이벤트 (오버레이 영역 클릭 시 닫기)
+  if (mobileNavOverlay) {
+    mobileNavOverlay.addEventListener("click", (e) => {
+      if (e.target === mobileNavOverlay) {
+        closeMobileMenu();
+      }
+    });
+  }
+
+  // 모바일 네비게이션 아이템 클릭 이벤트
+  mobileNavItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      // 페이지 이동 로직 (기존 네비게이션과 동일)
+      const pageIndex = item.getAttribute("data-page");
+      if (pageIndex !== null) {
+        navigateToPage(parseInt(pageIndex));
+        closeMobileMenu();
+      }
+    });
+  });
+
+  // ESC 키로 메뉴 닫기
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileNavOverlay.classList.contains("active")) {
+      closeMobileMenu();
+    }
+  });
+}
+
+// 모바일 메뉴 토글 함수
+function toggleMobileMenu() {
+  const hamburgerMenu = document.getElementById("hamburgerMenu");
+  const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+
+  if (hamburgerMenu && mobileNavOverlay) {
+    const isActive = mobileNavOverlay.classList.contains("active");
+
+    if (isActive) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+}
+
+// 모바일 메뉴 열기 함수
+function openMobileMenu() {
+  const hamburgerMenu = document.getElementById("hamburgerMenu");
+  const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+  const headerEl = document.querySelector("header");
+
+  if (hamburgerMenu && mobileNavOverlay) {
+    hamburgerMenu.classList.add("active");
+    mobileNavOverlay.classList.add("active");
+    if (headerEl) headerEl.classList.add("nav-open");
+
+    // body 스크롤 방지
+    document.body.style.overflow = "hidden";
+  }
+}
+
+// 모바일 메뉴 닫기 함수
+function closeMobileMenu() {
+  const hamburgerMenu = document.getElementById("hamburgerMenu");
+  const mobileNavOverlay = document.getElementById("mobileNavOverlay");
+  const headerEl = document.querySelector("header");
+
+  if (hamburgerMenu && mobileNavOverlay) {
+    hamburgerMenu.classList.remove("active");
+    mobileNavOverlay.classList.remove("active");
+    if (headerEl) headerEl.classList.remove("nav-open");
+
+    // body 스크롤 복원
+    document.body.style.overflow = "";
+  }
+}
+
+// 페이지 이동 함수 (기존 네비게이션과 동일한 로직)
+function navigateToPage(pageIndex) {
+  const pages = document.querySelectorAll(".page");
+  if (pages[pageIndex]) {
+    pages[pageIndex].scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    // 활성 네비게이션 아이템 업데이트
+    updateActiveNavItem(pageIndex);
+  }
+}
+
+// 활성 네비게이션 아이템 업데이트 함수
+function updateActiveNavItem(pageIndex) {
+  // 기존 네비게이션 아이템들
+  const navItems = document.querySelectorAll(".nav-item");
+  const mobileNavItems = document.querySelectorAll(".mobile-nav-item");
+
+  // 모든 아이템에서 active 클래스 제거
+  [...navItems, ...mobileNavItems].forEach((item) => {
+    item.classList.remove("active");
+  });
+
+  // 해당 페이지의 아이템에 active 클래스 추가
+  const targetNavItem = document.querySelector(
+    `.nav-item[data-page="${pageIndex}"]`
+  );
+  const targetMobileNavItem = document.querySelector(
+    `.mobile-nav-item[data-page="${pageIndex}"]`
+  );
+
+  if (targetNavItem) targetNavItem.classList.add("active");
+  if (targetMobileNavItem) targetMobileNavItem.classList.add("active");
+}
+
+// 윈도우 리사이즈 이벤트 (1440px 초과 시 모바일 메뉴 자동 닫기)
+function handleWindowResize() {
+  if (window.innerWidth > 1440) {
+    closeMobileMenu();
+  }
+}
+
+// DOM 로드 완료 후 햄버거 메뉴 초기화
+document.addEventListener("DOMContentLoaded", () => {
+  initHamburgerMenu();
+  window.addEventListener("resize", handleWindowResize);
+});

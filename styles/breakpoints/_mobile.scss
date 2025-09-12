@@ -1,0 +1,370 @@
+// 모바일 스타일 (320px ~ 479px)
+// 기본 스타일은 여기에 작성
+
+// 가터 변수(모바일 공통)
+@include mobile { :root { --page-gutter: 36px; } }
+@include small-mobile { :root { --page-gutter: 36px; } }
+
+// 헤더 모바일 스타일
+header {
+  @include mobile {
+    top: 36px;
+    left: 0;
+    width: 100%;
+    padding: 0 var(--page-gutter);
+    
+    .logo-img {
+      height: 30px;
+    }
+
+    // 모바일에서는 햄버거 노출, 기존 사이드 내비 숨김
+    .hamburger-menu {
+      display: flex;
+      right: 36px;
+    }
+    .side-nav {
+      display: none;
+    }
+    .mobile-nav-overlay {
+      display: block;
+    }
+  }
+
+  // 480px~767px (small-mobile) 구간도 동일하게 적용
+  @include small-mobile {
+    top: 36px;
+    left: 0;
+    width: 100%;
+    padding: 0 var(--page-gutter);
+
+    .logo-img {
+      height: 34px;
+    }
+
+    .hamburger-menu { display: flex; right: var(--page-gutter); }
+    .side-nav {
+      display: none;
+    }
+    .mobile-nav-overlay {
+      display: block;
+    }
+  }
+}
+
+// About 페이지 모바일
+.about-page .about-container {
+  @include mobile-first {
+    padding: 100px 50px;
+    
+    .about-bg-title {
+      font-size: 8rem;
+      right: -10%;
+      top: 5%;
+    }
+    
+    .about-profile {
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      text-align: center;
+      
+      .profile-img {
+        width: 160px;
+      }
+      
+      .about-text {
+        width: 100%;
+        h2 {
+          font-size: 2.5rem;
+        }
+        
+        p {
+          font-size: 1.2rem;
+          line-height: 1.4;
+        }
+        
+        .about-text-line {
+          width: 100%;
+          margin: 1.5rem auto 0;
+        }
+      }
+    }
+    
+    .history-section {
+      margin-top: 3rem;
+      margin-bottom: 50px;
+      
+      h3 {
+        font-size: 1.8rem;
+      }
+      
+      .history-container {
+        height: 100px;
+        
+        .history-list {
+          gap: 0;
+          
+          .history-item {
+            position: relative;
+            left: 0;
+            width: 100%;
+            margin-top: 0;
+            opacity: 1;
+            transform: none;
+            &:nth-child(1) {
+              left: 0;
+              width: 28%;
+            }
+            
+            &:nth-child(2) {
+              left: 0;
+              width: 22%;
+            }
+            
+            &:nth-child(3) {
+              left: 0;
+            }
+            
+            &:nth-child(4) {
+              left: 0;
+              margin-top: 0;
+            }
+            
+            .history-title {
+              font-size: 1.1rem;
+            }
+            
+            .history-desc {
+              font-size: 1.1rem;
+            }
+          }
+        }
+        
+        .history-bar {
+          display: block; // 모바일에서도 바 표시
+          margin-top: 0;
+        }
+        
+        .history-dates {
+          display: block; // 모바일에서도 날짜 표시
+          
+          .date-item {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+    
+    .info-section {
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      
+      > div {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      
+      h4 {
+        font-size: 1.8rem;
+      }
+      
+      h5 {
+        font-size: 1.1rem;
+      }
+
+      ul {
+        gap: 4px;
+      }
+      
+      li {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+// Skills 페이지 모바일
+.skills-container {
+  @include mobile {
+    width: 95%;
+    padding: 2rem 1rem;
+    
+    h2 {
+      font-size: 3.5rem;
+    }
+  }
+
+  // 480px~767px (small-mobile) 구간도 동일하게 적용
+  @include small-mobile {
+    width: 95%;
+    padding: 2rem 1rem;
+    
+    h2 {
+      font-size: 3.5rem;
+      text-align: center;
+    }
+  }
+}
+
+.skills-page .skills-container .skills-grid {
+  @include mobile {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  @include small-mobile {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+.skills-container .skills-grid .skill-item {
+  @include mobile {
+    padding: 8px;
+    
+    img {
+      width: 30px;
+      height: 30px;
+    }
+    
+    span {
+      font-size: 1.4rem;
+    }
+  }
+
+  @include small-mobile {
+    padding: 8px;
+    
+    img {
+      width: 30px;
+      height: 30px;
+    }
+    
+    span {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+// 프로젝트 페이지 모바일
+.project-container {
+  @include mobile {
+    padding: 2rem 1rem;
+    
+    .project-content {
+      .project-box {
+        width: 100%;
+        height: 400px;
+      }
+    }
+    
+    .slide {
+      .slide__img {
+        height: 300px;
+      }
+      
+      .slide__text {
+        top: 320px;
+        left: 1rem;
+        max-width: 80%;
+        
+        .slide__text-line {
+          font-size: 2.5rem;
+        }
+      }
+      
+      .slide__subtitle {
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+// 모달 모바일
+.modal {
+  @include mobile {
+    padding: 1rem;
+    
+    .modal-content {
+      width: 95%;
+      height: 90%;
+      margin: 5% auto;
+    }
+  }
+}
+
+// Contact 페이지 모바일
+.contact-page {
+  @include mobile {
+    .contact-container {
+      flex-direction: column;
+      padding: 2rem 1rem;
+      
+      .contact-left {
+        width: 100%;
+        
+        h2 {
+          font-size: 3.5rem;
+        }
+        
+        p {
+          font-size: 1.4rem;
+        }
+        
+        .contact-form {
+          input, textarea {
+            font-size: 1.4rem;
+            padding-left: 15px;
+          }
+          
+          input {
+            height: 50px;
+          }
+          
+          textarea {
+            min-height: 100px;
+            padding-top: 15px;
+          }
+          
+          button {
+            font-size: 1.4rem;
+            padding: 6px 18px;
+          }
+        }
+      }
+      
+      .contact-right {
+        width: 100%;
+        margin-top: 2rem;
+      }
+    }
+    
+    .copyright {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    
+    .contact-links {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      justify-content: center;
+      margin-top: 1rem;
+      
+      a {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

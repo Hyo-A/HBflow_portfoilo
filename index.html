@@ -13,6 +13,15 @@
   <div class="right-green-bar"></div>
   <header>
     <h1><img src="./imgs/hbflow_logo.png" alt="HBFLOW" class="logo-img" /></h1>
+    
+    <!-- 햄버거 메뉴 버튼 (1440px 이하에서만 표시) -->
+    <button class="hamburger-menu" id="hamburgerMenu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    
+    <!-- 기존 사이드 네비게이션 (1440px 초과에서만 표시) -->
     <nav class="side-nav">
       <ul>
         <li data-page="0" class="nav-item">HEADER</li>
@@ -20,13 +29,33 @@
         <li data-page="2" class="nav-item project-nav">
           PROJECT
           <ul class="PROJECT_li">
-            <li data-page="2" class="nav-item sub-nav">MY WORK</li>
-            <li data-page="3" class="nav-item sub-nav">TEAM WORK</li>
+            <li data-page="2" class="nav-item sub-nav">TEAM WORK</li>
+            <li data-page="3" class="nav-item sub-nav">MY WORK</li>
             <li data-page="4" class="nav-item sub-nav">DESIGN WORK</li>
           </ul>
         </li>
         <li data-page="5" class="nav-item">FOOTER</li>
       </ul>
+    </nav>
+    
+    <!-- 모바일 네비게이션 오버레이 (1440px 이하에서만 표시) -->
+    <nav class="mobile-nav-overlay" id="mobileNavOverlay">
+      <div class="mobile-nav-content">
+        <button class="mobile-nav-close" id="mobileNavClose">&times;</button>
+        <ul class="mobile-nav-list">
+          <li data-page="0" class="mobile-nav-item">HEADER</li>
+          <li data-page="1" class="mobile-nav-item">SKILLS</li>
+          <li class="mobile-nav-item mobile-project-nav">
+            PROJECT
+            <ul class="mobile-PROJECT_li">
+              <li data-page="2" class="mobile-nav-item mobile-sub-nav">TEAM WORK</li>
+              <li data-page="3" class="mobile-nav-item mobile-sub-nav">MY WORK</li>
+              <li data-page="4" class="mobile-nav-item mobile-sub-nav">DESIGN WORK</li>
+            </ul>
+          </li>
+          <li data-page="5" class="mobile-nav-item">FOOTER</li>
+        </ul>
+      </div>
     </nav>
   </header>
   <div class="preloader">
@@ -189,115 +218,7 @@
           <div class="tooltip-container" id="tooltip"></div>
       </div>
     </section>
-    <!-- 3. My Work -->
-    <section class="page mywork-page">
-      <div class="project-container">
-        <div class="section-bg"></div>
-        <div class="section-overlay"></div>
-        <div class="project-content">
-          <div class="project-box slideshow">
-            <div class="slide active" onclick="openModal('mywork', 1)">
-              <div class="slide__img">
-                <img src="imgs/mywork/mywork1.jpg" alt="my work 1" />
-              </div>
-              <div class="slide__text">
-                <span class="slide__text-line">We design</span>
-                <span class="slide__text-line"> places</span>
-              </div>
-              <div class="slide__subtitle">라이브러리 사용을 통한 인터렉티브 페이지 구현</div>
-              <div class="slide__more">
-                <button class="more-btn">more<span class="plus-icon">+</span></button>
-              </div>
-            </div>
-          
-            <!-- Slide 2 -->
-            <div class="slide" onclick="openModal('mywork', 2)">
-              <div class="slide__img">
-                <img src="imgs/mywork/mywork2.jpg" alt="my work 2" />
-              </div>
-              <div class="slide__text">
-                <span class="slide__text-line">Netflix</span>
-                <span class="slide__text-line">clone coding</span>
-              </div>
-              <div class="slide__subtitle">tmdb api를 이용한 넷플릭스 클론 코딩</div>
-              <div class="slide__more">
-                <button class="more-btn">more<span class="plus-icon">+</span></button>
-              </div>
-            </div>
-          
-            <!-- Slide 3 -->
-            <div class="slide" onclick="openModal('mywork', 3)">
-              <div class="slide__img">
-                <img src="imgs/mywork/mywork3.jpg" alt="my work 3" />
-              </div>
-              <div class="slide__text">
-                <span class="slide__text-line">Fullpage</span>
-                <span class="slide__text-line">
-                  Customizing</span>
-              </div>
-              <div class="slide__subtitle">fullpage 스크롤 페이지 구현</div>
-              <div class="slide__more">
-                <button class="more-btn">more<span class="plus-icon">+</span></button>
-              </div>
-            </div>
-          
-            <!-- Slide 4 -->
-            <div class="slide" onclick="openModal('mywork', 4)">
-              <div class="slide__img">
-                <img src="imgs/mywork/mywork4.jpg" alt="my work 4" />
-              </div>
-              <div class="slide__text">
-                <span class="slide__text-line">Cyworld</span>
-                <span class="slide__text-line">hamseter</span>
-              </div>
-              <div class="slide__subtitle">싸이월드 테마 구현</div>
-              <div class="slide__more">
-                <button class="more-btn">more<span class="plus-icon">+</span></button>
-              </div>
-            </div>
-          
-            <!-- Slide 5 -->
-            <div class="slide" onclick="openModal('mywork', 5)">
-              <div class="slide__img">
-                <img src="imgs/mywork/mywork5.jpg" alt="my work 5" />
-              </div>
-              <div class="slide__text">
-                <span class="slide__text-line">Onebite</span>
-                <span class="slide__text-line">sky</span>
-              </div>
-              <div class="slide__subtitle">도서 추천, 검색 플랫폼</div>
-              <div class="slide__more">
-                <button class="more-btn">more<span class="plus-icon">+</span></button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="skip-button">
-            <button onclick="skipMyWork()">
-              <span class="button-text">SKIP MY WORK <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
-              <span class="button-text-hover">SKIP MY WORK <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
-            </button>
-          </div>
-          
-          <div class="slide-counter">
-            <div class="counter-display">
-              <span class="total-slides">05</span>
-            </div>
-              <span class="counter-separator">/</span>
-            <span class="current-slide">01</span>
-          </div>
-          
-          <!-- 커스텀 커서 -->
-          <div class="custom-cursor">
-            <div class="cursor-arrow prev">←</div>
-            <div class="cursor-arrow next">→</div>
-          </div>
-          
-
-        </div>
-      </div>
-    </section>
-    <!-- 4. Team Work -->
+    <!-- 2. Team Work -->
     <section class="page teamwork-page">
       <div class="project-container">
         <div class="section-bg"></div>
@@ -388,6 +309,127 @@
         </div>
       </div>
     </section>
+        <!-- 3. My Work -->
+      <section class="page mywork-page">
+        <div class="project-container">
+          <div class="section-bg"></div>
+          <div class="section-overlay"></div>
+          <div class="project-content">
+            <div class="project-box slideshow">
+              <div class="slide active" onclick="openModal('mywork', 1)">
+                <div class="slide__img">
+                  <img src="imgs/mywork/mywork1.jpg" alt="my work 1" />
+                </div>
+                <div class="slide__text">
+                  <span class="slide__text-line">We design</span>
+                  <span class="slide__text-line"> places</span>
+                </div>
+                <div class="slide__subtitle">라이브러리 사용을 통한 인터렉티브 페이지 구현</div>
+                <div class="slide__more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+            
+              <!-- Slide 2 -->
+              <div class="slide" onclick="openModal('mywork', 2)">
+                <div class="slide__img">
+                  <img src="imgs/mywork/mywork2.jpg" alt="my work 2" />
+                </div>
+                <div class="slide__text">
+                  <span class="slide__text-line">Netflix</span>
+                  <span class="slide__text-line">clone coding</span>
+                </div>
+                <div class="slide__subtitle">tmdb api를 이용한 넷플릭스 클론 코딩</div>
+                <div class="slide__more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+            
+              <!-- Slide 3 -->
+              <div class="slide" onclick="openModal('mywork', 3)">
+                <div class="slide__img">
+                  <img src="imgs/mywork/mywork3.jpg" alt="my work 3" />
+                </div>
+                <div class="slide__text">
+                  <span class="slide__text-line">Fullpage</span>
+                  <span class="slide__text-line">
+                    Customizing</span>
+                </div>
+                <div class="slide__subtitle">fullpage 스크롤 페이지 구현</div>
+                <div class="slide__more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+            
+              <!-- Slide 4 -->
+              <div class="slide" onclick="openModal('mywork', 4)">
+                <div class="slide__img">
+                  <img src="imgs/mywork/mywork4.jpg" alt="my work 4" />
+                </div>
+                <div class="slide__text">
+                  <span class="slide__text-line">Cyworld</span>
+                  <span class="slide__text-line">hamseter</span>
+                </div>
+                <div class="slide__subtitle">싸이월드 테마 구현</div>
+                <div class="slide__more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+            
+              <!-- Slide 5 -->
+              <div class="slide" onclick="openModal('mywork', 5)">
+                <div class="slide__img">
+                  <img src="imgs/mywork/mywork5.jpg" alt="my work 5" />
+                </div>
+                <div class="slide__text">
+                  <span class="slide__text-line">Coin</span>
+                  <span class="slide__text-line">Dashboard</span>
+                </div>
+                <div class="slide__subtitle">주식 투자 관련 앱</div>
+                <div class="slide__more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+            
+              <!-- Slide 6 -->
+              <div class="slide" onclick="openModal('mywork', 6)">
+                <div class="slide__img">
+                  <img src="imgs/mywork/mywork6.jpg" alt="my work 6" />
+                </div>
+                <div class="slide__text">
+                  <span class="slide__text-line">Onebite</span>
+                  <span class="slide__text-line">sky</span>
+                </div>
+                <div class="slide__subtitle">도서 추천, 검색 플랫폼</div>
+                <div class="slide__more">
+                  <button class="more-btn">more<span class="plus-icon">+</span></button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skip-button">
+              <button onclick="skipMyWork()">
+                <span class="button-text">SKIP MY WORK <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
+                <span class="button-text-hover">SKIP MY WORK <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
+              </button>
+            </div>
+            
+            <div class="slide-counter">
+              <div class="counter-display">
+                <span class="total-slides">06</span>
+              </div>
+                <span class="counter-separator">/</span>
+              <span class="current-slide">01</span>
+            </div>
+            
+            <!-- 커스텀 커서 -->
+            <div class="custom-cursor">
+              <div class="cursor-arrow prev">←</div>
+              <div class="cursor-arrow next">→</div>
+            </div>
+          </div>
+        </div>
+      </section>
     <!-- 5. Design Work -->
     <section class="page designwork-page">
       <div class="project-container">
@@ -642,7 +684,7 @@
       </div>
     </section>
   </div>
-  <!-- 프로젝트 모달 (My Work, Team Work용) -->
+  <!-- Team Work 모달 -->
   <div id="projectModal" class="character-modal">
     <div class="character-modal-overlay" onclick="closeModal()"></div>
     <div class="character-modal-content">
@@ -1008,6 +1050,438 @@
           <!-- 2페이지 전용 화살표 (이전 페이지만) -->
           <div class="character-prev-arrow" onclick="prevProjectPage()">
             <span class="arrow-icon">←</span>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+  
+  <!-- My Work 모달 -->
+  <div id="myworkModal" class="mywork-modal">
+    <div class="mywork-modal-overlay" onclick="closeMyworkModal()"></div>
+    <div class="mywork-modal-content">
+      <span class="close" onclick="closeMyworkModal()">&times;</span>
+      
+      <!-- My Work 1: We design places -->
+      <div class="mywork-modal-page" id="mywork1">
+        <div class="mywork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="mywork-left-section">
+            <h2 class="mywork-modal-title">We design places<span>[개인 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="mywork-right-section">
+            <div class="mywork-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="mywork-description">
+                <p>풀페이지 스크롤 효과와 부드러운 전환 효과를 적용하여 사용자가 모든 콘텐츠를 직관적이고 몰입감 있게 한 페이지에서 경험할 수 있도록 설계했습니다.</p>
+              </div>
+              
+              <!-- 프로젝트 이미지 3개 -->
+              <div class="mywork-images">
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork1.jpg" alt="We design places 메인 이미지" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork1.jpg" alt="We design places 상세 이미지 1" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork1.jpg" alt="We design places 상세 이미지 2" />
+                </div>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="mywork-features">
+                <div class="feature-header">
+                  <div class="feature-icon">🎲</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>각 섹션(홈, 어바웃, 프로젝트, 플랜, 어워드, 로케이션, 컨택트)이 풀스크린으로 표시되며, 사용자가 스크롤을 통해 다음 섹션으로 부드럽게 전환할 수 있습니다.</li>
+                  <li>프로젝트 섹션은 탭 메뉴를 활용하여 다양한 프로젝트를 간결하게 표시합니다. 사용자는 탭을 클릭하여 각 프로젝트의 상세 정보와 이미지를 쉽게 확인할 수 있습니다.</li>
+                  <li>jQuery와 다양한 플러그인(Slick Slider, Featherlight, Velocity 등)을 활용하여 동적 슬라이드쇼, 모달 팝업, 페이지 전환 애니메이션을 구현했습니다.</li>
+                  <li>미디어 쿼리를 활용한 반응형 디자인을 적용하여 다양한 디바이스(PC, 태블릿, 모바일)에서 최적화된 화면을 제공합니다.</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="mywork-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">💬</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">HTML5</span>
+                  <span class="tech-tag">CSS3</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">jQuery</span>
+                  <span class="tech-tag">Slick Slider</span>
+                  <span class="tech-tag">Featherlight</span>
+                  <span class="tech-tag">Figma</span>
+                  <span class="tech-tag">Font Awesome</span>
+                </div>
+              </div>
+              
+              <!-- Overview 버튼 -->
+              <div class="mywork-overview">
+                <a href="#" target="_blank" class="overview-btn">
+                  Overview
+                  <span class="overview-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- My Work 2: Netflix clone coding -->
+      <div class="mywork-modal-page" id="mywork2" style="display: none;">
+        <div class="mywork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="mywork-left-section">
+            <h2 class="mywork-modal-title">Netflix clone coding<span>[개인 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="mywork-right-section">
+            <div class="mywork-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="mywork-description">
+                <p>넷플릭스 홈페이지를 클론 코딩하여 사용자에게 영화 정보를 제공하고, 웹 개발 기술을 연습하기 위해 제작되었습니다.</p>
+              </div>
+              
+              <!-- 프로젝트 이미지 3개 -->
+              <div class="mywork-images">
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork2.jpg" alt="Netflix clone coding 메인 이미지" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork2.jpg" alt="Netflix clone coding 상세 이미지 1" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork2.jpg" alt="Netflix clone coding 상세 이미지 2" />
+                </div>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="mywork-features">
+                <div class="feature-header">
+                  <div class="feature-icon">🎬</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>TMDB API를 활용해 현재 상영작, 개봉 예정작, 인기 상영작 데이터를 실시간으로 가져와 화면에 표시합니다.</li>
+                  <li>fetch와 async/await을 사용하여 비동기적으로 데이터를 처리하고 Promise.all을 통해 여러 API 호출을 효율적으로 관리합니다.</li>
+                  <li>Vanilla JS로 무한 슬라이드 기능을 구현하여 사용자가 영화 목록을 부드럽게 넘겨볼 수 있습니다. 슬라이드 너비, 간격, 이동 거리를 계산하여 동적으로 움직이도록 설계했습니다.</li>
+                  <li>각 영화 포스터를 클릭하면 해당 영화의 상세 정보(줄거리, 장르, 개봉일, 예고편 등)를 보여주는 모달 창이 나타납니다.</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="mywork-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">💬</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">HTML5</span>
+                  <span class="tech-tag">CSS3</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">TMDB API</span>
+                </div>
+              </div>
+              
+              <!-- Overview 버튼 -->
+              <div class="mywork-overview">
+                <a href="#" target="_blank" class="overview-btn">
+                  Overview
+                  <span class="overview-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- My Work 3: Fullpage Customizing -->
+      <div class="mywork-modal-page" id="mywork3" style="display: none;">
+        <div class="mywork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="mywork-left-section">
+            <h2 class="mywork-modal-title">Fullpage Customizing<span>[개인 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="mywork-right-section">
+            <div class="mywork-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="mywork-description">
+                <p>fullPage.js 라이브러리를 사용해 제작된 반응형 웹사이트입니다. 사용자는 스크롤을 내리는 것만으로도 부드럽게 다음 섹션으로 이동할 수 있습니다.</p>
+              </div>
+              
+              <!-- 프로젝트 이미지 3개 -->
+              <div class="mywork-images">
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork3.jpg" alt="Fullpage Customizing 메인 이미지" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork3.jpg" alt="Fullpage Customizing 상세 이미지 1" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork3.jpg" alt="Fullpage Customizing 상세 이미지 2" />
+                </div>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="mywork-features">
+                <div class="feature-header">
+                  <div class="feature-icon">📄</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>fullPage.js 라이브러리를 이용하여 스크롤 시 페이지 전체가 한번에 전환되는 사용자 경험을 제공합니다.</li>
+                  <li>anime.js 라이브러리를 이용하여 각 섹션이 로드될 때마다 동적인 애니메이션 효과를 부여하여 시각적 즐거움을 더했습니다. 예를 들어, 첫 섹션에서는 SVG 패스 애니메이션이, 두 번째 섹션에서는 기술 숙련도를 나타내는 막대 그래프가 동적으로 채워집니다.</li>
+                  <li>상단 GNB(Global Navigation Bar) 메뉴를 통해 사용자가 원하는 섹션으로 빠르게 이동할 수 있도록 설계했습니다.</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="mywork-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">💬</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">HTML5</span>
+                  <span class="tech-tag">CSS3</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">FullPage.js</span>
+                  <span class="tech-tag">anime.js</span>
+                </div>
+              </div>
+              
+              <!-- Overview 버튼 -->
+              <div class="mywork-overview">
+                <a href="#" target="_blank" class="overview-btn">
+                  Overview
+                  <span class="overview-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- My Work 4: Cyworld hamseter -->
+      <div class="mywork-modal-page" id="mywork4" style="display: none;">
+        <div class="mywork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="mywork-left-section">
+            <h2 class="mywork-modal-title">Cyworld hamseter<span>[개인 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="mywork-right-section">
+            <div class="mywork-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="mywork-description">
+                <p>싸이월드의 디자인과 기능을 재현한 클론 코딩 웹사이트입니다. 싸이월드 특유의 레트로한 감성과 UI/UX를 현대적인 기술로 구현하는 데 중점을 두었습니다.</p>
+              </div>
+              
+              <!-- 프로젝트 이미지 3개 -->
+              <div class="mywork-images">
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork4.jpg" alt="Cyworld hamseter 메인 이미지" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork4.jpg" alt="Cyworld hamseter 상세 이미지 1" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork4.jpg" alt="Cyworld hamseter 상세 이미지 2" />
+                </div>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="mywork-features">
+                <div class="feature-header">
+                  <div class="feature-icon">🐹</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>div와 iframe을 활용하여 메인 프레임을 구성하고, 옛날 PC 모니터 화면 비율과 유사하게 디자인하여 추억을 자극하는 비주얼을 완성했습니다.</li>
+                  <li>iframe을 동적으로 제어하여 '홈', '게임', '주크박스' 메뉴를 클릭할 때마다 페이지가 부드럽게 전환되도록 구현했습니다.</li>
+                  <li>끝말잇기 게임과 번호 생성기를 추가하여 사용자가 직접 참여하고 즐길 수 있는 기능을 제공합니다.</li>
+                  <li>추억의 배경음악(BGM) 리스트를 구현하여 사용자가 음악을 직접 재생하고 멈출 수 있도록 했습니다.</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="mywork-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">💬</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">HTML5</span>
+                  <span class="tech-tag">CSS3</span>
+                  <span class="tech-tag">JavaScript</span>
+                  <span class="tech-tag">Font Awesome</span>
+                  <span class="tech-tag">iframe</span>
+                </div>
+              </div>
+              
+              <!-- Overview 버튼 -->
+              <div class="mywork-overview">
+                <a href="#" target="_blank" class="overview-btn">
+                  Overview
+                  <span class="overview-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- My Work 5: Coin Dashboard -->
+      <div class="mywork-modal-page" id="mywork5" style="display: none;">
+        <div class="mywork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="mywork-left-section">
+            <h2 class="mywork-modal-title">Coin Dashboard<span>[개인 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="mywork-right-section">
+            <div class="mywork-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="mywork-description">
+                <p>이 프로젝트는 React 기반의 싱글페이지애플리케이션(SPA)으로, 효율적인 상태 관리와 데이터통신에 중점을 두고 개발되었습니다.</p>
+              </div>
+              
+              <!-- 프로젝트 이미지 3개 -->
+              <div class="mywork-images">
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork5.jpg" alt="Coin Dashboard 메인 이미지" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork5.jpg" alt="Coin Dashboard 상세 이미지 1" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork5.jpg" alt="Coin Dashboard 상세 이미지 2" />
+                </div>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="mywork-features">
+                <div class="feature-header">
+                  <div class="feature-icon">📊</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>my-json-server와 같은 더미(dummy) 서버를 활용하여 코인 목록, 상세정보, 현재 가격 등 다양한 가상화 데이터를 폴링합니다.</li>
+                  <li>nomadoodership를 사용해 일주일간의 가격변동 데이터를 가져와 차트로 보여줍니다.</li>
+                  <li>react-router-dom을 이용하여 전체 코인 목록 페이지와 코인 상세 페이지 사이를 부드럽게 전환합니다.</li>
+                  <li>@tanstack/react-query를 사용하여 데이터를 캐싱하고, 백그라운드에서 자동업데이트하며, 로딩 및 에러 상태를 효율적으로 처리하였습니다.</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="mywork-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">💬</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">TypeScript</span>
+                  <span class="tech-tag">Recoil</span>
+                  <span class="tech-tag">@tanstack/react-query</span>
+                  <span class="tech-tag">styled-components</span>
+                  <span class="tech-tag">react-apexcharts</span>
+                </div>
+              </div>
+              
+              <!-- Overview 버튼 -->
+              <div class="mywork-overview">
+                <a href="#" target="_blank" class="overview-btn">
+                  Overview
+                  <span class="overview-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- My Work 6: Onebite sky -->
+      <div class="mywork-modal-page" id="mywork6" style="display: none;">
+        <div class="mywork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="mywork-left-section">
+            <h2 class="mywork-modal-title">Onebite sky<span>[개인 프로젝트]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="mywork-right-section">
+            <div class="mywork-detail-content">
+              <!-- 프로젝트 설명 -->
+              <div class="mywork-description">
+                <p>이 프로젝트는 Next.js 프레임워크를 기반으로, 도서 관련 데이터를 표시하는 웹 애플리케이션입니다.</p>
+              </div>
+              
+              <!-- 프로젝트 이미지 3개 -->
+              <div class="mywork-images">
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork6.jpg" alt="Onebite sky 메인 이미지" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork6.jpg" alt="Onebite sky 상세 이미지 1" />
+                </div>
+                <div class="mywork-image-item">
+                  <img src="imgs/mywork/mywork6.jpg" alt="Onebite sky 상세 이미지 2" />
+                </div>
+              </div>
+              
+              <!-- 주요 기능 및 특징 -->
+              <div class="mywork-features">
+                <div class="feature-header">
+                  <div class="feature-icon">📚</div>
+                  <h3>주요 기능 및 특징</h3>
+                </div>
+                <ul class="feature-list">
+                  <li>Node.js 위에서 동작하며, 효율적인 서버 개발을 위해 모듈화된 아키텍처를 제공합니다.</li>
+                  <li>SSR (Server-Side Rendering): 요청이 들어올 때마다 서버에서 페이지를 생성하여 사용자에게 최신 데이터를 제공합니다.</li>
+                  <li>SSG (Static Site Generation): 빌드 시점에 HTML을 미리 생성하여 CDN에 배포합니다. 데이터가 자주 변하지 않는 페이지에 적합하며, 로딩 속도를 보장합니다.</li>
+                  <li>ISR (Incremental Static Regeneration): SSG의 장점에 동적인 업데이트 기능을 더한 방식입니다. 미리 생성된 페이지를 사용하면서도, 정해진 시간마다 또는 데이터가 변경될 때마다 페이지를 백그라운드에서 재빌드하여 항상 최신 정보를 유지할 수 있습니다.</li>
+                </ul>
+              </div>
+              
+              <!-- 사용 기술 및 언어 -->
+              <div class="mywork-technologies">
+                <div class="tech-header">
+                  <div class="tech-icon">💬</div>
+                  <h3>사용 기술 및 언어</h3>
+                </div>
+                <div class="tech-tags">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">Next.js</span>
+                  <span class="tech-tag">TypeScript</span>
+                  <span class="tech-tag">Vercel</span>
+                  <span class="tech-tag">Prisma</span>
+                </div>
+              </div>
+              
+              <!-- Overview 버튼 -->
+              <div class="mywork-overview">
+                <a href="#" target="_blank" class="overview-btn">
+                  Overview
+                  <span class="overview-arrow-icon">→</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
