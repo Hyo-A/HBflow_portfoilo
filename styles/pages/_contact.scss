@@ -1,0 +1,242 @@
+// ============================================
+// CONTACT PAGE
+// ============================================
+
+.contact-page {
+  background: var(--color-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+
+  .contact-container {
+    width: 100%;
+    padding: 80px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-content: center;
+    margin: 0 auto;
+    
+    @include tablet-up {
+      flex-direction: row;
+      padding: 30px 50px;
+      gap: 4rem;
+    }
+
+      @include large-up {
+    max-width: 1400px;
+    }
+
+    .contact-left {
+      width: 100%;
+      
+      @include tablet-up {
+        width: 740px;
+      }
+      
+      h2 {
+        font-size: 3.5rem;
+        font-family: 'Butler_Medium_Stencil';
+        margin-bottom: 1.2rem;
+        
+        @include tablet-up {
+          font-size: 5rem;
+        }
+      }
+      
+      p {
+        font-size: 1.4rem;
+        margin-bottom: 2.2rem;
+        
+        @include tablet-up {
+          font-size: 1.6rem;
+        }
+      }
+      
+      .contact-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+        input, textarea {
+          width: 100%;
+          padding-left: 15px;
+          border: none;
+          background: var(--color-gray2);
+          font-size: 1.4rem;
+          font-family: 'Pretendard';
+          
+          @include tablet-up {
+            font-size: 1.6rem;
+            padding-left: 23px;
+          }
+          
+          &:focus {
+            outline: none;
+            &::placeholder {
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            }
+          }
+        }
+        
+        input {
+          height: 50px;
+          
+          @include tablet-up {
+            height: 55px;
+          }
+        }
+        
+        textarea {
+          padding-top: 15px;
+          min-height: 100px;
+          resize: vertical;
+          
+          @include tablet-up {
+            padding-top: 20px;
+            min-height: 115px;
+          }
+        }
+        
+        .contact-form-bottom {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-top: 0.5rem;
+          
+          button {
+            @include button-style;
+            font-size: 1.4rem;
+            padding: 6px 18px;
+            margin-right: 1rem;
+            
+            @include tablet-up {
+              font-size: 1.6rem;
+              padding: 8px 22px;
+            }
+          }
+          
+          .or-contact {
+            font-size: 1.4rem;
+            
+            @include tablet-up {
+              font-size: 1.6rem;
+            }
+          }
+        }
+      }
+    }
+    
+    .contact-right {
+      width: 100%;
+      margin-top: 2rem;
+      
+      @include tablet-up {
+        width: 500px;
+        margin-top: 0;
+      }
+      
+      .contact-visual {
+        display: none;
+        img {
+          width: 100%;
+          height: auto;
+        }
+        @include tablet-up {
+          display: block;
+        }
+      }
+    }
+  }
+  
+  .copyright {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--color-dark2);
+    margin-top: 2rem;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    text-align: center;
+    
+    @include tablet-up {
+      font-size: 1.6rem;
+      position: absolute;
+      bottom: 68px;
+      left: 50px;
+      text-align: left;
+      margin-top: 0;
+    }
+  }
+  
+  .contact-links {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 1rem;
+    
+    @include tablet-up {
+      position: absolute;
+      bottom: 68px;
+      right: 42px;
+      gap: 40px;
+      margin-top: 0;
+    }
+    
+    a {
+      color: var(--color-dark2);
+      font-size: 1.4rem;
+      font-family: 'Pretendard', sans-serif;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      cursor: var(--cursor-accent);
+      
+      @include tablet-up {
+        font-size: 1.6rem;
+      }
+      
+      .button-text,
+      .button-text-hover {
+        display: block;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        line-height: 20px;
+        white-space: nowrap;
+      }
+      
+      .button-text {
+        transform: translateY(0);
+      }
+      
+      .button-text-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transform: translateY(100%);
+      }
+      
+      &:hover {
+        text-decoration: none;
+        
+        .button-text {
+          transform: translateY(-100%);
+        }
+        
+        .button-text-hover {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}

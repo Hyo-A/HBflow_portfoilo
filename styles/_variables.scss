@@ -1,0 +1,257 @@
+// ============================================
+// VARIABLES & MIXINS
+// ============================================
+
+// Butler 폰트 정의
+@font-face {
+  font-family: 'Butler_Ultra_Light';
+  src: url('../fonts/Butler_Ultra_Light.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Butler_Light';
+  src: url('../fonts/Butler_Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Butler_Regular';
+  src: url('../fonts/Butler_Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Butler_Medium';
+  src: url('../fonts/Butler_Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Butler_Bold';
+  src: url('../fonts/Butler_Bold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Butler_Medium_Stencil';
+  src: url('../fonts/Butler_Regular_Stencil.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Butler_Ultra_Light_Stencil';
+  src: url('../fonts/Butler_Ultra_Light_Stencil.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+// 브레이크포인트 (모바일 퍼스트)
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$large: 1440px;
+
+// 모바일 퍼스트 믹스인
+@mixin mobile-up {
+  @media (min-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin large-up {
+  @media (min-width: $large) {
+    @content;
+  }
+}
+
+// CSS 변수들 (기존 유지)
+:root {
+  // 색상 변수들
+  --color-light: #FFFFFF;
+  --color-dark: #1A1A1A;
+  --color-dark2: #333333;
+  --color-gray: #CCCCCC;
+  --color-gray2: #F5F5F5;
+  --color-gray3: #EEEEEE;
+  --color-accent: #B6E23A;
+  --color-white: #FFFFFF;
+  
+  // 커서 변수들 (32x32px, 브라우저 호환성 고려)
+  --cursor-default: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3ccircle cx='30' cy='30' r='18' fill='%23cccccc' fill-opacity='0.4' stroke='%23cccccc' stroke-width='1'/%3e%3c/svg%3e") 30 30, auto;
+  --cursor-accent: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' style='shape-rendering: crispEdges'%3e%3ccircle cx='30' cy='30' r='18' fill='%23DCF97F' fill-opacity='0.9'/%3e%3c/svg%3e") 30 30, pointer;
+  
+  // 페이지 거터
+  --page-gutter: 36px;
+}
+
+@include tablet-up {
+  :root {
+    --page-gutter: 50px;
+  }
+}
+
+@mixin modal-base {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  
+  &.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: modalFadeIn 0.3s ease;
+  }
+}
+
+// ============================================
+// MIXINS - style.scss에서 이동됨
+// ============================================
+
+
+// 슬라이드 카운터 스타일 믹스인
+@mixin slide-counter-style {
+  .slide-counter {
+    position: absolute;
+    bottom: 68px;
+    right: 50px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    z-index: 10;
+    font-family: 'Butler_Medium', 'Pretendard', sans-serif;
+  }
+
+  .counter-display {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .current-slide {
+    font-size: 5rem;
+    font-weight: 500;
+    color: var(--color-dark2);
+  }
+  
+  .counter-separator {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--color-gray);
+  }
+  
+  .total-slides {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--color-gray);
+  }
+}
+
+// 커서 스타일 믹스인
+@mixin cursor-style {
+  .cursor,
+  .custom-cursor {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid var(--color-gray);
+    margin-top: -22.5px;
+    margin-left: -22.5px;
+    z-index: 9999;
+    pointer-events: none;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    
+    &.prev,
+    &.next,
+    &.active {
+      transition: none;
+    }
+  }
+
+  .cursor-arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+    opacity: 0;
+    color: var(--color-dark2);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .cursor.active,
+  .custom-cursor.active {
+    transform: scale(1);
+  }
+  
+  .cursor.prev,
+  .cursor.next,
+  .custom-cursor.prev,
+  .custom-cursor.next {
+    transform: scale(1);
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border: 1px solid var(--color-gray);
+  }
+
+  .cursor.prev .cursor-arrow.prev,
+  .cursor.next .cursor-arrow.next,
+  .custom-cursor.prev .cursor-arrow.prev,
+  .custom-cursor.next .cursor-arrow.next {
+    opacity: 1;
+  }
+
+  .cursor-arrow:not(.prev):not(.next) {
+    opacity: 0;
+  }
+}
+
+// 컨트롤 스타일 믹스인
+@mixin controls-style {
+  .controls {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 10;
+  }
+
+  .controls-text {
+    color: #333;
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+}

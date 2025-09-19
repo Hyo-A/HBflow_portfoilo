@@ -39,24 +39,7 @@
     </nav>
     
     <!-- 모바일 네비게이션 오버레이 (1440px 이하에서만 표시) -->
-    <nav class="mobile-nav-overlay" id="mobileNavOverlay">
-      <div class="mobile-nav-content">
-        <button class="mobile-nav-close" id="mobileNavClose">&times;</button>
-        <ul class="mobile-nav-list">
-          <li data-page="0" class="mobile-nav-item">HEADER</li>
-          <li data-page="1" class="mobile-nav-item">SKILLS</li>
-          <li class="mobile-nav-item mobile-project-nav">
-            PROJECT
-            <ul class="mobile-PROJECT_li">
-              <li data-page="2" class="mobile-nav-item mobile-sub-nav">TEAM WORK</li>
-              <li data-page="3" class="mobile-nav-item mobile-sub-nav">MY WORK</li>
-              <li data-page="4" class="mobile-nav-item mobile-sub-nav">DESIGN WORK</li>
-            </ul>
-          </li>
-          <li data-page="5" class="mobile-nav-item">FOOTER</li>
-        </ul>
-      </div>
-    </nav>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
   </header>
   <div class="preloader">
     <div class="grid-background">
@@ -182,20 +165,44 @@
                   <h2>Skills</h2>
           <div class="skills-grid">
             <!-- 첫 번째 행 -->
-            <div class="skill-item" data-description="사진 편집과 이미지 합성, 레이어 기반 작업으로 이미지 편집을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo1.png" alt="Photoshop"><span>Photoshop</span></div>
-            <div class="skill-item" data-description="벡터 그래픽 디자인, 로고와 아이콘 제작, 확대해도 깨지지 않는 그래픽을 제작할 수 있습니다."><img src="imgs/skilllogo/skilllogo2.png" alt="Illustrator"><span>Illustrator</span></div>
-            <div class="skill-item" data-description="출판물 레이아웃과 타이포그래피, 다중 페이지 문서의 전문적인 편집을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo3.png" alt="Indesign"><span>Indesign</span></div>
-            <div class="skill-item" data-description="협업 기반 UI/UX 디자인, 프로토타입 제작과 디자인 시스템 구축을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo4.png" alt="Figma"><span>Figma</span></div>
-            <div class="skill-item" data-description="프로젝트 관리와 문서 정리, 팀 협업을 위한 효율적인 워크스페이스를 구축할 수 있습니다."><img src="imgs/skilllogo/skilllogo5.png" alt="Notion"><span>Notion</span></div>
-            <div class="skill-item" data-description="버전 관리와 코드 협업, 프로젝트 이력 추적과 팀 개발 환경 구축을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo6.png" alt="Github"><span>Github</span></div>
+            <div class="skill-item" data-description="사진 편집과 이미지 합성, 레이어 기반 작업으로 이미지 편집을 할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo1.png" alt="Photoshop"><span>Photoshop</span>
+            </div>
+            <div class="skill-item" data-description="벡터 그래픽 디자인, 로고와 아이콘 제작, 확대해도 깨지지 않는 그래픽을 제작할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo2.png" alt="Illustrator"><span>Illustrator</span>
+            </div>
+            <div class="skill-item" data-description="출판물 레이아웃과 타이포그래피, 다중 페이지 문서의 전문적인 편집을 할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo3.png" alt="Indesign"><span>Indesign</span>
+            </div>
+            <div class="skill-item" data-description="협업 기반 UI/UX 디자인, 프로토타입 제작과 디자인 시스템 구축을 할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo4.png" alt="Figma"><span>Figma</span>
+            </div>
+            <div class="skill-item" data-description="프로젝트 관리와 문서 정리, 팀 협업을 위한 효율적인 워크스페이스를 구축할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo5.png" alt="Notion"><span>Notion</span>
+            </div>
+            <div class="skill-item" data-description="버전 관리와 코드 협업, 프로젝트 이력 추적과 팀 개발 환경 구축을 할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo6.png" alt="Github"><span>Github</span>
+            </div>
             
             <!-- 두 번째 행 -->
-            <div class="skill-item" data-description="웹 페이지의 구조와 의미를 담는 마크업 언어, 시맨틱한 웹 문서 작성을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo7.png" alt="HTML"><span>HTML</span></div>
-            <div class="skill-item" data-description="웹 페이지의 시각적 표현과 레이아웃, 반응형 디자인과 애니메이션을 구현할 수 있습니다."><img src="imgs/skilllogo/skilllogo8.png" alt="CSS"><span>CSS</span></div>
-            <div class="skill-item" data-description="CSS 전처리기로 변수와 믹스인 활용, 효율적이고 유지보수 가능한 스타일링을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo9.png" alt="SCSS"><span>SCSS</span></div>
-            <div class="skill-item" data-description="빠른 반응형 웹 개발을 위한 CSS 프레임워크, 컴포넌트 기반 UI 구축을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo10.png" alt="Bootstrap"><span>Bootstrap</span></div>
-            <div class="skill-item" data-description="CSS를 직접 제어하며 원하는 스타일을 빠르게 적용할 수 있습니다."><img src="imgs/skilllogo/skilllogo11.png" alt="Tailwind"><span>Tailwind</span></div>
-            <div class="skill-item" data-description="프론트엔드 프로젝트를 빠르고 쉽게 배포하고 호스팅하는 플랫폼으로, CI/CD와 같은 자동화 기능을 제공합니다."><img src="imgs/skilllogo/skilllogo12.png" alt="Netlify"><span>Netlify</span></div>
+            <div class="skill-item" data-description="웹 페이지의 구조와 의미를 담는 마크업 언어, 시맨틱한 웹 문서 작성을 할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo7.png" alt="HTML"><span>HTML</span>
+            </div>
+            <div class="skill-item" data-description="웹 페이지의 시각적 표현과 레이아웃, 반응형 디자인과 애니메이션을 구현할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo8.png" alt="CSS"><span>CSS</span>
+            </div>
+            <div class="skill-item" data-description="CSS 전처리기로 변수와 믹스인 활용, 효율적이고 유지보수 가능한 스타일링을 할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo9.png" alt="SCSS"><span>SCSS</span>
+            </div>
+            <div class="skill-item" data-description="빠른 반응형 웹 개발을 위한 CSS 프레임워크, 컴포넌트 기반 UI 구축을 할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo10.png" alt="Bootstrap"><span>Bootstrap</span>
+            </div>
+            <div class="skill-item" data-description="CSS를 직접 제어하며 원하는 스타일을 빠르게 적용할 수 있습니다.">
+              <img src="imgs/skilllogo/skilllogo11.png" alt="Tailwind"><span>Tailwind</span>
+            </div>
+            <div class="skill-item" data-description="프론트엔드 프로젝트를 빠르고 쉽게 배포하고 호스팅하는 플랫폼으로, CI/CD와 같은 자동화 기능을 제공합니다.">
+              <img src="imgs/skilllogo/skilllogo12.png" alt="Netlify"><span>Netlify</span>
+            </div>
             
             <!-- 세 번째 행 -->
             <div class="skill-item" data-description="웹 브라우저에서 동적인 상호작용을 구현하는 스크립트 언어를 작성할 수 있습니다."><img src="imgs/skilllogo/skilllogo13.png" alt="Javascript"><span>Javascript</span></div>
@@ -206,12 +213,24 @@
             <div class="skill-item" data-description="NoSQL 문서 데이터베이스, 유연한 스키마와 JSON 형태 데이터 저장을 할 수 있습니다."><img src="imgs/skilllogo/skilllogo18.png" alt="MongoDB"><span>MongoDB</span></div>
             
             <!-- 네 번째 행 -->
-            <div class="skill-item" data-description="사용자 인터페이스를 구축하기 위한 컴포넌트 기반의 자바스크립트 라이브러리입니다."><img src="imgs/skilllogo/skilllogo19.png" alt="React"><span>React</span></div>
-            <div class="skill-item" data-description="React Query를 사용해 서버로부터 데이터를 효율적으로 가져오고, 캐싱 및 동기화 기능을 통해 애플리케이션의 성능을 최적화했습니다."><img src="imgs/skilllogo/skilllogo20.png" alt="React Query"><span>React Query</span></div>
-            <div class="skill-item" data-description="Redux를 활용하여 애플리케이션의 상태를 일관되게 관리함으로써 코드의 유지보수성을 높였습니다."><img src="imgs/skilllogo/skilllogo21.png" alt="Redux"><span>Redux</span></div>
-            <div class="skill-item" data-description="아톰과 셀렉터를 통해 상태를 효율적으로 관리 하였습니다."><img src="imgs/skilllogo/skilllogo22.png" alt="Recoil"><span>Recoil</span></div>
-            <div class="skill-item" data-description="간단하고 가벼운 상태 관리 기능을 구현하여, 애플리케이션의 복잡성을 줄였습니다."><img src="imgs/skilllogo/skilllogo23.png" alt="Zustand"><span>Zustand</span></div>
-            <div class="skill-item" data-description="Apollo Studio를 통해 GraphQL 쿼리를 테스트하고, 데이터 요청 방식을 익혔습니다."><img src="imgs/skilllogo/skilllogo24.png" alt="GraphQL"><span>GraphQL</span></div>
+            <div class="skill-item" data-description="사용자 인터페이스를 구축하기 위한 컴포넌트 기반의 자바스크립트 라이브러리입니다.">
+              <img src="imgs/skilllogo/skilllogo19.png" alt="React"><span>React</span>
+            </div>
+            <div class="skill-item" data-description="React Query를 사용해 서버로부터 데이터를 효율적으로 가져오고, 캐싱 및 동기화 기능을 통해 애플리케이션의 성능을 최적화했습니다.">
+              <img src="imgs/skilllogo/skilllogo20.png" alt="React Query"><span>React Query</span>
+            </div>
+            <div class="skill-item" data-description="Redux를 활용하여 애플리케이션의 상태를 일관되게 관리함으로써 코드의 유지보수성을 높였습니다.">
+              <img src="imgs/skilllogo/skilllogo21.png" alt="Redux"><span>Redux</span>
+            </div>
+            <div class="skill-item" data-description="아톰과 셀렉터를 통해 상태를 효율적으로 관리 하였습니다.">
+              <img src="imgs/skilllogo/skilllogo22.png" alt="Recoil"><span>Recoil</span>
+            </div>
+            <div class="skill-item" data-description="간단하고 가벼운 상태 관리 기능을 구현하여, 애플리케이션의 복잡성을 줄였습니다.">
+              <img src="imgs/skilllogo/skilllogo23.png" alt="Zustand"><span>Zustand</span>
+            </div>
+            <div class="skill-item" data-description="Apollo Studio를 통해 GraphQL 쿼리를 테스트하고, 데이터 요청 방식을 익혔습니다.">
+              <img src="imgs/skilllogo/skilllogo24.png" alt="GraphQL"><span>GraphQL</span>
+            </div>
           </div>
           
           <!-- 말풍선 컨테이너 -->
@@ -233,8 +252,8 @@
                 <span class="slide__text-line">ROOKie
                   </span>
                 <span class="slide__text-line">team project</span>
+                <div class="slide__subtitle">야구 팬들을 위핸 커머스 + OTT 융합 플랫폼</div>
               </div>
-              <div class="slide__subtitle">야구 팬들을 위핸 커머스 + OTT 융합 플랫폼</div>
               <div class="slide__more">
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
@@ -248,8 +267,8 @@
               <div class="slide__text">
                 <span class="slide__text-line">Metaphor</span>
                 <span class="slide__text-line">team project</span>
+                <div class="slide__subtitle">KPOP팬을 위한 뮤직 플랫폼</div>
               </div>
-              <div class="slide__subtitle">KPOP팬을 위한 뮤직 플랫폼</div>
               <div class="slide__more">
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
@@ -263,8 +282,8 @@
               <div class="slide__text">
                 <span class="slide__text-line">농담</span>
                 <span class="slide__text-line">team project</span>
+                <div class="slide__subtitle">못난이 채소 판매 전문 커머스 사이트</div>
               </div>
-              <div class="slide__subtitle">못난이 채소 판매 전문 커머스 사이트</div>
               <div class="slide__more">
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
@@ -278,8 +297,8 @@
               <div class="slide__text">
                 <span class="slide__text-line">PETOPIA</span>
                 <span class="slide__text-line">team project</span>
+                <div class="slide__subtitle">반려동물 육아 도움이 앱</div>
               </div>
-              <div class="slide__subtitle">반려동물 육아 도움이 앱</div>
               <div class="slide__more">
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
@@ -323,8 +342,8 @@
                 <div class="slide__text">
                   <span class="slide__text-line">We design</span>
                   <span class="slide__text-line"> places</span>
+                  <div class="slide__subtitle">라이브러리 사용을 통한 인터렉티브 페이지 구현</div>
                 </div>
-                <div class="slide__subtitle">라이브러리 사용을 통한 인터렉티브 페이지 구현</div>
                 <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
@@ -338,8 +357,8 @@
                 <div class="slide__text">
                   <span class="slide__text-line">Netflix</span>
                   <span class="slide__text-line">clone coding</span>
+                  <div class="slide__subtitle">tmdb api를 이용한 넷플릭스 클론 코딩</div>
                 </div>
-                <div class="slide__subtitle">tmdb api를 이용한 넷플릭스 클론 코딩</div>
                 <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
@@ -354,8 +373,8 @@
                   <span class="slide__text-line">Fullpage</span>
                   <span class="slide__text-line">
                     Customizing</span>
+                  <div class="slide__subtitle">fullpage 스크롤 페이지 구현</div>
                 </div>
-                <div class="slide__subtitle">fullpage 스크롤 페이지 구현</div>
                 <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
@@ -369,8 +388,8 @@
                 <div class="slide__text">
                   <span class="slide__text-line">Cyworld</span>
                   <span class="slide__text-line">hamseter</span>
+                  <div class="slide__subtitle">싸이월드 테마 구현</div>
                 </div>
-                <div class="slide__subtitle">싸이월드 테마 구현</div>
                 <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
@@ -384,8 +403,8 @@
                 <div class="slide__text">
                   <span class="slide__text-line">Coin</span>
                   <span class="slide__text-line">Dashboard</span>
+                  <div class="slide__subtitle">주식 투자 관련 앱</div>
                 </div>
-                <div class="slide__subtitle">주식 투자 관련 앱</div>
                 <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
@@ -399,8 +418,8 @@
                 <div class="slide__text">
                   <span class="slide__text-line">Onebite</span>
                   <span class="slide__text-line">sky</span>
+                  <div class="slide__subtitle">도서 추천, 검색 플랫폼</div>
                 </div>
-                <div class="slide__subtitle">도서 추천, 검색 플랫폼</div>
                 <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
@@ -432,7 +451,7 @@
       </section>
     <!-- 5. Design Work -->
     <section class="page designwork-page">
-      <div class="project-container">
+      <div class="design-container">
         <!-- 중앙 내용박스 -->
         <div class="design-content-box">
           <!-- 배경 텍스트 (카테고리에 따라 변경) -->
@@ -455,7 +474,7 @@
               <div class="project-info">
                 <div class="project-subtitle">[이모티콘 디자인]</div>
                 <div class="project-title">목으로 말해요 기롱이</div>
-                <div class="project-more">
+                <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
               </div>
@@ -468,7 +487,7 @@
               <div class="project-info">
                 <div class="project-subtitle">[강릉중앙고]</div>
                 <div class="project-title">학과별 캐릭터</div>
-                <div class="project-more">
+                <div class="slide__more">
                   <button class="more-btn">more<span class="plus-icon">+</span></button>
                 </div>
               </div>
@@ -632,14 +651,14 @@
             <h3 class="design-sub-title">DESIGN WORK</h3>
             <div class="title-underline"></div>
           </div>
-        </div>
-        
-                  <div class="skip-button">
+          <div class="skip-button">
             <button onclick="skipDesignWork()">
               <span class="button-text">SKIP DESIGN WORK <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
               <span class="button-text-hover">SKIP DESIGN WORK <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
             </button>
           </div>
+        </div>
+
       </div>
     </section>
     <!-- 6. Contact Me -->
@@ -686,8 +705,7 @@
   </div>
   <!-- Team Work 모달 -->
   <div id="projectModal" class="character-modal">
-    <div class="character-modal-overlay" onclick="closeModal()"></div>
-    <div class="character-modal-content">
+    <div class="character-modal-container">
       <span class="close" onclick="closeModal()">&times;</span>
       
       <!-- ROOKie 모달 1페이지: 프로젝트 소개 -->

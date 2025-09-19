@@ -1,0 +1,95 @@
+// ============================================
+// CURSOR COMPONENT
+// ============================================
+
+// 기본 커서 설정
+body {
+  cursor: var(--cursor-default);
+}
+
+body.custom-cursor-active {
+  cursor: none;
+}
+
+// 커스텀 커서 (데스크톱에서만 활성화)
+.cursor,
+.custom-cursor {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray);
+  margin-top: -22.5px;
+  margin-left: -22.5px;
+  z-index: 9999;
+  pointer-events: none;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  display: none;
+  
+  @include desktop-up {
+    display: block;
+  }
+  
+  &.prev,
+  &.next,
+  &.active {
+    transition: none;
+  }
+}
+
+.cursor-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0;
+  color: var(--color-dark2);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cursor.active,
+.custom-cursor.active {
+  transform: scale(1);
+}
+
+.cursor.prev,
+.cursor.next,
+.custom-cursor.prev,
+.custom-cursor.next {
+  transform: scale(1);
+  width: 45px;
+  height: 45px;
+  background: transparent;
+  border: 1px solid var(--color-gray);
+}
+
+.cursor.prev .cursor-arrow.prev,
+.cursor.next .cursor-arrow.next,
+.custom-cursor.prev .cursor-arrow.prev,
+.custom-cursor.next .cursor-arrow.next {
+  opacity: 1;
+}
+
+.cursor-arrow:not(.prev):not(.next) {
+  opacity: 0;
+}
+
+// 커서 타입별 스타일
+header .side-nav ul li,
+header .side-nav .nav-item,
+header .side-nav .project-nav,
+header .side-nav .sub-nav,
+.project-container .project-box,
+.modal .close,
+.contact-form button,
+.contact-form .copy-btn,
+.contact-links a,
+.contact-links button {
+  cursor: var(--cursor-accent);
+}

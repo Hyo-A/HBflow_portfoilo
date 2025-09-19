@@ -1,0 +1,94 @@
+// ============================================
+// PROJECT MIXINS
+// ============================================ 
+
+@mixin slide-counter {
+  .slide-counter {
+    position: absolute;
+    bottom: 36px;
+    right: 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    z-index: 10;
+    font-family: 'Butler_Medium', 'Pretendard', sans-serif;
+    
+    @include tablet-up {
+      right: 50px;
+    }
+  }
+}
+
+@mixin more-button($position-top: null, $position-bottom: null) {
+  .slide__more {
+    position: absolute;
+    @if $position-top {
+      top: $position-top;
+    }
+    @if $position-bottom {
+      bottom: $position-bottom;
+    }
+    right: 1rem;
+    z-index: 10;
+    
+    @include tablet-up {
+      right: 2rem;
+    }
+    
+    .more-btn {
+      background-color: var(--color-gray2);
+      color: var(--color-dark);
+      border: none;
+      padding: 6px 16px;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      font-family: 'Pretendard', sans-serif;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: var(--cursor-accent);
+      
+      @include tablet-up {
+        font-size: 1.4rem;
+        padding: 7px 18px;
+      }
+      
+      @include desktop-up {
+        font-size: 1.6rem;
+        padding: 8px 20px;
+      }
+      
+      &:hover {
+        background-color: var(--color-dark) !important;
+        color: var(--color-accent) !important;
+        font-weight: 400 !important;
+      }
+      
+      .plus-icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        line-height: 1em;
+        text-align: center;
+        transform-origin: 50% 58%;
+        transition: transform 0.6s ease;
+      }
+    }
+  }
+  
+  &:hover {
+    .more-btn{
+      background-color: var(--color-dark);
+      color: var(--color-accent);
+      font-weight: 400;
+    }
+    .slide__more .plus-icon {
+      transform: rotate(360deg);
+    }
+  }
+}

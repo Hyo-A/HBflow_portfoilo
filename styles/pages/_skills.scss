@@ -1,0 +1,183 @@
+// ============================================
+// SKILLS PAGE
+// ============================================
+
+.skills-container {
+  width: 100%;
+  padding: 80px 30px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  
+  @include tablet-up {
+    padding: 30px 50px;
+  }
+  
+  @include large-up {
+    max-width: 1400px;
+  }
+  
+  h2 {
+    font-family: 'Butler_Medium_Stencil';
+    font-size: 3.5rem;
+    margin-bottom: 8px;
+    text-align: left;
+    
+    @include tablet-up {
+      font-size: 4.5rem;
+    }
+    
+    @include large-up {
+      font-size: 5.6rem;
+    }
+  }
+  
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 12px;
+    margin: 0;
+    min-height: 600px;
+    
+    @include tablet-up {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 18px;
+      min-height: 540px;
+    }
+    
+    @include desktop-up {
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 20px;
+      min-height: 420px;
+    }
+    
+    @include large-up {
+      min-height: 480px;
+    }
+    
+    .skill-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-light);
+      border-radius: 4%;
+      padding: 8px;
+      border: 1px solid var(--color-gray);
+      transition: all 0.3s ease;
+      cursor: var(--cursor-accent);
+      
+      @include tablet-up {
+        padding: 12px;
+      }
+      
+      @include desktop-up {
+        padding: 10px;
+      }
+      
+      &:hover {
+        scale: 1.05;
+        box-shadow: 0 0 10px rgba(220, 249, 127,0.8);
+        border-color: var(--color-accent);
+        
+        @include desktop-up {
+          transform: scale(1.05);
+          box-shadow: 0 0 15px rgba(220, 249, 127, 0.8);
+        }
+      }
+      
+      img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        
+        @include tablet-up {
+          width: 32px;
+          height: 32px;
+        }
+        
+        @include desktop-up {
+          width: 36px;
+          height: 36px;
+        }
+        
+        @include large-up {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      
+      span {
+        font-size: 1.4rem;
+        font-weight: 300;
+        color: var(--color-dark);
+        text-align: center;
+        
+        @include desktop-up {
+          font-size: 1.6rem;
+        }
+        
+        @include large-up {
+          font-size: 1.8rem;
+        }
+      }
+    }
+  }
+}
+
+// 툴팁 스타일
+.skills-page {
+  .tooltip-container {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    &.show {
+      opacity: 1;
+    }
+    
+    .tooltip {
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      max-width: 300px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: 200;
+      text-align: center;
+      word-break: keep-all;
+      word-wrap: break-word;
+      
+      @include tablet-up {
+        max-width: 420px;
+        padding: 16px 20px;
+        font-size: 1.4rem;
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: rgba(0, 0, 0, 0.75);
+      }
+    }
+  }
+  
+  .skill-item {
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

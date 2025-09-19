@@ -1,0 +1,1376 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-break: keep-all;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Pretendard", "Butler_Medium_Stencil", sans-serif;
+  font-size: 1.6rem;
+  background: #fff;
+  color: #222;
+  min-height: 100vh;
+}
+body a {
+  text-decoration: none;
+  color: inherit;
+}
+body ul {
+  list-style: none;
+}
+body button {
+  font-family: "Pretendard", sans-serif;
+}
+
+:root {
+  --color-dark: #000;
+  --color-dark2: #444;
+  --color-white: #fff;
+  --color-gray: #ccc;
+  --color-gray2: #f5f5f5;
+  --color-gray3: #faf9f9;
+  --color-light: #fff;
+  --color-accent: #dcf97f;
+  /* 커서 스타일 변수 */
+  --cursor-default: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3ccircle cx='30' cy='30' r='18' fill='%23cccccc' fill-opacity='0.4' stroke='%23cccccc' stroke-width='1'/%3e%3c/svg%3e") 30 30, auto;
+  --cursor-accent: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' style='shape-rendering: crispEdges'%3e%3ccircle cx='30' cy='30' r='18' fill='%23DCF97F' fill-opacity='0.9'/%3e%3c/svg%3e") 30 30, pointer;
+}
+
+@font-face {
+  font-family: "Butler_Ultra_Light";
+  src: url("./fonts/Butler_Ultra_Light.otf");
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Butler_Light";
+  src: url("./fonts/Butler_Light.otf");
+  font-style: normal;
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Butler_Regular";
+  src: url("./fonts/Butler_Regular.otf");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Butler_Medium";
+  src: url("./fonts/Butler_Medium.otf");
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Butler_Bold";
+  src: url("./fonts/Butler_Bold.otf");
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Butler_Medium_Stencil";
+  src: url("./fonts/Butler_Medium_Stencil.otf");
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Butler_Ultra_Light";
+  src: url("./fonts/Butler_Ultra_Light.otf");
+  font-style: normal;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .preloader .loader-content .counter-container {
+    font-size: 6rem;
+    gap: 8px;
+  }
+  .preloader .loader-content .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .preloader .loader-content .progress-bar {
+    width: 400px;
+    height: 8px;
+  }
+}
+@media (max-width: 480px) {
+  .preloader .loader-content .counter-container {
+    font-size: 4rem;
+    gap: 6px;
+  }
+  .preloader .loader-content .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .preloader .loader-content .progress-bar {
+    width: 280px;
+    height: 6px;
+  }
+}
+@media (max-width: 360px) {
+  .preloader .loader-content .counter-container {
+    font-size: 3rem;
+  }
+  .preloader .loader-content .title {
+    font-size: 1.2rem;
+  }
+  .preloader .loader-content .progress-bar {
+    width: 240px;
+    height: 5px;
+  }
+}
+.character-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+.character-modal .character-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: var(--cursor-accent);
+}
+.character-modal .character-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px;
+  height: 680px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 60px 100px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: visible;
+}
+.character-modal .character-modal-content .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #666;
+  cursor: var(--cursor-accent);
+  z-index: 10;
+}
+.character-modal .character-modal-content .close:hover {
+  color: #333;
+}
+.character-modal .character-modal-content .character-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.character-modal .character-modal-content .character-next-arrow,
+.character-modal .character-modal-content .character-prev-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background-color: #f8f8f8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: var(--cursor-accent);
+  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+  z-index: 2001;
+}
+.character-modal .character-modal-content .character-next-arrow:hover,
+.character-modal .character-modal-content .character-prev-arrow:hover {
+  background-color: #333;
+  border-color: #333;
+}
+.character-modal .character-modal-content .character-next-arrow:hover .arrow-icon,
+.character-modal .character-modal-content .character-prev-arrow:hover .arrow-icon {
+  color: white;
+}
+.character-modal .character-modal-content .character-next-arrow .arrow-icon,
+.character-modal .character-modal-content .character-prev-arrow .arrow-icon {
+  font-size: 20px;
+  font-weight: bold;
+  color: #666;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+}
+.character-modal .character-modal-content .character-next-arrow {
+  right: -72px;
+}
+.character-modal .character-modal-content .character-prev-arrow {
+  left: -72px;
+}
+
+.character-modal .character-modal-content .character-page .character-modal-container {
+  display: flex;
+  height: 100%;
+  gap: 40px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section {
+  flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-modal-title {
+  text-align: left;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-modal-title span {
+  font-size: 1.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-main-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-main-image img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 0;
+  border: none;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom {
+  margin-top: 10px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section {
+  margin-bottom: 15px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section:last-child {
+  margin-bottom: 0;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section .section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-left-section .character-left-bottom .character-section .section-content {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 0;
+  text-align: justify;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 0;
+  display: block;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .section-content {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 0;
+  text-align: justify;
+  display: block;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .sketch-container {
+  margin-top: 15px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .sketch-container .sketch-image {
+  width: 100%;
+  height: auto;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .goods-image {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-right-section .character-section .goods-image img {
+  width: 100%;
+  height: auto;
+  max-height: 160px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0;
+  border: none;
+}
+.character-modal .character-modal-content .character-page .character-modal-container .character-main-image2 {
+  margin-top: 20px;
+}
+
+.character-modal .character-modal-content .character-page .character-page3-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-modal-title {
+  text-align: start;
+  font-size: 2.5rem;
+  font-weight: 700;
+  width: 100%;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-modal-title span {
+  font-size: 1.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 0.8fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 20px;
+  height: 100%;
+  width: 100%;
+  align-items: end;
+  position: relative;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-left .character-main-image-large {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-left .character-main-image-large img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 0;
+  border: none;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-center {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20px;
+  height: 100%;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-center .character-descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-center .character-descriptions .description-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-center .character-descriptions .description-item .item-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-center .character-descriptions .description-item .item-text {
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-right {
+  height: 100%;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-right .character-goods-images-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+.character-modal .character-modal-content .character-page .character-page3-container .character-page3-grid .character-page3-right .character-goods-images-vertical .goods-image-item img {
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0;
+  border: none;
+}
+
+.project-image-scroll-box {
+  width: 900px;
+  height: 480px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f8f8f8;
+  position: relative;
+  margin: 20px auto;
+}
+.project-image-scroll-box::-webkit-scrollbar {
+  width: 8px;
+}
+.project-image-scroll-box::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+.project-image-scroll-box::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+.project-image-scroll-box::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+.project-image-scroll-box img {
+  width: 900px;
+  height: auto;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.rookie-detail-content {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.rookie-detail-content .rookie-description p {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: var(--color-dark2);
+}
+.rookie-detail-content .rookie-features .feature-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.rookie-detail-content .rookie-features .feature-header .feature-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.rookie-detail-content .rookie-features .feature-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.rookie-detail-content .rookie-features .feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.rookie-detail-content .rookie-features .feature-list li {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  position: relative;
+}
+.rookie-detail-content .rookie-features .feature-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-dark2);
+}
+.rookie-detail-content .rookie-technologies .tech-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.rookie-detail-content .rookie-technologies .tech-header .tech-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.rookie-detail-content .rookie-technologies .tech-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.rookie-detail-content .rookie-technologies .tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rookie-detail-content .rookie-technologies .tech-tags .tech-tag {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+.rookie-detail-content .rookie-technologies .tech-tags .tech-tag:hover {
+  background: var(--color-gray2);
+  border-color: var(--color-gray);
+}
+.rookie-detail-content .rookie-goto-site {
+  text-align: center;
+  width: 100%;
+}
+.rookie-detail-content .rookie-goto-site .goto-site-btn {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-gray2);
+  color: var(--color-dark2);
+  text-decoration: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  border: 1px solid var(--color-gray);
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: var(--cursor-accent);
+}
+.rookie-detail-content .rookie-goto-site .goto-site-btn .site-arrow-icon {
+  margin-left: 8px;
+  font-size: 1.8rem;
+  color: var(--color-dark2);
+}
+.rookie-detail-content .rookie-goto-site .goto-site-btn:hover {
+  background: var(--color-gray);
+}
+
+.metaphor-detail-content {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.metaphor-detail-content .metaphor-description p {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: var(--color-dark2);
+}
+.metaphor-detail-content .metaphor-features .feature-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.metaphor-detail-content .metaphor-features .feature-header .feature-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.metaphor-detail-content .metaphor-features .feature-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.metaphor-detail-content .metaphor-features .feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.metaphor-detail-content .metaphor-features .feature-list li {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  position: relative;
+}
+.metaphor-detail-content .metaphor-features .feature-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-dark2);
+}
+.metaphor-detail-content .metaphor-technologies .tech-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.metaphor-detail-content .metaphor-technologies .tech-header .tech-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.metaphor-detail-content .metaphor-technologies .tech-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.metaphor-detail-content .metaphor-technologies .tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.metaphor-detail-content .metaphor-technologies .tech-tags .tech-tag {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+.metaphor-detail-content .metaphor-technologies .tech-tags .tech-tag:hover {
+  background: var(--color-gray2);
+  border-color: var(--color-gray);
+}
+.metaphor-detail-content .metaphor-goto-site {
+  text-align: center;
+  width: 100%;
+}
+.metaphor-detail-content .metaphor-goto-site .goto-site-btn {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-gray2);
+  color: var(--color-dark2);
+  text-decoration: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  border: 1px solid var(--color-gray);
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: var(--cursor-accent);
+}
+.metaphor-detail-content .metaphor-goto-site .goto-site-btn .site-arrow-icon {
+  margin-left: 8px;
+  font-size: 1.8rem;
+  color: var(--color-dark2);
+}
+.metaphor-detail-content .metaphor-goto-site .goto-site-btn:hover {
+  background: var(--color-gray);
+}
+
+.nongdam-detail-content {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.nongdam-detail-content .nongdam-description p {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: var(--color-dark2);
+}
+.nongdam-detail-content .nongdam-features .feature-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.nongdam-detail-content .nongdam-features .feature-header .feature-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.nongdam-detail-content .nongdam-features .feature-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.nongdam-detail-content .nongdam-features .feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.nongdam-detail-content .nongdam-features .feature-list li {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  position: relative;
+}
+.nongdam-detail-content .nongdam-features .feature-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-dark2);
+}
+.nongdam-detail-content .nongdam-technologies .tech-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.nongdam-detail-content .nongdam-technologies .tech-header .tech-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.nongdam-detail-content .nongdam-technologies .tech-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.nongdam-detail-content .nongdam-technologies .tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.nongdam-detail-content .nongdam-technologies .tech-tags .tech-tag {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+.nongdam-detail-content .nongdam-technologies .tech-tags .tech-tag:hover {
+  background: var(--color-gray2);
+  border-color: var(--color-gray);
+}
+.nongdam-detail-content .nongdam-goto-site {
+  text-align: center;
+  width: 100%;
+}
+.nongdam-detail-content .nongdam-goto-site .goto-site-btn {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-gray2);
+  color: var(--color-dark2);
+  text-decoration: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  border: 1px solid var(--color-gray);
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: var(--cursor-accent);
+}
+.nongdam-detail-content .nongdam-goto-site .goto-site-btn .site-arrow-icon {
+  margin-left: 8px;
+  font-size: 1.8rem;
+  color: var(--color-dark2);
+}
+.nongdam-detail-content .nongdam-goto-site .goto-site-btn:hover {
+  background: var(--color-gray);
+}
+
+.last-teamwork-detail-content {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.last-teamwork-detail-content .last-teamwork-description p {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: var(--color-dark2);
+}
+.last-teamwork-detail-content .last-teamwork-features .feature-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.last-teamwork-detail-content .last-teamwork-features .feature-header .feature-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.last-teamwork-detail-content .last-teamwork-features .feature-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.last-teamwork-detail-content .last-teamwork-features .feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.last-teamwork-detail-content .last-teamwork-features .feature-list li {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  position: relative;
+}
+.last-teamwork-detail-content .last-teamwork-features .feature-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-dark2);
+}
+.last-teamwork-detail-content .last-teamwork-technologies .tech-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.last-teamwork-detail-content .last-teamwork-technologies .tech-header .tech-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.last-teamwork-detail-content .last-teamwork-technologies .tech-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.last-teamwork-detail-content .last-teamwork-technologies .tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.last-teamwork-detail-content .last-teamwork-technologies .tech-tags .tech-tag {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+.last-teamwork-detail-content .last-teamwork-technologies .tech-tags .tech-tag:hover {
+  background: var(--color-gray2);
+  border-color: var(--color-gray);
+}
+.last-teamwork-detail-content .last-teamwork-goto-site {
+  text-align: center;
+  width: 100%;
+}
+.last-teamwork-detail-content .last-teamwork-goto-site .goto-site-btn {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-gray2);
+  color: var(--color-dark2);
+  text-decoration: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  border: 1px solid var(--color-gray);
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: var(--cursor-accent);
+}
+.last-teamwork-detail-content .last-teamwork-goto-site .goto-site-btn .site-arrow-icon {
+  margin-left: 8px;
+  font-size: 1.8rem;
+  color: var(--color-dark2);
+}
+.last-teamwork-detail-content .last-teamwork-goto-site .goto-site-btn:hover {
+  background: var(--color-gray);
+}
+
+.teamwork-modal-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+}
+.teamwork-modal-title span {
+  font-size: 1.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+  color: #666;
+}
+
+.teamwork-modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.teamwork-left-section {
+  flex: 0 0 auto;
+}
+
+.teamwork-right-section {
+  height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.mywork-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+}
+.mywork-modal .mywork-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: var(--cursor-accent);
+}
+.mywork-modal .mywork-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px;
+  height: 680px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 60px 100px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: visible;
+}
+.mywork-modal .mywork-modal-content .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #666;
+  cursor: var(--cursor-accent);
+  z-index: 10;
+}
+.mywork-modal .mywork-modal-content .close:hover {
+  color: #333;
+}
+
+.mywork-modal-page {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.mywork-modal-page:first-child {
+  display: block;
+}
+
+.mywork-modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.mywork-left-section {
+  flex: 0 0 auto;
+}
+
+.mywork-right-section {
+  height: 520px;
+  align-items: center;
+}
+
+.mywork-modal-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+}
+.mywork-modal-title span {
+  font-size: 1.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+  color: #666;
+}
+
+.mywork-detail-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 20px;
+}
+.mywork-detail-content::-webkit-scrollbar {
+  width: 8px;
+}
+.mywork-detail-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+.mywork-detail-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+.mywork-detail-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.mywork-description p {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  color: var(--color-dark2);
+  margin: 0;
+  text-align: justify;
+}
+
+.mywork-images {
+  display: flex;
+  gap: 20px;
+}
+.mywork-images .mywork-image-item {
+  width: 288px;
+  height: 138px;
+  background: #f5f5f5;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0;
+}
+.mywork-images .mywork-image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.mywork-features .feature-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.mywork-features .feature-header .feature-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.mywork-features .feature-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.mywork-features .feature-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mywork-features .feature-list li {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+}
+.mywork-features .feature-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.mywork-technologies .tech-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.mywork-technologies .tech-header .tech-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+.mywork-technologies .tech-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.mywork-technologies .tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mywork-technologies .tech-tags .tech-tag {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray);
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+.mywork-technologies .tech-tags .tech-tag:hover {
+  background: var(--color-gray2);
+  border-color: var(--color-gray);
+}
+
+.mywork-overview {
+  text-align: center;
+  width: 100%;
+}
+.mywork-overview .overview-btn {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-gray2);
+  color: var(--color-dark2);
+  text-decoration: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  border: 1px solid var(--color-gray);
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  cursor: var(--cursor-accent);
+}
+.mywork-overview .overview-btn .overview-arrow-icon {
+  margin-left: 8px;
+  font-size: 1.8rem;
+  color: var(--color-dark2);
+}
+.mywork-overview .overview-btn:hover {
+  background: var(--color-gray);
+}
+
+.tiger-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+.tiger-modal .tiger-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: var(--cursor-accent);
+}
+.tiger-modal .tiger-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px;
+  height: 680px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 60px 100px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.tiger-modal .tiger-modal-content .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #666;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+.tiger-modal .tiger-modal-content .close:hover {
+  color: #333;
+  cursor: var(--cursor-accent);
+}
+.tiger-modal .tiger-modal-content .tiger-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 30px;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-left-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-left-section .tiger-modal-title {
+  text-align: left;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-left-section .tiger-modal-title span {
+  font-size: 1.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-left-section .tiger-left-bottom .tiger-info-item p {
+  width: 600px;
+  font-size: 1.2rem;
+  line-height: 2rem;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-left-section .tiger-main-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -58px;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-left-section .tiger-main-image img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 0;
+  border: none;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-right-section .tiger-applications h4 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 15px 0;
+  color: #333;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-right-section .tiger-applications .tiger-app-images {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-right-section .tiger-applications .tiger-app-images .tiger-app-text {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-left: 20px;
+}
+.tiger-modal .tiger-modal-content .tiger-page .tiger-modal-container .tiger-right-section .ti
+                   SSUUMMMMAARRYY OOFF LLEESSSS CCOOMMMMAANNDDSS
+
+      Commands marked with * may be preceded by a number, _N.
+      Notes in parentheses indicate the behavior if _N is given.
+      A key preceded by a caret indicates the Ctrl key; thus ^K is ctrl-K.
+
+  h  H                 Display this help.
+  q  :q  Q  :Q  ZZ     Exit.
+ ---------------------------------------------------------------------------
+
+                           MMOOVVIINNGG
+
+  e  ^E  j  ^N  CR  *  Forward  one line   (or _N lines).
+  y  ^Y  k  ^K  ^P  *  Backward one line   (or _N lines).
+  f  ^F  ^V  SPACE  *  Forward  one window (or _N lines).
+  b  ^B  ESC-v      *  Backward one window (or _N lines).
+  z                 *  Forward  one window (and set window to _N).
+  w                 *  Backward one window (and set window to _N).
+  ESC-SPACE         *  Forward  one window, but don't stop at end-of-file.
+  d  ^D             *  Forward  one half-window (and set half-window to _N).
+  u  ^U             *  Backward one half-window (and set half-window to _N).
+  ESC-)  RightArrow *  Right one half screen width (or _N positions).
+  ESC-(  LeftArrow  *  Left  one half screen width (or _N positions).
+  ESC-}  ^RightArrow   Right to last column displayed.
+  ESC-{  ^LeftArrow    Left  to first column.
+  F                    Forward forever; like "tail -f".
+  ESC-F                Like F but stop when search pattern is found.
+  r  ^R  ^L            Repaint screen.
+  R                    Repaint screen, discarding buffered input.
+        ---------------------------------------------------
+        Default "window" is the screen height.
+        Default "half-window" is half of the screen height.
+ ---------------------------------------------------------------------------
+
+                          SSEEAARRCCHHIINNGG
+
+  /_p_a_t_t_e_r_n          *  Search forward for (_N-th) matching line.
+  ?_p_a_t_t_e_r_n          *  Search backward for (_N-th) matching line.
+  n                 *  Repeat previous search (for _N-th occurrence).
+  N                 *  Repeat previous search in reverse direction.
+  ESC-n             *  Repeat previous search, spanning files.
+  ESC-N             *  Repeat previous search, reverse dir. & spanning files.
+  ^O^N  ^On         *  Search forward for (_N-th) OSC8 hyperlink.
+  ^O^P  ^Op         *  Search backward for (_N-th) OSC8 hyperlink.
+  ^O^L  ^Ol            Jump to the currently selected OSC8 hyperlink.
+  ESC-u                Undo (toggle) search highlighting.
+  ESC-U                Clear search highlighting.
+  &_p_a_t_t_e_r_n          *  Display only matching lines.
+        ---------------------------------------------------
+        A search pattern may begin with one or more of:
+        ^N or !  Search for NON-matching lines.
+        ^E or *  Search multiple files (pass thru END OF FILE).
+        ^F or @  Start search at FIRST file (for /) or last file (for ?).
+        ^K       Highlight matches, but don't move (KEEP position).
+        ^R       Don't use REGULAR EXPRESSIONS.
+        ^S _n     Search for match in _n-th parenthesized subpattern.
+        ^W       WRAP search if no match found.
+        ^L       Enter next character literally into pattern.
+ ---------------------------------------------------------------------------
+
+                           JJUUMMPPIINNGG
+
+  g  <  ESC-<       *  Go to first line in file (or line _N).
+  G  >  ESC->       *  Go to last line in file (or line _N).
+  p  %              *  Go to beginning of file (or _N percent into file).
+  t                 *  Go to the (_N-th) next tag.
+  T                 *  Go to the (_N-th) previous tag.
+  {  (  [           *  Find close bracket } ) ].
+  }  )  ]           *  Find open bracket { ( [.
+  ESC-^F _<_c_1_> _<_c_2_>  *  Find close bracket _<_c_2_>.
+  ESC-^B _<_c_1_> _<_c_2_>  *  Find open bracket _<_c_1_>.
+        ---------------------------------------------------
+        Each "find close bracket" command goes forward to the close bracket 
+          matching the (_N-th) open bracket in the top line.
+        Each "find open bracket" command goes backward to the open bracket 
+          matching the (_N-th) close bracket in the bottom line.
+
+  m_<_l_e_t_t_e_r_>            Mark the current top line with <letter>.
+  M_<_l_e_t_t_e_r_>            Mark the current bottom line with <letter>.
+  '_<_l_e_t_t_e_r_>            Go to a previously marked position.
+  ''                   Go to the previous position.
+  ^X^X                 Same as '.
+  ESC-m_<_l_e_t_t_e_r_>        Clear a mark.
+        ---------------------------------------------------
+        A mark is any upper-case or lower-case letter.
+        Certain marks are predefined:
+             ^  means  beginning of the file
+             $  means  end of the file
+ ---------------------------------------------------------------------------
+
+                        CCHHAANNGGIINNGG FFIILLEESS
+
+  :e [_f_i_l_e]            Examine a new file.
+  ^X^V                 Same as :e.
+  :n                *  Examine the (_N-th) next file from the command line.
+  :p                *  Examine the (_N-th) previous file from the command line.
+  :x                *  Examine the first (or _N-th) file from the command line.
+  ^O^O                 Open the currently selected OSC8 hyperlink.
+  :d                   Delete the current file from the command line list.
+  =  ^G  :f            Print current file name.
+ ---------------------------------------------------------------------------
+
+                    MMIISSCCEELLLLAANNEEOOUUSS CCOOMMMMAANNDDSS
+
+  -_<_f_l_a_g_>              Toggle a command line option [see OPTIONS below].
+  --_<_n_a_m_e_>             Toggle a command line option, by name.
+  __<_f_l_a_g_>              Display the setting of a command line option.
+  ___<_n_a_m_e_>             Display the setting of an option, by name.
+  +_c_m_d                 Execute the less cmd each time a new file is examined.
+
+  !_c_o_m_m_a_n_d             Execute the shell command with $SHELL.
+  #_c_o_m_m_a_n_d             Execute the shell command, expanded like a prompt.
+  |XX_c_o_m_m_a_n_d            Pipe file between current pos & mark XX to shell command.
+  s _f_i_l_e               Save input to a file.
+  v                    Edit the current file with $VISUAL or $EDITOR.
+  V                    Print version number of "less".

@@ -1,0 +1,265 @@
+// ============================================
+// PRELOADER COMPONENT (통합 반응형 포함)
+// ============================================
+
+.preloader {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-light);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.grid-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.grid-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.horizontal-grid-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-accent);
+  opacity: 0.5;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.vertical-grid-line {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background-color: var(--color-accent);
+  opacity: 0.5;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.loader-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+// ============================================
+// 반응형 스타일 (모바일 퍼스트)
+// ============================================
+
+.counter-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-family: 'Butler_Medium_Stencil';
+  
+  @media (min-width: 480px) {
+    font-size: 4rem;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 6rem;
+    gap: 8px;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 9rem;
+    gap: 12px;
+  }
+  
+  .counter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.title {
+  font-size: 1.2rem;
+  font-family: 'Butler_Ultra_Light';
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  
+  @media (min-width: 480px) {
+    font-size: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.progress-bar {
+  width: 240px;
+  height: 5px;
+  background-color: var(--color-gray2);
+  border-radius: 6px;
+  overflow: hidden;
+  
+  @media (min-width: 480px) {
+    width: 280px;
+    height: 6px;
+  }
+  
+  @media (min-width: 768px) {
+    width: 400px;
+    height: 8px;
+  }
+  
+  @media (min-width: 1024px) {
+    width: 600px;
+    height: 11px;
+  }
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+// ============================================
+// 로딩 오버레이들
+// ============================================
+
+.loading-overlay,
+.nav-loading-overlay {
+  display: none;
+  position: fixed;
+  z-index: 20000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255,255,255,0.95);
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pl {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+
+.pl__ring {
+  stroke: #ddd;
+  opacity: 0.3;
+}
+
+.pl__worm {
+  stroke: #B6E23A;
+  stroke-linecap: round;
+  animation: worm 1.5s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes worm {
+  0% {
+    stroke-dasharray: 60 600;
+    stroke-dashoffset: 0;
+    transform: rotate(0deg);
+  }
+  50% {
+    stroke-dasharray: 300 600;
+    stroke-dashoffset: -50;
+    transform: rotate(45deg);
+  }
+  100% {
+    stroke-dasharray: 60 600;
+    stroke-dashoffset: -600;
+    transform: rotate(360deg);
+  }
+}
+
+// 네비게이션 로딩 전용 스타일
+.nav-loading-overlay {
+  .nav-loader-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .nav-counter {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-dark2);
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    
+    @media (min-width: 768px) {
+      font-size: 6rem;
+    }
+  }
+
+  .nav-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-dark2);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    
+    @media (min-width: 768px) {
+      font-size: 1.4rem;
+    }
+  }
+
+  .nav-progress-bar {
+    width: 200px;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    
+    @media (min-width: 768px) {
+      width: 250px;
+    }
+  }
+
+  .nav-progress-bar-fill {
+    height: 100%;
+    width: 0;
+    background-color: #B6E23A;
+    border-radius: 2px;
+  }
+}

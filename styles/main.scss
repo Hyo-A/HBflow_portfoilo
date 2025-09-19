@@ -1,0 +1,89 @@
+// ============================================
+// MAIN SCSS FILE - NEW ARCHITECTURE
+// ============================================
+
+// 1. 변수 및 믹스인
+@import 'variables';
+@import 'mixins/project-mixins';
+
+// 2. 기본 스타일
+@import 'reset';
+
+// 3. 컴포넌트들
+@import 'components/layout';
+@import 'components/header';
+@import 'components/navigation';
+@import 'components/buttons';
+@import 'components/cursor';
+@import 'components/preloader';
+@import 'components/grid';
+@import 'components/modals';
+
+// 5. 모달들
+@import 'modals/teamwork-modal';
+@import 'modals/mywork-modal';
+@import 'modals/character-modal';
+@import 'modals/tiger-modal';
+@import 'modals/book-modal';
+@import 'modals/project-modal';
+
+// 4. 페이지들
+@import 'pages/about';
+@import 'pages/skills';
+@import 'pages/projects';
+@import 'pages/designwork';
+@import 'pages/contact';
+
+// ============================================
+// GLOBAL STYLES
+// ============================================
+
+// Layout 스타일은 components/_layout.scss에서 관리됨
+
+// 기본 커서 설정
+body {
+  cursor: var(--cursor-default);
+}
+
+// ============================================
+// UTILITY CLASSES
+// ============================================
+
+// 공통 유틸리티 클래스들
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+
+.p-1 { padding: 1rem; }
+.p-2 { padding: 2rem; }
+
+.d-flex { display: flex; }
+.d-block { display: block; }
+.d-none { display: none; }
+
+.flex-column { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.align-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+// 반응형 유틸리티
+@include tablet-up {
+  .tablet-hidden { display: none !important; }
+  .tablet-show { display: block !important; }
+}
+
+@include desktop-up {
+  .desktop-hidden { display: none !important; }
+  .desktop-show { display: block !important; }
+}
+
+@include large-up {
+  .large-hidden { display: none !important; }
+  .large-show { display: block !important; }
+}

@@ -1,0 +1,46 @@
+// ============================================
+// LAYOUT COMPONENT
+// ============================================
+
+// 글로벌 가터 변수 (페이지 좌우 여백)
+:root { 
+  --page-gutter: 50px; 
+}
+
+// Page Container
+.fullpage-container {
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  
+  // 스크롤바 숨기기
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  // 로딩 중일 때 스크롤 애니메이션 비활성화
+  &.loading {
+    scroll-behavior: auto;
+  }
+}
+
+.page {
+  height: 100vh;
+  width: 100vw;
+}
+
+// 프로그레스 바
+.right-green-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 0;
+  background: #B6E23A;
+  z-index: 100;
+  transition: height 0.2s ease;
+}

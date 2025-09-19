@@ -1,0 +1,190 @@
+// ============================================
+// BUTTONS COMPONENT
+// ============================================
+
+// 공통 믹스인들
+@mixin button-style {
+  background-color: var(--color-gray2);
+  color: var(--color-dark);
+  border: none;
+  padding: 8px 20px;
+  border-radius: 16px;
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-family: 'Pretendard';
+  transition: all 0.3s ease;
+  cursor: var(--cursor-accent);
+  
+  &:hover {
+    background-color: var(--color-dark);
+    color: var(--color-accent);
+    font-weight: 400;
+  }
+}
+
+// Skip 버튼
+.skip-button {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  z-index: 10;
+
+  @include tablet-up {
+    bottom: 68px;
+    left: 50px;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    font-family: 'Pretendard', sans-serif;
+    text-transform: uppercase;
+    cursor: var(--cursor-accent);
+    position: relative;
+    overflow: hidden;
+    height: 30px;
+    
+    @include tablet-up {
+      font-size: 1.6rem;
+    }
+    
+    .button-text,
+    .button-text-hover {
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      line-height: 30px;
+    }
+    
+    .button-text {
+      transform: translateY(0);
+    }
+    
+    .button-text-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform: translateY(100%);
+    }
+    
+    &:hover {
+      .button-text {
+        transform: translateY(-100%);
+      }
+      
+      .button-text-hover {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Contact 링크 버튼들
+.contact-links {
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  
+  @include tablet-up {
+    bottom: 68px;
+    right: 42px;
+    gap: 40px;
+  }
+  
+  a {
+    color: var(--color-dark2);
+    font-size: 1.4rem;
+    font-family: 'Pretendard', sans-serif;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    cursor: var(--cursor-accent);
+    
+    @include tablet-up {
+      font-size: 1.6rem;
+    }
+    
+    .button-text,
+    .button-text-hover {
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      line-height: 20px;
+      white-space: nowrap;
+    }
+    
+    .button-text {
+      transform: translateY(0);
+    }
+    
+    .button-text-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform: translateY(100%);
+    }
+    
+    &:hover {
+      text-decoration: none;
+      
+      .button-text {
+        transform: translateY(-100%);
+      }
+      
+      .button-text-hover {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// 화살표 아이콘
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button-text .arrow-icon,
+.button-text-hover .arrow-icon {
+  margin-left: 12px;
+}
+
+// Contact 폼 버튼들
+.contact-form {
+  button {
+    @include button-style;
+    margin-right: 1rem;
+  }
+  
+  .copy-btn {
+    cursor: var(--cursor-accent);
+  }
+}
+
+// ============================================
+// 화살표 아이콘 스타일
+// ============================================
+
+// SKIP 버튼용 화살표
+.arrow-icon,
+.button-text-hover .arrow-icon {
+  margin-left: 12px;
+}
+
+// 모달 내 화살표 (기본 스타일)
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+

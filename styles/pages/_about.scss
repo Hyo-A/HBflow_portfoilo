@@ -1,0 +1,424 @@
+// ============================================
+// ABOUT PAGE
+// ============================================
+
+.about-container {
+  max-width: none;
+  width: 100%;
+  padding: 80px 30px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  
+  @include tablet-up {
+    padding: 30px 50px;
+    max-width: 1000px;
+  }
+  
+  // 배경 텍스트
+  .about-bg-title {
+    position: absolute;
+    top: 5%;
+    right: -10%;
+    font-size: 8rem;
+    color: var(--color-gray2);
+    font-family: 'Butler_Medium_Stencil', 'Pretendard', sans-serif;
+    z-index: 0;
+    user-select: none;
+    pointer-events: none;
+    font-weight: 500;
+    
+    @include tablet-up {
+      font-size: 18rem;
+      right: -16%;
+      top: 1%;
+    }
+  }
+  
+  // 프로필 섹션
+  .about-profile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    
+    @include tablet-up {
+      flex-direction: row;
+      gap: 3rem;
+      text-align: left;
+    }
+    
+    .profile-img {
+      width: 140px;
+      object-fit: cover;
+      transition: all 0.3s ease;
+      cursor: var(--cursor-accent);
+      
+      @include tablet-up {
+        width: 200px;
+      }
+
+      @include desktop-up {
+        width: 260px;
+      }
+    }
+    
+    .about-text {
+      width: 100%;
+      margin-top: 20px;
+      
+      @include tablet-up {
+        margin-top: 0;
+      }
+      
+      h2 {
+        font-family: 'Butler_Medium_Stencil';
+        font-size: 2rem;
+        margin-bottom: 8px;
+        
+        @include tablet-up {
+          font-size: 3.5rem;
+        }
+        @include desktop-up {
+          font-size: 4.5rem;
+          margin-bottom: 1rem;
+        }
+      }
+      
+      p {
+        font-size: 1.2rem;
+        line-height: 1.4;
+        font-weight: 300;
+        
+        @include tablet-up {
+          font-size: 1.3rem;
+          line-height: 1.5;
+        }
+        @include desktop-up {
+          font-size: 1.5rem;
+          line-height: 1.5;
+        }
+      }
+      
+      .about-text-line {
+        display: block;
+        height: 1px;
+        background: var(--color-dark2);
+        width: 100%;
+        margin: 1.5rem auto 0;
+        
+        @include tablet-up {
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+  
+  // 히스토리 섹션
+  .history-section {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    
+    @include tablet-up {
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    
+    > h3 {
+      font-family: 'Butler_Medium_Stencil';
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      
+      @include tablet-up {
+        font-size: 2.4rem;
+        margin-bottom: 28px;
+      }
+      @include desktop-up {
+        font-size: 2.8rem;
+        margin-bottom: 32px;
+      }
+    }
+    
+    .history-container {
+      position: relative;
+      width: 100%;
+      
+      .history-list {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        
+        @include tablet-up {
+          margin-bottom: 18px;
+        }
+        
+        .history-item {
+          min-width: 0;
+          opacity: 1;
+          transform: none;
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          
+          &:nth-child(1) {
+            margin-top: 0;
+            
+            @include tablet-up {
+              width: 31%;
+            }
+          }
+          
+          &:nth-child(2) {
+            margin-top: 0;
+            
+            @include tablet-up {
+              left: 31%;
+              width: 19%;
+              margin-top: 12px;
+            }
+          }
+          
+          &:nth-child(3) {
+            margin-top: 0;
+            
+            @include tablet-up {
+              left: 50%;
+              width: 26%;
+            }
+          }
+          
+          &:nth-child(4) {
+            margin-top: 0;
+            
+            @include tablet-up {
+              left: 76%;
+              width: 24%;
+              margin-top: 12px;
+            }
+          }
+          
+          &.show {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          
+          .history-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            
+            @include tablet-up {
+              font-size: 1.3rem;
+            }
+            @include desktop-up {
+              font-size: 1.5rem;
+            }
+          }
+          
+          .history-desc {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: 0.2rem;
+            
+            @include tablet-up {
+              font-size: 1.3rem;
+            }
+            @include desktop-up {
+              font-size: 1.5rem;
+            }
+          }
+        }
+      }
+      
+      .history-bar {
+        position: relative;
+        height: 12px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        
+        @include desktop-up {
+          height: 14px;
+        }
+        
+        .bar-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 100%;
+          background: #F5F5F5;
+        }
+        
+        .bar {
+          position: absolute;
+          height: 6px;
+          width: 0;
+          transition: width 0.7s cubic-bezier(.77,0,.18,1);
+
+          @include desktop-up {
+            height: 7px;
+          }
+          
+          &.bar1 { 
+            background: #FFE0ED;
+            left: 0;
+            top: 6px;
+            @include desktop-up {
+              top: 7px;
+            }
+          }
+          &.bar2 { 
+            background: #D0F2FF;
+            left: 31%;
+            top: 0px;
+          }
+          &.bar3 { 
+            background: #DCF97F;
+            left: 50%;
+            top: 6px;
+            @include desktop-up {
+              top: 7px;
+            }
+          }
+          &.bar4 { 
+            background: #D0F2FF;
+            left: 76%;
+            top: 0px;
+          }
+        }
+      }
+      
+      .history-dates {
+        position: relative;
+        display: flex;
+
+        .date-item {
+          font-size: 1rem;
+          color: var(--color-dark2);
+          opacity: 1;
+          transform: none;
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          
+          @include tablet-up {
+            font-size: 1.4rem;
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          
+          &.date-1 {
+            left: 0;
+            width: 31%;
+          }
+          
+          &.date-2 {
+            left: 31%;
+            width: 19%;
+          }
+          
+          &.date-3 {
+            left: 50%;
+            width: 26%;
+          }
+          
+          &.date-4 {
+            left: 76%;
+            width: 24%;
+          }
+          
+          &.show {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+  
+  // 정보 섹션
+  .info-section {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    
+    @include tablet-up {
+      gap: 35px;
+      margin-top: 22px;
+    }
+    
+    > div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      
+      @include tablet-up {
+        flex-direction: row;
+        gap: 35px;
+      }
+    }
+    
+    h4 {
+      font-family: 'Butler_Medium_Stencil';
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+      
+      @include tablet-up {
+        font-size: 2.8rem;
+      }
+    }
+    
+    h5 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      min-width: 38px;
+      
+      @include tablet-up {
+        font-size: 1.5rem;
+        min-width: 48px;
+      }
+    }
+    
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      
+      @include tablet-up {
+        gap: 12px;
+      }
+    }
+    
+    li {
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      
+      @include tablet-up {
+        font-size: 1.5rem;
+      }
+      
+      .contact_line {
+        width: 1px;
+        height: 12px;
+        background: var(--color-dark);
+        margin: 0 7px 0 0;
+        flex-shrink: 0;
+
+        @include tablet-up {
+          height: 15px;
+        }
+      }
+    }
+  }
+}
