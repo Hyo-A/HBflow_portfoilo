@@ -4,31 +4,34 @@
 
 .designwork-page {
   .design-container {
-    width: 100%;
     height: 100vh;
-    padding: 0 36px;
+    margin: 0 36px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     
     @include tablet-up {
-      padding: 0 50px;
+      margin: 0 50px;
     }
     
     // 중앙 내용박스
     .design-content-box {
       width: 100%;
-      max-width: 1500px;
-      height: auto;
+      max-width: 335px;
+      height: fit-content;
       position: relative;
       display: flex;
+      gap: 0;
       flex-direction: column;
       justify-content: space-between;
       
-      @include desktop-up {
-        height: 630px;
+      @include tablet-up {
+        max-width: 1400px;
+        flex-direction: row;
+        gap: 20px;
       }
+
       
       // 배경 텍스트
       .design-bg-title {
@@ -104,48 +107,39 @@
       
       // 프로젝트 영역 (모바일: 세로 배치, 태블릿+: 가로 배치)
       .design-projects {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        margin-bottom: 2rem;
+        gap: 20px;
+        max-width: 335px;
         
         @include tablet-up {
           flex-direction: row;
-          gap: 3rem;
-          position: absolute;
           bottom: 0;
           left: 0;
-          margin-bottom: 0;
-        }
-        
-        @include desktop-up {
-          gap: 60px;
+          margin-top: 100px;
+          max-width: none;
         }
         
         .design-project-box {
-          width: 100%;
-          height: 300px;
+          height: fit-content;
           position: relative;
           background-color: var(--color-light);
           cursor: var(--cursor-accent);
           overflow: hidden;
-          
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
           @include tablet-up {
-            width: 350px;
-            height: 400px;
+            gap: 20px;
           }
-          
-          @include desktop-up {
-            width: 488px;
-            height: 528px;
-          }
-          
+
+          // more-button mixin 적용
+          @include more-button($position-bottom: 12px);
+
           &:hover {
             background-color: var(--color-gray3);
-            
-            .slide__more .more-btn .plus-icon {
-              transform: rotate(360deg);
-            }
             
             @include desktop-up {
               .project-image img {
@@ -155,17 +149,11 @@
           }
           
           .project-image {
-            width: 100%;
-            height: 200px;
+            height: 220px;
             overflow: hidden;
             
             @include tablet-up {
-              height: 280px;
-            }
-            
-            @include desktop-up {
-              width: 488px;
-              height: 386px;
+              height: auto;
             }
             
             img {
@@ -178,10 +166,7 @@
           
           .project-info {
             width: 100%;
-            height: 100px;
-            bottom: 0;
-            position: absolute;
-            padding: 0 1rem;
+            height: auto;
             
             @include tablet-up {
               height: 120px;
@@ -194,7 +179,7 @@
             
             .project-subtitle {
               font-size: 1.4rem;
-              margin-top: 20px;
+              margin-top: 0;
               font-weight: 200;
               
               @include tablet-up {
@@ -210,35 +195,24 @@
             
             .project-title {
               font-size: 1.8rem;
-              margin-top: 15px;
+              margin-top: 5px;
+              margin-bottom: 8px;
               font-weight: 700;
               
               @include tablet-up {
                 font-size: 2rem;
-                margin-top: 20px;
+                margin-top: 10px;
+                margin-bottom: 0;
               }
               
               @include desktop-up {
                 font-size: 2.5rem;
-                margin-top: 30px;
-              }
-            }
-            
-            // More 버튼 - project-mixins 사용
-            @include more-button($position-bottom: 20px);
-            
-            .slide__more {
-              @include desktop-up {
-                bottom: 36px !important;
-                right: 10px !important;
+                margin-top: 16px;
               }
             }
           }
           
           .project-line {
-            position: absolute;
-            bottom: 0;
-            left: 0;
             width: 100%;
             height: 1px;
             background-color: var(--color-dark);
@@ -248,31 +222,30 @@
       
       // 제목 영역
       .design-title-section {
+        width: auto;
         position: relative;
         text-align: left;
-        width: 100%;
-        
-        @include tablet-up {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          width: auto;
-          margin-right: 0;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+
         
         .design-main-title {
           font-family: 'Butler_Bold';
-          font-size: 3rem;
+          font-size: 2.5rem;
           line-height: 1.5;
           color: var(--color-dark);
           margin: 0;
-          margin-bottom: 0.5rem;
+          margin-top: 10px;
+          margin-bottom: 0;
           opacity: 0;
           transform: translateY(30px);
           transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           
           @include tablet-up {
-            font-size: 4rem;
+            font-size: 3.6rem;
+            margin-top: 0;
+            margin-bottom: 5px;
           }
           
           @include desktop-up {
@@ -292,8 +265,8 @@
         
         .design-sub-title {
           font-family: 'Butler_Light';
-          font-size: 2.5rem;
-          margin-bottom: 20px;
+          font-size: 1.8rem;
+          margin-bottom: 0;
           line-height: 1.5;
           color: var(--color-dark2);
           font-weight: 300;
@@ -302,7 +275,7 @@
           transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           
           @include tablet-up {
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 25px;
           }
           
@@ -326,6 +299,11 @@
           width: 100%;
           height: 1px;
           background-color: var(--color-dark);
+          display: none;
+
+          @include tablet-up {
+            display: block;
+          }
         }
       }
       
@@ -544,27 +522,153 @@
   }
 }
 
-// 책 흔들림 애니메이션
-@keyframes bookShake {
-  0%, 100% { 
-    transform: translateY(-3px) scale(1.03) rotate(0deg);
+
+// ============================================
+// DESIGN WORK GRIDS (기존 _grid.scss 내용 통합)
+// ============================================
+
+// 브로슈어 그리드
+.brochure-grid {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+  max-width: 788px;
+  margin: 0 auto;
+  
+  .brochure-item {
+    width: 246px;
+    height: 246px;
+    cursor: var(--cursor-accent);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
     
-    @include desktop-up {
-      transform: translateY(-5px) scale(1.05) rotate(0deg);
+    &:hover {
+      .brochure-overlay {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      
+      .brochure-description {
+        opacity: 1;
+      }
+    }
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+      z-index: 0;
+    }
+    
+    .brochure-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      
+      .brochure-description {
+        text-align: center;
+        color: var(--color-white);
+        opacity: 1;
+        transition: all 0.3s ease;
+        z-index: 200;
+        
+        .description-line1,
+        .description-line2 {
+          display: block;
+          font-size: 1.8rem;
+          line-height: 1.5;
+          font-weight: 300;
+        }
+      }
     }
   }
-  25% { 
-    transform: translateY(-3px) scale(1.03) rotate(-1deg);
+}
+
+// 기타 카테고리 그리드
+.etc-grid {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+  max-width: 788px;
+  margin: 0 auto;
+  
+  .etc-item {
+    width: 246px;
+    height: 246px;
+    cursor: var(--cursor-accent);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
     
-    @include desktop-up {
-      transform: translateY(-5px) scale(1.05) rotate(-1deg);
+    &:hover {
+      .etc-overlay {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      
+      .etc-description {
+        opacity: 1;
+      }
     }
-  }
-  75% { 
-    transform: translateY(-3px) scale(1.03) rotate(1deg);
     
-    @include desktop-up {
-      transform: translateY(-5px) scale(1.05) rotate(1deg);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+      z-index: 0;
+    }
+    
+    .etc-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      
+      .etc-description {
+        text-align: center;
+        color: var(--color-white);
+        opacity: 1;
+        transition: all 0.3s ease;
+        z-index: 200;
+        
+        .description-line1,
+        .description-line2 {
+          display: block;
+          font-size: 1.8rem;
+          line-height: 1.5;
+          font-weight: 300;
+        }
+      }
     }
   }
 }
