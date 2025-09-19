@@ -13,6 +13,10 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  touch-action: pan-y;
   
   // 스크롤바 숨기기
   &::-webkit-scrollbar {
