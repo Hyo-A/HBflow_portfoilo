@@ -22,13 +22,19 @@
   }
 }
 
-@mixin more-button($position-top: null, $position-bottom: null) {
+@mixin more-button($position-top: null, $position-bottom: null, $position-bottom-mobile: null) {
   .slide__more {
     position: absolute;
     @if $position-top {
       top: $position-top;
     }
-    @if $position-bottom {
+    @if $position-bottom-mobile {
+      bottom: $position-bottom-mobile;
+      
+      @include tablet-up {
+        bottom: $position-bottom;
+      }
+    } @else if $position-bottom {
       bottom: $position-bottom;
     }
     right: 1rem;

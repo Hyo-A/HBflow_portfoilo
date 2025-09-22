@@ -103,10 +103,11 @@
       width: 100%;
       height: auto;
       border-radius: 0;
+      overflow: hidden;
+      position: relative;
             
       img {
         width: 100%;
-        overflow: hidden;
         object-fit: cover;
       }
       
