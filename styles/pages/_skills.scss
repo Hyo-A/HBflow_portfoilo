@@ -8,11 +8,13 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
+  justify-content: flex-start;
+  min-height: auto;
   
   @include tablet-up {
     padding: 30px 50px;
+    min-height: 100vh;
+    justify-content: center;
   }
   
   @include large-up {

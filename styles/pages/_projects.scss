@@ -5,12 +5,15 @@
 // 공통 프로젝트 컨테이너
 .project-container {
   width: 100%;
-  height: 100vh;
-  padding: 0 36px;
+  height: auto;
+  min-height: auto;
+  padding: 40px 36px;
   position: relative;
   
   @include tablet-up {
     padding: 0 50px;
+    height: 100vh;
+    min-height: 100vh;
   }
   
   .section-bg {
@@ -45,13 +48,20 @@
     position: relative;
     z-index: 2;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100%;
+    align-items: flex-start;
+    height: auto;
+    
+    @include tablet-up {
+      align-items: center;
+      height: 100%;
+    }
     
     .project-box {
       width: 100%;
       height: 46vh;
+      min-height: 420px;
       background: transparent;
       border: none;
       border-radius: 0;
@@ -61,11 +71,14 @@
       align-items: center;
       transition: all 0.3s ease;
       position: relative;
+      margin-bottom: 10px;
       cursor: var(--cursor-accent);
       
 
       @include tablet-up {
-        width: 900px;
+        width: 100%;
+        max-width: 900px;
+        min-height: none;
         height: 70vh;
       }
       
@@ -84,7 +97,7 @@
 // 슬라이드 스타일
 .slide {
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -109,14 +122,6 @@
       img {
         width: 100%;
         object-fit: cover;
-      }
-      
-      @include tablet-up {
-        height: 450px;
-      }
-      
-      @include desktop-up {
-        transition: transform 1.5s ease;
       }
 
       

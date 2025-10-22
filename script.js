@@ -4,6 +4,13 @@ let isDesignTitleAnimating = false; // Design Work 제목 애니메이션 상태
 let currentAnimationTimer = null; // 현재 실행 중인 애니메이션 타이머
 let pendingCategoryChange = null; // 대기 중인 카테고리 변경
 
+// 슬라이드쇼 전역 변수들
+let myworkSlides = [];
+let teamworkSlides = [];
+let myworkCurrentSlide = 0;
+let teamworkCurrentSlide = 0;
+let isAnimating = false;
+
 // 격자 라인 동적 생성 함수 (300px 간격, 정사각형 유지)
 function createGridLines() {
   const gridContainer = document.querySelector(".grid-lines");
@@ -580,6 +587,11 @@ window.addEventListener("DOMContentLoaded", () => {
   container.addEventListener("wheel", (e) => {
     if (isScrolling || isLoading) return;
 
+    // 모바일에서는 전역 wheel 이벤트 비활성화
+    if (isMobile()) {
+      return;
+    }
+
     e.preventDefault();
     isScrolling = true;
     closeModal();
@@ -1132,6 +1144,35 @@ function skipMyWork() {
   }, 100);
 }
 
+// 모바일 체크 함수
+function isMobile() {
+  return window.innerWidth < 768;
+}
+
+// TeamWork 액션 핸들러 (모바일: 다음 슬라이드, 데스크톱: 스킵)
+function handleTeamWorkAction() {
+  console.log("handleTeamWorkAction called, isMobile:", isMobile());
+  if (isMobile()) {
+    console.log("Calling nextTeamWorkSlide");
+    nextTeamWorkSlide();
+  } else {
+    console.log("Calling skipTeamWork");
+    skipTeamWork();
+  }
+}
+
+// MyWork 액션 핸들러 (모바일: 다음 슬라이드, 데스크톱: 스킵)
+function handleMyWorkAction() {
+  console.log("handleMyWorkAction called, isMobile:", isMobile());
+  if (isMobile()) {
+    console.log("Calling nextMyWorkSlide");
+    nextMyWorkSlide();
+  } else {
+    console.log("Calling skipMyWork");
+    skipMyWork();
+  }
+}
+
 // 페이지 위치 계산 함수 (전역)
 function getPagePositionsGlobal() {
   const container = document.querySelector(".fullpage-container");
@@ -1160,28 +1201,236 @@ function skipTeamWork() {
   }, 100);
 }
 
-function skipDesignWork() {
-  const container = document.querySelector(".fullpage-container");
-  const positions = getPagePositionsGlobal();
+// 전역 슬라이드 함수들
+function nextMyWorkSlide() {
+  console.log(
+    "nextMyWorkSlide called, isAnimating:",
+    isAnimating,
+    "myworkSlides.length:",
+    myworkSlides.length
+  );
+  if (isAnimating || myworkSlides.length === 0) return;
+  isAnimating = true;
 
-  // Footer 페이지로 이동 (페이지 인덱스 5)
-  container.scrollTo({
-    top: positions[5],
-    behavior: "smooth",
+  const currentSlideEl = myworkSlides[myworkCurrentSlide];
+  myworkCurrentSlide = (myworkCurrentSlide + 1) % myworkSlides.length;
+  const nextSlideEl = myworkSlides[myworkCurrentSlide];
+
+  // 현재 슬라이드 아웃
+  animateSlideOut(currentSlideEl);
+
+  setTimeout(() => {
+    currentSlideEl.classList.remove("active");
+    nextSlideEl.classList.add("active");
+    animateSlideIn(nextSlideEl);
+
+    // 카운터 업데이트
+    updateMyWorkCounter();
+
+    setTimeout(() => {
+      isAnimating = false;
+    }, 1000);
+  }, 800);
+}
+
+function nextTeamWorkSlide() {
+  console.log(
+    "nextTeamWorkSlide called, isAnimating:",
+    isAnimating,
+    "teamworkSlides.length:",
+    teamworkSlides.length
+  );
+  if (isAnimating || teamworkSlides.length === 0) return;
+  isAnimating = true;
+
+  const currentSlideEl = teamworkSlides[teamworkCurrentSlide];
+  teamworkCurrentSlide = (teamworkCurrentSlide + 1) % teamworkSlides.length;
+  const nextSlideEl = teamworkSlides[teamworkCurrentSlide];
+
+  // 현재 슬라이드 아웃
+  animateSlideOut(currentSlideEl);
+
+  setTimeout(() => {
+    currentSlideEl.classList.remove("active");
+    nextSlideEl.classList.add("active");
+    animateSlideIn(nextSlideEl);
+
+    // 카운터 업데이트
+    updateTeamWorkCounter();
+
+    setTimeout(() => {
+      isAnimating = false;
+    }, 1000);
+  }, 800);
+}
+
+// 슬라이드 애니메이션 함수들
+function animateSlideIn(slide) {
+  const textLines = slide.querySelectorAll(".slide__text-line");
+  const img = slide.querySelector(".slide__img");
+  const subtitle = slide.querySelector(".slide__subtitle");
+  const parentSection = slide.closest(".page");
+  const sectionBg = parentSection
+    ? parentSection.querySelector(".section-bg")
+    : null;
+  const slideImgEl = slide.querySelector(".slide__img img");
+
+  // 이미지 애니메이션
+  gsap.to(img, {
+    scale: 1,
+    duration: 1.5,
+    ease: "power2.out",
   });
 
-  // 네비게이션 활성화
+  // 섹션 배경 동기화 (현재 슬라이드 이미지로 채우기)
+  if (sectionBg) {
+    let bgUrl = "";
+    if (slideImgEl && slideImgEl.getAttribute("src")) {
+      bgUrl = `url(${slideImgEl.getAttribute("src")})`;
+    } else if (img && img.style && img.style.backgroundImage) {
+      bgUrl = img.style.backgroundImage;
+    }
+    if (bgUrl) {
+      sectionBg.style.backgroundImage = bgUrl;
+      sectionBg.style.opacity = "0.1";
+    }
+  }
+
+  // 텍스트 라인 애니메이션
+  textLines.forEach((line, index) => {
+    gsap.to(line, {
+      y: "0%",
+      opacity: 1,
+      duration: 1,
+      delay: 0.5 + index * 0.2,
+      ease: "power2.out",
+    });
+  });
+
+  // 서브타이틀 애니메이션
+  if (subtitle) {
+    gsap.to(subtitle, {
+      opacity: 1,
+      duration: 1,
+      delay: 1.2,
+      ease: "power2.out",
+    });
+  }
+}
+
+function animateSlideOut(slide) {
+  const textLines = slide.querySelectorAll(".slide__text-line");
+  const img = slide.querySelector(".slide__img");
+  const subtitle = slide.querySelector(".slide__subtitle");
+
+  // 이미지 애니메이션
+  gsap.to(img, {
+    scale: 1.2,
+    duration: 1.5,
+    ease: "power2.in",
+  });
+
+  // 텍스트 라인 애니메이션
+  textLines.forEach((line, index) => {
+    gsap.to(line, {
+      y: "-100%",
+      opacity: 0,
+      duration: 0.8,
+      delay: index * 0.1,
+      ease: "power2.in",
+    });
+  });
+
+  // 서브타이틀 애니메이션
+  if (subtitle) {
+    gsap.to(subtitle, {
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.in",
+    });
+  }
+}
+
+function updateMyWorkCounter() {
+  const currentSlideElement = document.querySelector(
+    ".mywork-page .current-slide"
+  );
+  if (currentSlideElement) {
+    const slideNumber = (myworkCurrentSlide + 1).toString().padStart(2, "0");
+    currentSlideElement.textContent = slideNumber;
+  }
+}
+
+function updateTeamWorkCounter() {
+  const currentSlideElement = document.querySelector(
+    ".teamwork-page .current-slide"
+  );
+  if (currentSlideElement) {
+    const slideNumber = (teamworkCurrentSlide + 1).toString().padStart(2, "0");
+    currentSlideElement.textContent = slideNumber;
+  }
+}
+
+// 이전 슬라이드 함수들
+function prevMyWorkSlide() {
+  if (isAnimating || myworkSlides.length === 0) return;
+  isAnimating = true;
+
+  const currentSlideEl = myworkSlides[myworkCurrentSlide];
+  myworkCurrentSlide =
+    (myworkCurrentSlide - 1 + myworkSlides.length) % myworkSlides.length;
+  const prevSlideEl = myworkSlides[myworkCurrentSlide];
+
+  // 현재 슬라이드 아웃
+  animateSlideOut(currentSlideEl);
+
   setTimeout(() => {
-    updateActiveNav(5);
-  }, 100);
+    currentSlideEl.classList.remove("active");
+    prevSlideEl.classList.add("active");
+    animateSlideIn(prevSlideEl);
+
+    // 카운터 업데이트
+    updateMyWorkCounter();
+
+    setTimeout(() => {
+      isAnimating = false;
+    }, 1000);
+  }, 800);
+}
+
+function prevTeamWorkSlide() {
+  if (isAnimating || teamworkSlides.length === 0) return;
+  isAnimating = true;
+
+  const currentSlideEl = teamworkSlides[teamworkCurrentSlide];
+  teamworkCurrentSlide =
+    (teamworkCurrentSlide - 1 + teamworkSlides.length) % teamworkSlides.length;
+  const prevSlideEl = teamworkSlides[teamworkCurrentSlide];
+
+  // 현재 슬라이드 아웃
+  animateSlideOut(currentSlideEl);
+
+  setTimeout(() => {
+    currentSlideEl.classList.remove("active");
+    prevSlideEl.classList.add("active");
+    animateSlideIn(prevSlideEl);
+
+    // 카운터 업데이트
+    updateTeamWorkCounter();
+
+    setTimeout(() => {
+      isAnimating = false;
+    }, 1000);
+  }, 800);
 }
 
 // 중복된 함수 제거 - 이미 위에서 정의됨
 
 // 슬라이드쇼 기능 복구
 function initSlideshow() {
-  const myworkSlides = document.querySelectorAll(".mywork-page .slide");
-  const teamworkSlides = document.querySelectorAll(".teamwork-page .slide");
+  // 전역 변수들로 슬라이드 요소들 초기화
+  myworkSlides = document.querySelectorAll(".mywork-page .slide");
+  teamworkSlides = document.querySelectorAll(".teamwork-page .slide");
   const myworkCounterStrip = document.querySelector(
     ".mywork-page .counter-strip"
   );
@@ -1189,9 +1438,10 @@ function initSlideshow() {
     ".teamwork-page .counter-strip"
   );
 
-  let myworkCurrentSlide = 0;
-  let teamworkCurrentSlide = 0;
-  let isAnimating = false;
+  // 전역 변수 초기화
+  myworkCurrentSlide = 0;
+  teamworkCurrentSlide = 0;
+  isAnimating = false;
 
   // 슬라이드 초기화
   function initSlides() {
@@ -1280,119 +1530,11 @@ function initSlideshow() {
     });
   }
 
-  // 슬라이드 인 애니메이션
-  function animateSlideIn(slide) {
-    const textLines = slide.querySelectorAll(".slide__text-line");
-    const img = slide.querySelector(".slide__img");
-    const subtitle = slide.querySelector(".slide__subtitle");
-    const parentSection = slide.closest(".page");
-    const sectionBg = parentSection
-      ? parentSection.querySelector(".section-bg")
-      : null;
-    const slideImgEl = slide.querySelector(".slide__img img");
+  // 슬라이드 인 애니메이션 - 전역 함수 사용
 
-    // 이미지 애니메이션
-    gsap.to(img, {
-      scale: 1,
-      duration: 1.5,
-      ease: "power2.out",
-    });
+  // 슬라이드 아웃 애니메이션 - 전역 함수 사용
 
-    // 섹션 배경 동기화 (현재 슬라이드 이미지로 채우기)
-    if (sectionBg) {
-      let bgUrl = "";
-      if (slideImgEl && slideImgEl.getAttribute("src")) {
-        bgUrl = `url(${slideImgEl.getAttribute("src")})`;
-      } else if (img && img.style && img.style.backgroundImage) {
-        bgUrl = img.style.backgroundImage;
-      }
-      if (bgUrl) {
-        sectionBg.style.backgroundImage = bgUrl;
-        sectionBg.style.opacity = "0.1";
-      }
-    }
-
-    // 텍스트 라인 애니메이션
-    textLines.forEach((line, index) => {
-      gsap.to(line, {
-        y: "0%",
-        opacity: 1,
-        duration: 1,
-        delay: 0.5 + index * 0.2,
-        ease: "power2.out",
-      });
-    });
-
-    // 서브타이틀 애니메이션
-    if (subtitle) {
-      gsap.to(subtitle, {
-        opacity: 1,
-        duration: 1,
-        delay: 1.2,
-        ease: "power2.out",
-      });
-    }
-  }
-
-  // 슬라이드 아웃 애니메이션
-  function animateSlideOut(slide) {
-    const textLines = slide.querySelectorAll(".slide__text-line");
-    const img = slide.querySelector(".slide__img");
-    const subtitle = slide.querySelector(".slide__subtitle");
-
-    // 이미지 애니메이션
-    gsap.to(img, {
-      scale: 1.2,
-      duration: 1.5,
-      ease: "power2.in",
-    });
-
-    // 텍스트 라인 애니메이션
-    textLines.forEach((line, index) => {
-      gsap.to(line, {
-        y: "-100%",
-        opacity: 0,
-        duration: 0.8,
-        delay: index * 0.1,
-        ease: "power2.in",
-      });
-    });
-
-    // 서브타이틀 애니메이션
-    if (subtitle) {
-      gsap.to(subtitle, {
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.in",
-      });
-    }
-  }
-
-  // My Work 다음 슬라이드로 이동
-  function nextMyWorkSlide() {
-    if (isAnimating) return;
-    isAnimating = true;
-
-    const currentSlideEl = myworkSlides[myworkCurrentSlide];
-    myworkCurrentSlide = (myworkCurrentSlide + 1) % myworkSlides.length;
-    const nextSlideEl = myworkSlides[myworkCurrentSlide];
-
-    // 현재 슬라이드 아웃
-    animateSlideOut(currentSlideEl);
-
-    setTimeout(() => {
-      currentSlideEl.classList.remove("active");
-      nextSlideEl.classList.add("active");
-      animateSlideIn(nextSlideEl);
-
-      // 카운터 업데이트
-      updateMyWorkCounter();
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 1000);
-    }, 800);
-  }
+  // My Work 다음 슬라이드로 이동 - 전역 함수 사용
 
   // My Work 이전 슬라이드로 이동
   function prevMyWorkSlide() {
@@ -1421,31 +1563,7 @@ function initSlideshow() {
     }, 800);
   }
 
-  // Team Work 다음 슬라이드로 이동
-  function nextTeamWorkSlide() {
-    if (isAnimating) return;
-    isAnimating = true;
-
-    const currentSlideEl = teamworkSlides[teamworkCurrentSlide];
-    teamworkCurrentSlide = (teamworkCurrentSlide + 1) % teamworkSlides.length;
-    const nextSlideEl = teamworkSlides[teamworkCurrentSlide];
-
-    // 현재 슬라이드 아웃
-    animateSlideOut(currentSlideEl);
-
-    setTimeout(() => {
-      currentSlideEl.classList.remove("active");
-      nextSlideEl.classList.add("active");
-      animateSlideIn(nextSlideEl);
-
-      // 카운터 업데이트
-      updateTeamWorkCounter();
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 1000);
-    }, 800);
-  }
+  // Team Work 다음 슬라이드로 이동 - 전역 함수 사용
 
   // Team Work 이전 슬라이드로 이동
   function prevTeamWorkSlide() {
@@ -1475,29 +1593,9 @@ function initSlideshow() {
     }, 800);
   }
 
-  // My Work 카운터 업데이트
-  function updateMyWorkCounter() {
-    const currentSlideElement = document.querySelector(
-      ".mywork-page .current-slide"
-    );
-    if (currentSlideElement) {
-      const slideNumber = (myworkCurrentSlide + 1).toString().padStart(2, "0");
-      currentSlideElement.textContent = slideNumber;
-    }
-  }
+  // My Work 카운터 업데이트 - 전역 함수 사용
 
-  // Team Work 카운터 업데이트
-  function updateTeamWorkCounter() {
-    const currentSlideElement = document.querySelector(
-      ".teamwork-page .current-slide"
-    );
-    if (currentSlideElement) {
-      const slideNumber = (teamworkCurrentSlide + 1)
-        .toString()
-        .padStart(2, "0");
-      currentSlideElement.textContent = slideNumber;
-    }
-  }
+  // Team Work 카운터 업데이트 - 전역 함수 사용
 
   // 스크롤 이벤트 - 개선된 버전
   let slideScrollTimeout;
@@ -1514,6 +1612,11 @@ function initSlideshow() {
     myworkPage.addEventListener(
       "wheel",
       (e) => {
+        // 모바일에서는 wheel 이벤트 비활성화
+        if (isMobile()) {
+          return;
+        }
+
         e.preventDefault();
         e.stopPropagation();
 
@@ -1566,6 +1669,11 @@ function initSlideshow() {
     teamworkPage.addEventListener(
       "wheel",
       (e) => {
+        // 모바일에서는 wheel 이벤트 비활성화
+        if (isMobile()) {
+          return;
+        }
+
         e.preventDefault();
         e.stopPropagation();
 
@@ -1616,6 +1724,101 @@ function initSlideshow() {
       },
       { passive: false }
     );
+  }
+
+  // 모바일 터치 이벤트 추가
+  function initMobileTouchEvents() {
+    if (!isMobile()) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isTouch = false;
+
+    // MyWork 페이지 터치 이벤트
+    if (myworkPage) {
+      myworkPage.addEventListener(
+        "touchstart",
+        (e) => {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          isTouch = true;
+        },
+        { passive: true }
+      );
+
+      myworkPage.addEventListener(
+        "touchend",
+        (e) => {
+          if (!isTouch) return;
+
+          const endX = e.changedTouches[0].clientX;
+          const endY = e.changedTouches[0].clientY;
+          const deltaX = endX - startX;
+          const deltaY = endY - startY;
+
+          // 수평 스와이프가 수직 스와이프보다 큰 경우
+          if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+            if (deltaX > 0) {
+              // 오른쪽 스와이프 - 이전 슬라이드
+              if (myworkCurrentSlide > 0) {
+                prevMyWorkSlide();
+              }
+            } else {
+              // 왼쪽 스와이프 - 다음 슬라이드
+              if (myworkCurrentSlide < myworkSlides.length - 1) {
+                nextMyWorkSlide();
+              }
+            }
+          }
+
+          isTouch = false;
+        },
+        { passive: true }
+      );
+    }
+
+    // TeamWork 페이지 터치 이벤트
+    if (teamworkPage) {
+      teamworkPage.addEventListener(
+        "touchstart",
+        (e) => {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          isTouch = true;
+        },
+        { passive: true }
+      );
+
+      teamworkPage.addEventListener(
+        "touchend",
+        (e) => {
+          if (!isTouch) return;
+
+          const endX = e.changedTouches[0].clientX;
+          const endY = e.changedTouches[0].clientY;
+          const deltaX = endX - startX;
+          const deltaY = endY - startY;
+
+          // 수평 스와이프가 수직 스와이프보다 큰 경우
+          if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+            if (deltaX > 0) {
+              // 오른쪽 스와이프 - 이전 슬라이드
+              if (teamworkCurrentSlide > 0) {
+                prevTeamWorkSlide();
+              }
+            } else {
+              // 왼쪽 스와이프 - 다음 슬라이드
+              if (teamworkCurrentSlide < teamworkSlides.length - 1) {
+                nextTeamWorkSlide();
+              }
+            }
+          }
+
+          isTouch = false;
+        },
+        { passive: true }
+      );
+    }
   }
 
   // 커스텀 커서 기능
@@ -1775,6 +1978,7 @@ function initSlideshow() {
 
   // 초기화
   initSlides();
+  initMobileTouchEvents();
   initCustomCursor();
   initDesignWorkButtons();
 }

@@ -10,13 +10,15 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
+  min-height: auto;
   
   @include tablet-up {
     padding: 30px 50px;
     max-width: 1000px;
+    min-height: 100vh;
+    justify-content: center;
   }
   
   // 배경 텍스트

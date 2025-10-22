@@ -24,12 +24,13 @@
 
 // Skip 버튼
 .skip-button {
-  position: absolute;
-  bottom: 50px;
+position: relative;
+  bottom: 0;
   left: 0;
   z-index: 10;
 
   @include tablet-up {
+    position: absolute;
     bottom: 68px;
   }
 
@@ -75,6 +76,23 @@
       .button-text-hover {
         transform: translateY(0);
       }
+    }
+  }
+  
+  // 모바일/데스크톱 텍스트 표시 설정
+  .mobile-text {
+    display: inline;
+    
+    @include tablet-up {
+      display: none;
+    }
+  }
+  
+  .desktop-text {
+    display: none;
+    
+    @include tablet-up {
+      display: inline;
     }
   }
 }

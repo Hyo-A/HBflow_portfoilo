@@ -4,25 +4,30 @@
 
 .contact-page {
   background: var(--color-light);
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
+  
+  @include tablet-up {
+    min-height: 100vh;
+    justify-content: center;
+  }
 
   .contact-container {
     width: 100%;
     padding: 40px 30px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 0 auto;
     
     @include tablet-up {
       flex-direction: row;
       padding: 30px 50px;
       gap: 4rem;
+      justify-content: center;
     }
 
       @include large-up {
