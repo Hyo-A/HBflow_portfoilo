@@ -24,10 +24,10 @@
 
 // Skip 버튼
 .skip-button {
-position: relative;
+  position: relative;
   bottom: 0;
   left: 0;
-  z-index: 10;
+  z-index: 100; // z-index 증가로 다른 요소들과의 충돌 방지
 
   @include tablet-up {
     position: absolute;
@@ -43,17 +43,27 @@ position: relative;
     cursor: var(--cursor-accent);
     position: relative;
     overflow: hidden;
-    height: 30px;
+    height: 30px; // 높이 증가
+    padding: 10px 20px; // 패딩 추가로 클릭 영역 확장
+    min-width: 200px; // 최소 너비 설정
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     @include tablet-up {
       font-size: 1.6rem;
+      padding: 15px 25px;
+      min-width: 250px;
     }
     
     .button-text,
     .button-text-hover {
       display: block;
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      line-height: 30px;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);// line-height를 1로 설정하여 버튼 높이에 맞춤
+      height: 30px; // 전체 높이 사용
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .button-text {

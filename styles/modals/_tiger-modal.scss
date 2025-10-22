@@ -1,153 +1,141 @@
-// Tiger 모달
+// Tiger 모달 - 통합된 믹스인 사용
 .tiger-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2000;
+  @include hb-modal-base;
   
-  .tiger-modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: var(--cursor-accent);
-  }
-  
-  .tiger-modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1100px;
-    height: 680px;
-    background-color: white;
-    border-radius: 12px;
-    padding: 60px 100px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+  .character-modal-container {
+    @include hb-modal-content;
     
     .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 28px;
-      font-weight: bold;
-      color: #666;
-      z-index: 10;
-      transition: all 0.3s ease;
+      @include hb-modal-close;
+    }
+  }
+}
+
+// Tiger 페이지 전용 스타일
+.tiger-page {
+  .teamwork-modal-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 30px;
+    
+    // 위쪽 섹션: 제목 + 정보 + 이미지
+    .teamwork-left-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
       
-      &:hover {
-        color: #333;
-        cursor: var(--cursor-accent);
+      .teamwork-modal-title {
+        text-align: left;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+        
+        span {
+          font-size: 1.8rem;
+          font-weight: 200;
+          padding-left: 5px;
+        }
+      }
+      
+      // 정보 영역
+      .tiger-left-bottom {
+        .tiger-info-item {
+          p {
+            font-size: 1.2rem;
+            line-height: 2rem;
+          }
+        }
+      }
+      
+      // 호랑이 메인 이미지
+      .tiger-main-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -58px;
+        
+        img {
+          width: 100%;
+          height: auto;
+          max-height: 300px;
+          object-fit: contain;
+          border-radius: 0;
+          border: none;
+        }
       }
     }
     
-        // 호랑이 페이지 스타일
-    .tiger-page {
-      width: 100%;
-      height: 100%;
-      position: relative;
+    // 오른쪽 섹션: 프로젝트 설명 + 굿즈
+    .teamwork-right-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
       
-      .tiger-modal-container {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        gap: 30px;
-        
-        // 위쪽 섹션: 제목 + 정보 + 이미지
-        .tiger-left-section {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          
-          .tiger-modal-title {
-            text-align: left;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 0;
-            padding: 0;
-            
-            span {
-              font-size: 1.8rem;
-              font-weight: 200;
-              padding-left: 5px;
-            }
-          }
-          
-          // 정보 영역
-          .tiger-left-bottom {
-            .tiger-info-item {
-              p {
-                width: 600px;
-                font-size: 1.2rem;
-                line-height: 2rem;
-              }
-            }
-          }
-          
-          // 호랑이 메인 이미지
-          .tiger-main-image {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: -58px;
-            
-            img {
-              width: 100%;
-              height: auto;
-              max-height: 300px;
-              object-fit: contain;
-              border-radius: 0;
-              border: none;
-            }
+      // 정보 영역
+      .tiger-left-bottom {
+        .tiger-info-item {
+          p {
+            width: 600px;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            font-weight: 300;
           }
         }
+      }
+      
+      // 호랑이 메인 이미지
+      .tiger-main-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -58px;
         
-        // 아래쪽 섹션: 캐릭터 굿즈
-        .tiger-right-section {
+        img {
+          width: 100%;
+          height: auto;
+          max-height: 300px;
+          object-fit: contain;
+          border-radius: 0;
+          border: none;
+        }
+      }
+      
+      // 캐릭터 굿즈 섹션
+      .tiger-applications {
+        h4 {
+          font-size: 1.8rem;
+          font-weight: 800;
+          margin: 0 0 15px 0;
+          color: #333;
+        }
+        
+        .tiger-app-images {
           display: flex;
-          flex-direction: column;
-          gap: 20px;
+          gap: 10px;
+          align-items: center;
           
-          .tiger-applications {
-            h4 {
-              font-size: 1.8rem;
-              font-weight: 800;
-              margin: 0 0 15px 0;
-              color: #333;
-            }
+          .tiger-app-text {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-left: 20px;
             
-            .tiger-app-images {
+            .description-item {
               display: flex;
+              align-items: flex-start;
               gap: 10px;
-              align-items: center;
               
-              .tiger-app-text {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                margin-left: 20px;
-                .description-item {
-                  display: flex;
-                  align-items: flex-start;
-                  gap: 10px;
-                  
-                                  .item-number {
-                                    font-size: 1.2rem;
-                                    font-weight: bold;
-                                    flex-shrink: 0;
-                                  }
-                                  
-                                  .item-text {
-                                    font-size: 1.2rem;
-                                    line-height: 1.4;
-                                  }
-                }
+              .item-number {
+                font-size: 1.6rem;
+                font-weight: bold;
+                flex-shrink: 0;
+              }
+              
+              .item-text {
+                font-size: 1.4rem;
+                line-height: 1.4;
               }
             }
           }

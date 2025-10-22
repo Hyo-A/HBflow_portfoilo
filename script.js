@@ -678,45 +678,22 @@ window.addEventListener("DOMContentLoaded", () => {
 // 모달 기능 (프로젝트별 내용 분기) - Character 모달과 동일한 스타일
 function openModal(type, slideNumber) {
   const modal = document.getElementById("projectModal");
-  const title = document.getElementById("modalTitle");
-  const content = document.getElementById("modalContent");
 
   // 페이지별 표시/숨김 처리
   const page1 = document.getElementById("projectPage1");
   const page2 = document.getElementById("projectPage2");
 
   if (type === "mywork") {
-    // 모든 다른 모달 숨기기
-    const projectModal = document.getElementById("projectModal");
-    const characterModal = document.getElementById("characterModal");
-    const tigerModal = document.getElementById("tigerModal");
-    const bookModal = document.getElementById("bookModal");
-
-    if (projectModal) {
-      projectModal.style.display = "none";
-      projectModal.style.visibility = "hidden";
-      projectModal.style.opacity = "0";
-    }
-    if (characterModal) {
-      characterModal.style.display = "none";
-      characterModal.style.visibility = "hidden";
-      characterModal.style.opacity = "0";
-    }
-    if (tigerModal) {
-      tigerModal.style.display = "none";
-      tigerModal.style.visibility = "hidden";
-      tigerModal.style.opacity = "0";
-    }
-    if (bookModal) {
-      bookModal.style.display = "none";
-      bookModal.style.visibility = "hidden";
-      bookModal.style.opacity = "0";
-    }
+    // 먼저 모든 모달 닫기
+    closeAllModals();
 
     // My Work 전용 모달 표시
     const myworkModal = document.getElementById("myworkModal");
     if (myworkModal) {
       myworkModal.classList.add("show");
+      myworkModal.style.display = "block";
+      myworkModal.style.visibility = "visible";
+      myworkModal.style.opacity = "1";
       document.body.style.overflow = "hidden";
 
       // 모든 mywork 페이지 숨기기
@@ -730,35 +707,12 @@ function openModal(type, slideNumber) {
       }
     }
   } else if (type === "teamwork") {
-    // 모든 다른 모달 숨기기
-    const myworkModal = document.getElementById("myworkModal");
-    const characterModal = document.getElementById("characterModal");
-    const tigerModal = document.getElementById("tigerModal");
-    const bookModal = document.getElementById("bookModal");
-
-    if (myworkModal) {
-      myworkModal.style.display = "none";
-      myworkModal.style.visibility = "hidden";
-      myworkModal.style.opacity = "0";
-    }
-    if (characterModal) {
-      characterModal.style.display = "none";
-      characterModal.style.visibility = "hidden";
-      characterModal.style.opacity = "0";
-    }
-    if (tigerModal) {
-      tigerModal.style.display = "none";
-      tigerModal.style.visibility = "hidden";
-      tigerModal.style.opacity = "0";
-    }
-    if (bookModal) {
-      bookModal.style.display = "none";
-      bookModal.style.visibility = "hidden";
-      bookModal.style.opacity = "0";
-    }
+    // 먼저 모든 모달 닫기
+    closeAllModals();
 
     // Team Work: 기본 모달 표시
     modal.classList.add("show");
+    modal.style.display = "block";
     modal.style.visibility = "visible";
     modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
@@ -819,7 +773,11 @@ function openModal(type, slideNumber) {
         projectTitle = `Team Work ${slideNumber}`;
     }
 
-    title.innerHTML = `${projectTitle}<span>[팀 프로젝트]</span>`;
+    // Teamwork 모달 표시
+    modal.style.display = "block";
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
+    document.body.style.overflow = "hidden";
   } else if (type === "designwork") {
     const category = slideNumber; // slideNumber가 실제로는 category임
     const projectNum = arguments[2] || 1; // 세 번째 인자가 프로젝트 번호
@@ -830,15 +788,16 @@ function openModal(type, slideNumber) {
       // 프로젝트 번호에 따라 다른 모달 열기
       if (projectNum === 1) {
         // 첫 번째 캐릭터: 기롱이 모달
-        console.log("Opening character modal 1");
         openCharacterModal();
       } else if (projectNum === 2) {
         // 두 번째 캐릭터: 호랑이 모달
-        console.log("Opening tiger modal");
         openTigerModal();
       }
       return; // 기존 모달 열기 방지
     }
+
+    // 먼저 모든 모달 닫기
+    closeAllModals();
 
     let categoryName = "";
     switch (category) {
@@ -857,103 +816,50 @@ function openModal(type, slideNumber) {
 
     title.innerHTML = `${categoryName} 프로젝트 ${slideNumber} 상세<span>[디자인 프로젝트]</span>`;
     content.textContent = "--의 내용입니다";
-  }
 
-  modal.style.display = "block";
-  modal.style.visibility = "visible";
-  modal.style.opacity = "1";
-  document.body.style.overflow = "hidden";
+    // designwork의 기본 모달 표시
+    modal.classList.add("show");
+    modal.style.display = "block";
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
+    document.body.style.overflow = "hidden";
+  }
 }
 
+// ===== HB 통합 모달 시스템 =====
+function closeAllModals() {
+  // 모든 모달 닫기
+  const modals = [
+    "projectModal", // teamwork
+    "myworkModal", // mywork
+    "characterModal", // character
+    "tigerModal", // tiger
+    "bookModal", // book
+  ];
+
+  modals.forEach((modalId) => {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      // 모든 모달 상태 초기화
+      modal.classList.remove("show");
+      modal.style.display = "none";
+      modal.style.visibility = "hidden";
+      modal.style.opacity = "0";
+    }
+  });
+
+  // body 스크롤 복원
+  document.body.style.overflow = "auto";
+}
+
+// 레거시 호환성을 위한 기존 함수 유지
 function closeModal() {
-  // Team Work 모달 닫기
-  const projectModal = document.getElementById("projectModal");
-  if (projectModal) {
-    projectModal.classList.remove("show");
-  }
-
-  // My Work 모달 닫기
-  const myworkModal = document.getElementById("myworkModal");
-  if (myworkModal) {
-    myworkModal.classList.remove("show");
-  }
-
-  // Character 모달 닫기
-  const characterModal = document.getElementById("characterModal");
-  if (characterModal) {
-    characterModal.classList.remove("show");
-  }
-
-  // Tiger 모달 닫기
-  const tigerModal = document.getElementById("tigerModal");
-  if (tigerModal) {
-    tigerModal.classList.remove("show");
-  }
-
-  // Book 모달 닫기
-  const bookModal = document.getElementById("bookModal");
-  if (bookModal) {
-    bookModal.classList.remove("show");
-  }
-
-  document.body.style.overflow = "auto";
-
-  // Team Work 모달 닫을 때 1페이지로 초기화
-  const page1 = document.getElementById("projectPage1");
-  const page2 = document.getElementById("projectPage2");
-  const metaphorPage2 = document.getElementById("metaphorPage2");
-
-  if (page1) {
-    page1.style.display = "block";
-
-    // 모든 2페이지 숨기기
-    if (page2) page2.style.display = "none";
-    if (metaphorPage2) metaphorPage2.style.display = "none";
-  }
+  closeAllModals();
 }
 
+// 개별 모달 닫기 함수들 제거 - closeAllModals()로 통합됨
 function closeMyworkModal() {
-  // Team Work 모달 닫기
-  const projectModal = document.getElementById("projectModal");
-  if (projectModal) {
-    projectModal.style.display = "none";
-    projectModal.style.visibility = "hidden";
-    projectModal.style.opacity = "0";
-  }
-
-  // My Work 모달 닫기
-  const myworkModal = document.getElementById("myworkModal");
-  if (myworkModal) {
-    myworkModal.style.display = "none";
-    myworkModal.style.visibility = "hidden";
-    myworkModal.style.opacity = "0";
-  }
-
-  // Character 모달 닫기
-  const characterModal = document.getElementById("characterModal");
-  if (characterModal) {
-    characterModal.style.display = "none";
-    characterModal.style.visibility = "hidden";
-    characterModal.style.opacity = "0";
-  }
-
-  // Tiger 모달 닫기
-  const tigerModal = document.getElementById("tigerModal");
-  if (tigerModal) {
-    tigerModal.style.display = "none";
-    tigerModal.style.visibility = "hidden";
-    tigerModal.style.opacity = "0";
-  }
-
-  // Book 모달 닫기
-  const bookModal = document.getElementById("bookModal");
-  if (bookModal) {
-    bookModal.style.display = "none";
-    bookModal.style.visibility = "hidden";
-    bookModal.style.opacity = "0";
-  }
-
-  document.body.style.overflow = "auto";
+  closeAllModals();
 }
 
 // 현재 활성화된 프로젝트 번호를 추적하는 변수
@@ -1011,20 +917,17 @@ function showProjectPage(hidePageId, showPageId) {
   }
 }
 
-function closeBookModal() {
-  const modal = document.getElementById("bookModal");
-  if (modal) {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
-  }
-}
+// closeBookModal 함수는 아래쪽에 통합 버전이 있음
 
 // Character 모달 관련 함수들
 function openCharacterModal() {
-  console.log("openCharacterModal called");
+  // 먼저 모든 모달 닫기
+  closeAllModals();
+
   const modal = document.getElementById("characterModal");
   console.log("Character modal element:", modal);
   if (modal) {
+    modal.classList.add("show");
     modal.style.display = "block";
     modal.style.visibility = "visible";
     modal.style.opacity = "1";
@@ -1036,47 +939,84 @@ function openCharacterModal() {
 }
 
 function closeCharacterModal() {
-  const modal = document.getElementById("characterModal");
-  if (modal) {
-    modal.style.display = "none";
-    modal.style.visibility = "hidden";
-    modal.style.opacity = "0";
-    document.body.style.overflow = "auto";
-  }
+  closeAllModals();
 }
 
 function nextCharacterPage() {
+  console.log("nextCharacterPage called");
   const characterModal = document.getElementById("characterModal");
   const currentPage = characterModal.querySelector(
     '.character-page:not([style*="display: none"])'
   );
-  const nextPage = currentPage.nextElementSibling;
 
-  if (nextPage && nextPage.classList.contains("character-page")) {
-    currentPage.style.display = "none";
-    nextPage.style.display = "block";
+  console.log("Current page:", currentPage);
+  console.log("Current page ID:", currentPage ? currentPage.id : "null");
+
+  // 현재 페이지 ID를 기반으로 다음 페이지 찾기
+  const currentId = currentPage.id;
+  let nextPageId;
+
+  if (currentId === "characterPage1") {
+    nextPageId = "characterPage2";
+  } else if (currentId === "characterPage2") {
+    nextPageId = "characterPage3";
+  }
+
+  console.log("Next page ID:", nextPageId);
+
+  if (nextPageId) {
+    const nextPage = document.getElementById(nextPageId);
+    console.log("Next page element:", nextPage);
+    if (nextPage) {
+      currentPage.style.display = "none";
+      nextPage.style.display = "block";
+      console.log("Page switched successfully");
+    }
   }
 }
 
 function prevCharacterPage() {
+  console.log("prevCharacterPage called");
   const characterModal = document.getElementById("characterModal");
   const currentPage = characterModal.querySelector(
     '.character-page:not([style*="display: none"])'
   );
-  const prevPage = currentPage.previousElementSibling;
 
-  if (prevPage && prevPage.classList.contains("character-page")) {
-    currentPage.style.display = "none";
-    prevPage.style.display = "block";
+  console.log("Current page:", currentPage);
+  console.log("Current page ID:", currentPage ? currentPage.id : "null");
+
+  // 현재 페이지 ID를 기반으로 이전 페이지 찾기
+  const currentId = currentPage.id;
+  let prevPageId;
+
+  if (currentId === "characterPage2") {
+    prevPageId = "characterPage1";
+  } else if (currentId === "characterPage3") {
+    prevPageId = "characterPage2";
+  }
+
+  console.log("Previous page ID:", prevPageId);
+
+  if (prevPageId) {
+    const prevPage = document.getElementById(prevPageId);
+    console.log("Previous page element:", prevPage);
+    if (prevPage) {
+      currentPage.style.display = "none";
+      prevPage.style.display = "block";
+      console.log("Page switched successfully");
+    }
   }
 }
 
 // Tiger 모달 관련 함수들
 function openTigerModal() {
-  console.log("openTigerModal called");
+  // 먼저 모든 모달 닫기
+  closeAllModals();
+
   const modal = document.getElementById("tigerModal");
   console.log("Tiger modal element:", modal);
   if (modal) {
+    modal.classList.add("show");
     modal.style.display = "block";
     modal.style.visibility = "visible";
     modal.style.opacity = "1";
@@ -1088,34 +1028,28 @@ function openTigerModal() {
 }
 
 function closeTigerModal() {
-  const modal = document.getElementById("tigerModal");
-  if (modal) {
-    modal.style.display = "none";
-    modal.style.visibility = "hidden";
-    modal.style.opacity = "0";
-    document.body.style.overflow = "auto";
-  }
+  closeAllModals();
 }
 
+// 통합 모달 오버레이 클릭 이벤트
 window.onclick = function (event) {
-  const modal = document.getElementById("projectModal");
-  const characterModal = document.getElementById("characterModal");
-  const tigerModal = document.getElementById("tigerModal");
+  // 모든 모달에 대해 오버레이 클릭 시 닫기
+  const modals = [
+    { id: "projectModal", element: document.getElementById("projectModal") },
+    { id: "myworkModal", element: document.getElementById("myworkModal") },
+    {
+      id: "characterModal",
+      element: document.getElementById("characterModal"),
+    },
+    { id: "tigerModal", element: document.getElementById("tigerModal") },
+    { id: "bookModal", element: document.getElementById("bookModal") },
+  ];
 
-  if (
-    event.target === modal ||
-    event.target.classList.contains("character-modal-overlay")
-  ) {
-    closeModal();
-  }
-
-  if (event.target === characterModal) {
-    closeCharacterModal();
-  }
-
-  if (event.target === tigerModal) {
-    closeTigerModal();
-  }
+  modals.forEach(({ id, element }) => {
+    if (element && event.target === element) {
+      closeAllModals();
+    }
+  });
 };
 
 function copyEmail() {
@@ -1151,24 +1085,18 @@ function isMobile() {
 
 // TeamWork 액션 핸들러 (모바일: 다음 슬라이드, 데스크톱: 스킵)
 function handleTeamWorkAction() {
-  console.log("handleTeamWorkAction called, isMobile:", isMobile());
   if (isMobile()) {
-    console.log("Calling nextTeamWorkSlide");
     nextTeamWorkSlide();
   } else {
-    console.log("Calling skipTeamWork");
     skipTeamWork();
   }
 }
 
 // MyWork 액션 핸들러 (모바일: 다음 슬라이드, 데스크톱: 스킵)
 function handleMyWorkAction() {
-  console.log("handleMyWorkAction called, isMobile:", isMobile());
   if (isMobile()) {
-    console.log("Calling nextMyWorkSlide");
     nextMyWorkSlide();
   } else {
-    console.log("Calling skipMyWork");
     skipMyWork();
   }
 }
@@ -1203,12 +1131,6 @@ function skipTeamWork() {
 
 // 전역 슬라이드 함수들
 function nextMyWorkSlide() {
-  console.log(
-    "nextMyWorkSlide called, isAnimating:",
-    isAnimating,
-    "myworkSlides.length:",
-    myworkSlides.length
-  );
   if (isAnimating || myworkSlides.length === 0) return;
   isAnimating = true;
 
@@ -1234,12 +1156,6 @@ function nextMyWorkSlide() {
 }
 
 function nextTeamWorkSlide() {
-  console.log(
-    "nextTeamWorkSlide called, isAnimating:",
-    isAnimating,
-    "teamworkSlides.length:",
-    teamworkSlides.length
-  );
   if (isAnimating || teamworkSlides.length === 0) return;
   isAnimating = true;
 
@@ -1900,6 +1816,11 @@ function initSlideshow() {
 
       // 마우스 클릭 이벤트
       pageElement.addEventListener("click", (e) => {
+        // Skip 버튼 클릭인 경우 커스텀 커서 로직 무시
+        if (e.target.closest(".skip-button")) {
+          return; // Skip 버튼의 onclick 이벤트가 실행되도록 함
+        }
+
         const rect = pageElement.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const pageWidth = rect.width;
@@ -1985,8 +1906,6 @@ function initSlideshow() {
 
 // Design Work 버튼 이벤트 초기화
 function initDesignWorkButtons() {
-  console.log("Initializing design work buttons...");
-
   // more-btn은 관상용이므로 클릭 이벤트를 제거하고 호버 효과만 유지
   const moreButtons = document.querySelectorAll(
     ".design-project-box .more-btn"
@@ -1996,20 +1915,17 @@ function initDesignWorkButtons() {
     // more-btn 클릭 시 부모 이벤트를 차단하지 않도록 수정
     button.addEventListener("click", (e) => {
       // stopPropagation 제거 - 부모 박스의 클릭 이벤트가 실행되도록 함
-      console.log(`More button ${index + 1} clicked (decorative only)`);
       // 실제 모달 열기는 부모 박스의 onclick에서 처리됨
     });
   });
 
   // 프로젝트 박스 전체 클릭 이벤트 확인
   const projectBoxes = document.querySelectorAll(".design-project-box");
-  console.log("Found design project boxes:", projectBoxes.length);
 
   projectBoxes.forEach((box, index) => {
     // onclick 속성이 이미 있으므로 추가 이벤트 리스너는 필요 없음
     // 하지만 디버깅을 위해 클릭 이벤트 추가
     box.addEventListener("click", (e) => {
-      console.log(`Design project box ${index + 1} clicked`);
       // onclick 속성의 openModal 함수가 실행됨
     });
   });
@@ -2017,16 +1933,13 @@ function initDesignWorkButtons() {
 
 // 책표지 클릭 이벤트 초기화
 function initBookCovers() {
-  console.log("Initializing book covers...");
   const bookItems = document.querySelectorAll(".book-item");
-  console.log("Found book items:", bookItems.length);
 
   bookItems.forEach((item, index) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
       const bookNumber = item.getAttribute("data-book");
       const bookImage = item.querySelector("img").src;
-      console.log(`Book item ${index + 1} clicked:`, { bookNumber, bookImage });
       openBookModal(bookImage, bookNumber);
     });
   });
@@ -2034,19 +1947,13 @@ function initBookCovers() {
 
 // 브로슈어 클릭 이벤트 초기화
 function initBrochures() {
-  console.log("Initializing brochures...");
   const brochureItems = document.querySelectorAll(".brochure-item");
-  console.log("Found brochure items:", brochureItems.length);
 
   brochureItems.forEach((item, index) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
       const brochureNumber = item.getAttribute("data-brochure");
       const brochureImage = item.querySelector("img").src;
-      console.log(`Brochure item ${index + 1} clicked:`, {
-        brochureNumber,
-        brochureImage,
-      });
       openBookModal(brochureImage, brochureNumber); // 책표지와 동일한 모달 사용
     });
   });
@@ -2054,16 +1961,13 @@ function initBrochures() {
 
 // 기타 카테고리 클릭 이벤트 초기화
 function initEtc() {
-  console.log("Initializing etc items...");
   const etcItems = document.querySelectorAll(".etc-item");
-  console.log("Found etc items:", etcItems.length);
 
   etcItems.forEach((item, index) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
       const etcNumber = item.getAttribute("data-etc");
       const etcImage = item.querySelector("img").src;
-      console.log(`Etc item ${index + 1} clicked:`, { etcNumber, etcImage });
       openBookModal(etcImage, etcNumber); // 책표지와 동일한 모달 사용
     });
   });
@@ -2071,7 +1975,6 @@ function initEtc() {
 
 // 책표지 모달 열기
 function openBookModal(imageSrc, bookNumber) {
-  console.log("openBookModal called:", { imageSrc, bookNumber });
   const modal = document.getElementById("bookModal");
   const modalImage = document.getElementById("bookModalImage");
 
@@ -2095,8 +1998,6 @@ function closeBookModal() {
   const modal = document.getElementById("bookModal");
   if (modal) {
     modal.style.display = "none";
-    modal.style.visibility = "hidden";
-    modal.style.opacity = "0";
     document.body.style.overflow = "auto";
   }
 }
@@ -2168,14 +2069,12 @@ function initSkillsTooltip() {
 
 // 페이지 로드 후 슬라이드쇼 초기화
 window.addEventListener("load", () => {
-  console.log("Page loaded, initializing all components...");
   initSlideshow();
   initDesignWorkCategories();
   initBookCovers();
   initBrochures();
   initEtc();
   initSkillsTooltip(); // 말풍선 기능 초기화 추가
-  console.log("All components initialized");
 });
 
 // Design Work 페이지 카테고리 기능

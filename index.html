@@ -991,7 +991,7 @@
           <div class="teamwork-right-section">
             <!-- 프로젝트 이미지 스크롤 박스 -->
             <div class="project-image-scroll-box">
-              <img src="imgs/teamwork/teamwork4-1.jpg" alt="마지막 프로젝트 이미지" />
+              <img src="imgs/teamwork/teamwork4-1.jpg" alt="PETOPIA 이미지" />
             </div>
           </div>
           
@@ -1008,7 +1008,7 @@
           <!-- 왼쪽 섹션: 제목 -->
           <div class="teamwork-left-section">
             <!-- 모달 제목 (왼쪽 상단) -->
-            <h2 class="teamwork-modal-title">마지막 프로젝트<span>[팀 프로젝트]</span></h2>
+            <h2 class="teamwork-modal-title">PETOPIA<span>[팀 프로젝트]</span></h2>
           </div>
           
           <!-- 오른쪽 섹션: 프로젝트 설명 -->
@@ -1071,14 +1071,13 @@
   </div>
   
   <!-- My Work 모달 -->
-  <div id="myworkModal" class="mywork-modal">
-    <div class="mywork-modal-overlay" onclick="closeMyworkModal()"></div>
-    <div class="mywork-modal-content">
-      <span class="close" onclick="closeMyworkModal()">&times;</span>
+  <div id="myworkModal" class="character-modal">
+    <div class="character-modal-container">
+      <span class="close" onclick="closeModal()">&times;</span>
       
       <!-- My Work 1: We design places -->
-      <div class="mywork-modal-page" id="mywork1">
-        <div class="mywork-modal-container">
+      <div class="character-page mywork-modal-page" id="mywork1">
+        <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="mywork-left-section">
             <h2 class="mywork-modal-title">We design places<span>[개인 프로젝트]</span></h2>
@@ -1150,8 +1149,8 @@
       </div>
       
       <!-- My Work 2: Netflix clone coding -->
-      <div class="mywork-modal-page" id="mywork2" style="display: none;">
-        <div class="mywork-modal-container">
+      <div class="character-page mywork-modal-page" id="mywork2" style="display: none;">
+        <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="mywork-left-section">
             <h2 class="mywork-modal-title">Netflix clone coding<span>[개인 프로젝트]</span></h2>
@@ -1219,8 +1218,8 @@
       </div>
       
       <!-- My Work 3: Fullpage Customizing -->
-      <div class="mywork-modal-page" id="mywork3" style="display: none;">
-        <div class="mywork-modal-container">
+      <div class="character-page mywork-modal-page" id="mywork3" style="display: none;">
+        <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="mywork-left-section">
             <h2 class="mywork-modal-title">Fullpage Customizing<span>[개인 프로젝트]</span></h2>
@@ -1288,8 +1287,8 @@
       </div>
       
       <!-- My Work 4: Cyworld hamseter -->
-      <div class="mywork-modal-page" id="mywork4" style="display: none;">
-        <div class="mywork-modal-container">
+      <div class="character-page mywork-modal-page" id="mywork4" style="display: none;">
+        <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="mywork-left-section">
             <h2 class="mywork-modal-title">Cyworld hamseter<span>[개인 프로젝트]</span></h2>
@@ -1358,8 +1357,8 @@
       </div>
       
       <!-- My Work 5: Coin Dashboard -->
-      <div class="mywork-modal-page" id="mywork5" style="display: none;">
-        <div class="mywork-modal-container">
+      <div class="character-page mywork-modal-page" id="mywork5" style="display: none;">
+        <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="mywork-left-section">
             <h2 class="mywork-modal-title">Coin Dashboard<span>[개인 프로젝트]</span></h2>
@@ -1429,8 +1428,8 @@
       </div>
       
       <!-- My Work 6: Onebite sky -->
-      <div class="mywork-modal-page" id="mywork6" style="display: none;">
-        <div class="mywork-modal-container">
+      <div class="character-page mywork-modal-page" id="mywork6" style="display: none;">
+        <div class="teamwork-modal-container">
           <!-- 왼쪽 섹션: 제목 -->
           <div class="mywork-left-section">
             <h2 class="mywork-modal-title">Onebite sky<span>[개인 프로젝트]</span></h2>
@@ -1512,17 +1511,18 @@
 
   <!-- Character 모달 -->
   <div id="characterModal" class="character-modal">
-    <div class="character-modal-overlay" onclick="closeCharacterModal()"></div>
-    <div class="character-modal-content">
-      <span class="close" onclick="closeCharacterModal()">&times;</span>
+    <div class="character-modal-container">
+      <span class="close" onclick="closeModal()">&times;</span>
       
       <!-- 1페이지: 캐릭터 소개 -->
       <div class="character-page" id="characterPage1">
-        <div class="character-modal-container">
-          <!-- 왼쪽 섹션: 제목 + 캐릭터 이미지 + Name + Keyword -->
+        <!-- 모달 제목 (공통) -->
+        <h2 class="character-modal-title">목으로 말해요 기롱이<span>[이모티콘 디자인]</span></h2>
+        
+        <!-- 1페이지 전용 flex wrapper -->
+        <div class="character-page1-content">
+          <!-- 왼쪽 섹션: 캐릭터 이미지 + Name + Keyword -->
           <div class="character-left-section">
-            <!-- 모달 제목 (왼쪽 상단) -->
-            <h2 class="character-modal-title">목으로 말해요 기롱이<span>[이모티콘 디자인]</span></h2>
             
             <!-- 캐릭터 이미지 (기롱1.jpg - 컬러가이드 포함) -->
             <div class="character-main-image">
@@ -1565,21 +1565,21 @@
               </div>
             </div>
           </div>
-          
-          <!-- 1페이지 전용 화살표 (다음 페이지만) -->
-          <div class="character-next-arrow" onclick="nextCharacterPage()">
-            <span class="arrow-icon">→</span>
-          </div>
+        </div>
+        
+        <!-- 1페이지 전용 화살표 (다음 페이지만) -->
+        <div class="character-next-arrow" onclick="nextCharacterPage()">
+          <span class="arrow-icon">→</span>
         </div>
       </div>
-      
+
       <!-- 2페이지: 이모티콘 그리드 -->
       <div class="character-page" id="characterPage2" style="display: none;">
-        <div class="character-modal-container">
-          <!-- 왼쪽 섹션: 제목 + 이모티콘 이미지 -->
-          <div class="character-left-section">
-            <!-- 모달 제목 (왼쪽 상단) - 1페이지와 동일한 위치 -->
-            <h2 class="character-modal-title">목으로 말해요 기롱이<span>[이모티콘 디자인]</span></h2>
+        <!-- 모달 제목 (공통) -->
+        <h2 class="character-modal-title">목으로 말해요 기롱이<span>[이모티콘 디자인]</span></h2>
+        
+        <!-- 왼쪽 섹션: 이모티콘 이미지 -->
+        <div class="character-left-section">
             
             <!-- 이모티콘 이미지 (기롱3.jpg) -->
             <div class="character-main-image2">
@@ -1600,13 +1600,13 @@
             <span class="arrow-icon">→</span>
           </div>
         </div>
-      </div>
-      
+
       <!-- 3페이지: 응용 굿즈 디자인 -->
       <div class="character-page" id="characterPage3" style="display: none;">
+        <!-- 모달 제목 (공통) -->
+        <h2 class="character-modal-title">목으로 말해요 기롱이<span>[응용 굿즈 디자인]</span></h2>
+        
         <div class="character-page3-container">
-          <!-- 모달 제목 (상단 중앙) - 고정 위치 -->
-          <h2 class="character-modal-title">목으로 말해요 기롱이<span>[응용 굿즈 디자인]</span></h2>
           
           <!-- 메인 콘텐츠 영역: 3열 그리드 레이아웃 -->
           <div class="character-page3-grid">
@@ -1621,19 +1621,19 @@
             <div class="character-page3-center">
               <div class="character-descriptions">
                 <div class="description-item">
-                  <span class="item-number">1</span>
+                  <span class="item-number">1.</span>
                   <span class="item-text">기롱이 이모티콘 실제 적용 예시</span>
                 </div>
                 <div class="description-item">
-                  <span class="item-number">2</span>
+                  <span class="item-number">2.</span>
                   <span class="item-text">기린 무늬 포장재 디자인과 기룽이 명함 작가 정보와 기통이 스토리</span>
                 </div>
                 <div class="description-item">
-                  <span class="item-number">3</span>
+                  <span class="item-number">3.</span>
                   <span class="item-text">파스텔 블루 컬러와 화이트 패턴을 이용 해 디자인한 머그컵과 박스 패키지</span>
                 </div>
                 <div class="description-item">
-                  <span class="item-number">4</span>
+                  <span class="item-number">4.</span>
                   <span class="item-text">파스텔 블루와 코랄 컬러를 배경색으로 기룽이의 얼굴로 구성한 양말 디자인</span>
                 </div>
               </div>
@@ -1661,57 +1661,58 @@
           </div>
         </div>
       </div>
+      </div>
+      </div>
     </div>
   </div>
   
   <!-- Tiger 모달 -->
-  <div id="tigerModal" class="tiger-modal">
-    <div class="tiger-modal-overlay" onclick="closeTigerModal()"></div>
-    <div class="tiger-modal-content">
-      <span class="close" onclick="closeTigerModal()">&times;</span>
+  <div id="tigerModal" class="character-modal">
+    <div class="character-modal-container">
+      <span class="close" onclick="closeModal()">&times;</span>
       
       <!-- 호랑이 캐릭터 소개 (1페이지만) -->
-      <div class="tiger-page">
-        <div class="tiger-modal-container">
-          <div class="tiger-left-section">
+      <div class="character-page tiger-page">
+        <div class="teamwork-modal-container">
+          <!-- 왼쪽 섹션: 제목 -->
+          <div class="teamwork-left-section">
             <!-- 모달 제목 (왼쪽 상단) -->
-            <h2 class="tiger-modal-title">학과별 캐릭터<span>[강릉중앙고]</span></h2>
-            
+            <h2 class="teamwork-modal-title">학과별 캐릭터<span>[강릉중앙고]</span></h2>
+          </div>
+          
+          <!-- 오른쪽 섹션: 프로젝트 설명 -->
+          <div class="teamwork-right-section">
             <!-- 정보 영역 -->
             <div class="tiger-left-bottom">
               <div class="tiger-info-item">
                 <p>강릉중앙고의 5가지 학과의 대표 캐릭터 입니다.
+                  <br>
                   강릉의 상징동물 호랑이와 학과의 특성을 보여줄수 있는 착장을 더한 다지인입니다.
-                  고객과 다이렉트로 소통하며 캐릭터 기획부터 굿즈 실제작까지 진행하였습니다.</p>
+                  <br>
+                  고객과 다이렉트로 소통하며 캐릭터 기획부터 굿즈 실제작까지 진행하였습니다.
+                </p>
               </div>
             </div>
 
-          <!-- 호랑이 메인 이미지 (호랑이1.jpg) -->
-          <div class="tiger-main-image">
-            <img src="imgs/호랑이/호랑이1.png" alt="학과별 캐릭터 호랑이" />
-          </div>
-          </div>
-          
-          <!-- 아래쪽 섹션: 설명 + 응용 이미지들 -->
-          <div class="tiger-right-section">
+            <!-- 호랑이 메인 이미지 (호랑이1.jpg) -->
+            <div class="tiger-main-image">
+              <img src="imgs/호랑이/호랑이1.png" alt="학과별 캐릭터 호랑이" />
+            </div>
             
+            <!-- 캐릭터 굿즈 섹션 -->
             <div class="tiger-applications">
               <h4>캐릭터 굿즈</h4>
               <div class="tiger-app-images">
-                <div class="tiger-app-item">
-                  <img src="imgs/호랑이/호랑이2.jpg" alt="서류가방" />
-                  
-                </div>
-                <div class="tiger-app-item">
-                  <img src="imgs/호랑이/호랑이3.jpg" alt="자판기 음료" />
-                </div>
+                <img src="imgs/호랑이/호랑이2.jpg" alt="호랑이 굿즈 1" />
+                <img src="imgs/호랑이/호랑이3.jpg" alt="호랑이 굿즈 2" />
+                
                 <div class="tiger-app-text">
                   <div class="description-item">
-                    <span class="item-number">1</span>
+                    <span class="item-number">1.</span>
                     <span class="item-text">고객의 니즈에 맟춤제작한 도무송스티커</span>
                   </div>
                   <div class="description-item">
-                    <span class="item-number">2</span>
+                    <span class="item-number">2.</span>
                     <span class="item-text">학교의 대표컬러인 청록색을 배경으로 주문제작한 종이컵</span>
                   </div>
                 </div>
