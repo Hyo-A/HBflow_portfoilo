@@ -11,7 +11,7 @@ let myworkCurrentSlide = 0;
 let teamworkCurrentSlide = 0;
 let isAnimating = false;
 
-// 격자 라인 동적 생성 함수 (300px 간격, 정사각형 유지)
+// 격자 라인 동적 생성 함수 (반응형 간격)
 function createGridLines() {
   const gridContainer = document.querySelector(".grid-lines");
 
@@ -23,38 +23,48 @@ function createGridLines() {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
 
+  // 화면 크기에 따른 격자 간격 설정
+  let gridSpacing;
+  if (screenWidth <= 480) {
+    gridSpacing = 150; // 모바일: 150px 간격
+  } else if (screenWidth <= 768) {
+    gridSpacing = 200; // 태블릿: 200px 간격
+  } else {
+    gridSpacing = 300; // 데스크톱: 300px 간격
+  }
+
   // 기존 격자 라인 제거
   gridContainer.innerHTML = "";
 
-  // 수평선 생성 (300px 간격, 100px 아래부터 시작)
-  const horizontalCount = Math.ceil((screenHeight - 100) / 300) + 1;
+  // 수평선 생성 (반응형 간격, 100px 아래부터 시작)
+  const horizontalCount = Math.ceil((screenHeight - 100) / gridSpacing) + 1;
 
   for (let i = 0; i < horizontalCount; i++) {
     const line = document.createElement("div");
     line.className = "horizontal-grid-line";
-    line.style.top = `${100 + i * 300}px`; // 100px 아래부터 시작
+    line.style.top = `${100 + i * gridSpacing}px`; // 100px 아래부터 시작
     line.style.position = "absolute";
     line.style.width = "100%";
     line.style.height = "1px";
     line.style.backgroundColor = "var(--color-accent)";
-    line.style.opacity = "0.5";
+    line.style.opacity = "0.2";
     line.style.transform = "scaleX(0)";
     line.style.transformOrigin = "left";
     gridContainer.appendChild(line);
   }
 
-  // 수직선 생성 (300px 간격)
-  const verticalCount = Math.ceil(screenWidth / 300) + 1;
+  // 수직선 생성 (반응형 간격)
+  const verticalCount = Math.ceil(screenWidth / gridSpacing) + 1;
 
   for (let i = 0; i < verticalCount; i++) {
     const line = document.createElement("div");
     line.className = "vertical-grid-line";
-    line.style.left = `${i * 300}px`;
+    line.style.left = `${i * gridSpacing}px`;
     line.style.position = "absolute";
     line.style.width = "1px";
     line.style.height = "100%";
     line.style.backgroundColor = "var(--color-accent)";
-    line.style.opacity = "0.5";
+    line.style.opacity = "0.2";
     line.style.transform = "scaleY(0)";
     line.style.transformOrigin = "top";
     gridContainer.appendChild(line);
@@ -586,11 +596,6 @@ window.addEventListener("DOMContentLoaded", () => {
   // 스크롤 이벤트 (매우 간단하게)
   container.addEventListener("wheel", (e) => {
     if (isScrolling || isLoading) return;
-
-    // 모바일에서는 전역 wheel 이벤트 비활성화
-    if (isMobile()) {
-      return;
-    }
 
     e.preventDefault();
     isScrolling = true;
@@ -1528,7 +1533,7 @@ function initSlideshow() {
     myworkPage.addEventListener(
       "wheel",
       (e) => {
-        // 모바일에서는 wheel 이벤트 비활성화
+        // 모바일에서는 슬라이드 wheel 이벤트 비활성화
         if (isMobile()) {
           return;
         }
@@ -1585,7 +1590,7 @@ function initSlideshow() {
     teamworkPage.addEventListener(
       "wheel",
       (e) => {
-        // 모바일에서는 wheel 이벤트 비활성화
+        // 모바일에서는 슬라이드 wheel 이벤트 비활성화
         if (isMobile()) {
           return;
         }
