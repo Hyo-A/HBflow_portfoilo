@@ -597,6 +597,11 @@ window.addEventListener("DOMContentLoaded", () => {
   container.addEventListener("wheel", (e) => {
     if (isScrolling || isLoading) return;
 
+    // 터치 디바이스에서는 전역 wheel 이벤트 비활성화 (터치 스크롤 허용)
+    if (isTouchDevice()) {
+      return;
+    }
+
     e.preventDefault();
     isScrolling = true;
     closeModal();
@@ -1086,6 +1091,11 @@ function skipMyWork() {
 // 모바일 체크 함수
 function isMobile() {
   return window.innerWidth < 768;
+}
+
+// 터치 디바이스 감지 함수
+function isTouchDevice() {
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
 }
 
 // TeamWork 액션 핸들러 (모바일: 다음 슬라이드, 데스크톱: 스킵)
