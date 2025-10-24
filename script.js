@@ -1,19 +1,160 @@
-// 전역 변수들
-let isLoading = false; // 로딩 상태 추가
-let isDesignTitleAnimating = false; // Design Work 제목 애니메이션 상태
-let currentAnimationTimer = null; // 현재 실행 중인 애니메이션 타이머
-let pendingCategoryChange = null; // 대기 중인 카테고리 변경
+// 전역 상태 관리 객체
+const appState = {
+  // 로딩 및 애니메이션 상태
+  isLoading: false,
+  isAnimating: false,
+  isDesignTitleAnimating: false,
+  currentAnimationTimer: null,
+  pendingCategoryChange: null,
 
-// 슬라이드쇼 전역 변수들
-let myworkSlides = [];
-let teamworkSlides = [];
-let myworkCurrentSlide = 0;
-let teamworkCurrentSlide = 0;
-let isAnimating = false;
+  // 슬라이드쇼 상태
+  myworkSlides: [],
+  teamworkSlides: [],
+  myworkCurrentSlide: 0,
+  teamworkCurrentSlide: 0,
+
+  // 프로젝트 상태
+  currentProjectNumber: 1,
+};
+
+// 터치 스크롤 관련 변수
+let touchStartY = 0;
+
+// DOM 요소 캐시 객체
+const domElements = {
+  // 기본 컨테이너들
+  container: null,
+  pages: null,
+  preloader: null,
+
+  // 로딩 관련 요소들
+  counter: null,
+  progressBar: null,
+  title: null,
+  gridLines: null,
+
+  // 네비게이션 요소들
+  allNavItems: null,
+  projectNav: null,
+  subNavItems: null,
+
+  // 슬라이드 관련 요소들
+  myworkPage: null,
+  teamworkPage: null,
+
+  // 기타 요소들
+  rightGreenBar: null,
+  designMainTitle: null,
+  designSubTitle: null,
+
+  // 초기화 플래그
+  initialized: false,
+};
+
+// 기존 전역 변수들과의 호환성을 위한 별칭 (점진적 마이그레이션용)
+let isLoading = appState.isLoading;
+let isDesignTitleAnimating = appState.isDesignTitleAnimating;
+let currentAnimationTimer = appState.currentAnimationTimer;
+let pendingCategoryChange = appState.pendingCategoryChange;
+let myworkSlides = appState.myworkSlides;
+let teamworkSlides = appState.teamworkSlides;
+let myworkCurrentSlide = appState.myworkCurrentSlide;
+let teamworkCurrentSlide = appState.teamworkCurrentSlide;
+let isAnimating = appState.isAnimating;
+let currentProjectNumber = appState.currentProjectNumber;
+
+// 상태 업데이트 헬퍼 함수들
+function updateAppState(key, value) {
+  appState[key] = value;
+  // 별칭 변수도 동기화
+  switch (key) {
+    case "isLoading":
+      isLoading = value;
+      break;
+    case "isAnimating":
+      isAnimating = value;
+      break;
+    case "isDesignTitleAnimating":
+      isDesignTitleAnimating = value;
+      break;
+    case "currentAnimationTimer":
+      currentAnimationTimer = value;
+      break;
+    case "pendingCategoryChange":
+      pendingCategoryChange = value;
+      break;
+    case "myworkSlides":
+      myworkSlides = value;
+      break;
+    case "teamworkSlides":
+      teamworkSlides = value;
+      break;
+    case "myworkCurrentSlide":
+      myworkCurrentSlide = value;
+      break;
+    case "teamworkCurrentSlide":
+      teamworkCurrentSlide = value;
+      break;
+    case "currentProjectNumber":
+      currentProjectNumber = value;
+      break;
+  }
+}
+
+function getAppState(key) {
+  return appState[key];
+}
+
+// 페이지 이동 함수 (터치 스크롤용)
+function moveToPage(pageIndex) {
+  if (pageIndex < 0 || pageIndex >= domElements.pages.length) return;
+
+  const pageTops = getPagePositions();
+  domElements.container.scrollTo({
+    top: pageTops[pageIndex],
+    behavior: "smooth",
+  });
+}
+
+// DOM 요소 초기화 함수
+function initializeDOMElements() {
+  if (domElements.initialized) return;
+
+  // 기본 컨테이너들
+  domElements.container = document.querySelector(".fullpage-container");
+  domElements.pages = document.querySelectorAll(".page");
+  domElements.preloader = document.querySelector(".preloader");
+
+  // 로딩 관련 요소들
+  domElements.counter = document.querySelector(".counter");
+  domElements.progressBar = document.querySelector(".progress-bar-fill");
+  domElements.title = document.querySelector(".title");
+  domElements.gridLines = document.querySelector(".grid-lines");
+
+  // 네비게이션 요소들
+  domElements.allNavItems = document.querySelectorAll(".nav-item");
+  domElements.projectNav = document.querySelector(".project-nav");
+  domElements.subNavItems = document.querySelectorAll(".PROJECT_li .nav-item");
+
+  // 슬라이드 관련 요소들
+  domElements.myworkPage = document.querySelector(".mywork-page");
+  domElements.teamworkPage = document.querySelector(".teamwork-page");
+
+  // 기타 요소들
+  domElements.rightGreenBar = document.querySelector(".right-green-bar");
+  domElements.designMainTitle = document.querySelector(
+    ".designwork-page .design-title-section .design-main-title"
+  );
+  domElements.designSubTitle = document.querySelector(
+    ".designwork-page .design-title-section .design-sub-title"
+  );
+
+  domElements.initialized = true;
+}
 
 // 격자 라인 동적 생성 함수 (반응형 간격)
 function createGridLines() {
-  const gridContainer = document.querySelector(".grid-lines");
+  const gridContainer = domElements.gridLines;
 
   if (!gridContainer) {
     console.error("격자 컨테이너를 찾을 수 없습니다!");
@@ -74,16 +215,16 @@ function createGridLines() {
 // 로딩 표시 후 페이지 이동 함수 (전역 함수)
 function showLoadingAndNavigate(pageIndex) {
   closeModal();
-  isLoading = true; // 로딩 시작
+  updateAppState("isLoading", true); // 로딩 시작
 
-  const container = document.querySelector(".fullpage-container");
-  const pages = document.querySelectorAll(".page");
+  const container = domElements.container;
+  const pages = domElements.pages;
 
   // 로딩 요소들
-  const preloader = document.querySelector(".preloader");
-  const counter = document.querySelector(".counter");
-  const progressBar = document.querySelector(".progress-bar-fill");
-  const title = document.querySelector(".title");
+  const preloader = domElements.preloader;
+  const counter = domElements.counter;
+  const progressBar = domElements.progressBar;
+  const title = domElements.title;
   // 격자 라인 생성
   createGridLines();
 
@@ -113,7 +254,7 @@ function showLoadingAndNavigate(pageIndex) {
       }, 500);
 
       preloader.style.display = "none";
-      isLoading = false;
+      updateAppState("isLoading", false);
       container.classList.remove("loading");
       setTimeout(() => {
         container.style.scrollBehavior = "smooth";
@@ -164,7 +305,7 @@ function showLoadingAndNavigate(pageIndex) {
       // 로딩 완전히 숨기기
       preloader.style.display = "none";
       preloader.style.transform = "translateY(0)";
-      isLoading = false; // 로딩 완료
+      updateAppState("isLoading", false); // 로딩 완료
 
       // 스크롤 애니메이션 복원
       container.classList.remove("loading");
@@ -229,7 +370,7 @@ function showLoadingAndNavigate(pageIndex) {
 // 현재 페이지에 따른 네비게이션 활성화 및 프로그레스바 업데이트 (전역 함수)
 function updateActiveNav(currentPage, scrollDirection = null) {
   // 모든 네비게이션 아이템에서 active 클래스 제거
-  const allNavItems = document.querySelectorAll(".nav-item");
+  const allNavItems = domElements.allNavItems;
 
   allNavItems.forEach((item, index) => {
     item.classList.remove("active");
@@ -243,12 +384,12 @@ function updateActiveNav(currentPage, scrollDirection = null) {
 
     // Project 하위 페이지인 경우 PROJECT도 활성화
     if (currentPage >= 2 && currentPage <= 4) {
-      const projectNav = document.querySelector(".project-nav");
+      const projectNav = domElements.projectNav;
       if (projectNav) {
         projectNav.classList.add("active");
 
         // PROJECT 하위 항목들 중 현재 페이지에 해당하는 것 활성화
-        const subNavItems = document.querySelectorAll(".PROJECT_li .nav-item");
+        const subNavItems = domElements.subNavItems;
         subNavItems.forEach((subItem) => {
           const subDataPage = subItem.getAttribute("data-page");
           if (subDataPage == currentPage) {
@@ -274,12 +415,8 @@ function updateActiveNav(currentPage, scrollDirection = null) {
     // 애니메이션이 이미 실행 중이면 중단
     if (isDesignTitleAnimating) return;
 
-    const mainTitle = document.querySelector(
-      ".designwork-page .design-title-section .design-main-title"
-    );
-    const subTitle = document.querySelector(
-      ".designwork-page .design-title-section .design-sub-title"
-    );
+    const mainTitle = domElements.designMainTitle;
+    const subTitle = domElements.designSubTitle;
 
     if (mainTitle && subTitle) {
       // 애니메이션 상태 설정
@@ -317,8 +454,8 @@ function updateActiveNav(currentPage, scrollDirection = null) {
 
 // 프로그레스바 업데이트 함수 (전역 함수)
 function updateProgressBar(currentPage) {
-  const progressBar = document.querySelector(".right-green-bar");
-  const pages = document.querySelectorAll(".page");
+  const progressBar = domElements.rightGreenBar;
+  const pages = domElements.pages;
   const totalPages = pages.length;
 
   const progressPercentage = ((currentPage + 1) / totalPages) * 100;
@@ -593,16 +730,14 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 스크롤 이벤트 (매우 간단하게)
+  // DOM 요소 초기화
+  initializeDOMElements();
+
+  // 스크롤 이벤트 (데스크톱 전용)
   container.addEventListener("wheel", (e) => {
-    if (isScrolling || isLoading) return;
+    if (isScrolling || isLoading || isTouchDevice()) return;
 
-    // 터치 디바이스에서는 전역 wheel 이벤트 비활성화 (터치 스크롤 허용)
-    if (isTouchDevice()) {
-      return;
-    }
-
-    e.preventDefault();
+    e.preventDefault(); // 데스크톱 휠에서만 기본 동작 차단
     isScrolling = true;
     closeModal();
 
@@ -628,6 +763,39 @@ window.addEventListener("DOMContentLoaded", () => {
       const currentPage = getCurrentPage();
       updateActiveNav(currentPage);
     }
+  });
+
+  // 모바일 터치 기반 스크롤 구현
+  container.addEventListener("touchstart", (e) => {
+    // 풀페이지 스크롤 중이거나 로딩 중이면 동작 금지
+    if (isScrolling || isLoading) return;
+    touchStartY = e.touches[0].clientY;
+  });
+
+  container.addEventListener("touchend", (e) => {
+    if (isScrolling || isLoading) return;
+
+    const touchEndY = e.changedTouches[0].clientY;
+    const swipeDistance = touchEndY - touchStartY;
+
+    // 충분한 스와이프 거리가 있어야 동작
+    if (Math.abs(swipeDistance) < 50) return;
+
+    isScrolling = true;
+    closeModal();
+    const currentPage = getCurrentPage();
+
+    if (swipeDistance < 0 && currentPage < pages.length - 1) {
+      // 위로 스와이프 (페이지 다운)
+      moveToPage(currentPage + 1);
+    } else if (swipeDistance > 0 && currentPage > 0) {
+      // 아래로 스와이프 (페이지 업)
+      moveToPage(currentPage - 1);
+    }
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 800);
   });
 
   // 스크롤 상태 정리 함수
@@ -871,9 +1039,6 @@ function closeModal() {
 function closeMyworkModal() {
   closeAllModals();
 }
-
-// 현재 활성화된 프로젝트 번호를 추적하는 변수
-let currentProjectNumber = 1;
 
 // 프로젝트 모달 페이지 이동 함수들
 function nextProjectPage() {
@@ -1534,10 +1699,10 @@ function initSlideshow() {
   let lastSlideScrollTime = 0;
   let slideScrollDebounceDelay = 200; // 슬라이드 스크롤 디바운싱 (ms)
 
-  const myworkPage = document.querySelector(".mywork-page");
-  const teamworkPage = document.querySelector(".teamwork-page");
-  const container = document.querySelector(".fullpage-container");
-  const pages = document.querySelectorAll(".page");
+  const myworkPage = domElements.myworkPage;
+  const teamworkPage = domElements.teamworkPage;
+  const container = domElements.container;
+  const pages = domElements.pages;
 
   if (myworkPage) {
     myworkPage.addEventListener(
