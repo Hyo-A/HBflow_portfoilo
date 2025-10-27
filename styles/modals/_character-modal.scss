@@ -4,7 +4,7 @@
 .character-modal {
   @include character-modal-base;
   
-  .character-modal-container {
+  .hb-modal-container {
     @include character-modal-content;
   }
 }
@@ -17,10 +17,10 @@
   @include character-modal-page1-layout;
 }
 
-// 2페이지: 캐릭터 상세 (그리드 기반)
+// 2페이지: 이모티콘 이미지 (기본 레이아웃)
 #characterPage2 {
   @include character-modal-title; // 공통 title 스타일
-  @include character-modal-page2-layout;
+  // 별도 레이아웃 불필요 (기본 레이아웃 사용)
 }
 
 // 3페이지: 굿즈 소개 (grid 기반)

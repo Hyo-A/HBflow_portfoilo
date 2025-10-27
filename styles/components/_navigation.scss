@@ -13,7 +13,7 @@
   background: transparent;
   border: none;
   cursor: var(--cursor-accent);
-  z-index: 1001;
+  z-index: 1002; // z-index 증가 (right-green-bar보다 높게)
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
@@ -145,7 +145,7 @@
   height: 100vh;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(3px);
-  z-index: 1000;
+  z-index: 1003; // z-index 증가 (햄버거 메뉴보다 높게)
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.35s ease, visibility 0.35s ease;
@@ -165,7 +165,7 @@ header.nav-open {
     right: 36px;
     top: 70px;
     transform: none;
-    z-index: 1002;
+    z-index: 1004; // z-index 증가 (오버레이보다 높게)
     
     @include tablet-up {
       right: 50px;

@@ -60,6 +60,16 @@
   width: 8px;
   height: 0;
   background: #B6E23A;
-  z-index: 100;
+  z-index: 1000; // z-index 증가 (다른 요소들보다 높게)
   transition: height 0.2s ease;
+  
+  // 기본: 모바일 (투명도 추가, 터치 이벤트 방지)
+  background: rgba(182, 226, 58, 0.9);
+  pointer-events: none;
+  
+  // 태블릿 이상 (768px 이상)
+  @media (min-width: $tablet) {
+    background: #B6E23A;
+    pointer-events: auto;
+  }
 }

@@ -188,7 +188,7 @@ body button {
   height: 100%;
   position: relative;
 }
-.character-modal .character-modal-content .character-next-arrow,
+.character-modal .character-modal-content .modal-next-arrow,
 .character-modal .character-modal-content .character-prev-arrow {
   position: absolute;
   top: 50%;
@@ -205,16 +205,16 @@ body button {
   border: 2px solid #e0e0e0;
   z-index: 2001;
 }
-.character-modal .character-modal-content .character-next-arrow:hover,
+.character-modal .character-modal-content .modal-next-arrow:hover,
 .character-modal .character-modal-content .character-prev-arrow:hover {
   background-color: #333;
   border-color: #333;
 }
-.character-modal .character-modal-content .character-next-arrow:hover .arrow-icon,
+.character-modal .character-modal-content .modal-next-arrow:hover .arrow-icon,
 .character-modal .character-modal-content .character-prev-arrow:hover .arrow-icon {
   color: white;
 }
-.character-modal .character-modal-content .character-next-arrow .arrow-icon,
+.character-modal .character-modal-content .modal-next-arrow .arrow-icon,
 .character-modal .character-modal-content .character-prev-arrow .arrow-icon {
   font-size: 20px;
   font-weight: bold;
@@ -227,7 +227,7 @@ body button {
   height: 100%;
   line-height: 1;
 }
-.character-modal .character-modal-content .character-next-arrow {
+.character-modal .character-modal-content .modal-next-arrow {
   right: -72px;
 }
 .character-modal .character-modal-content .character-prev-arrow {

@@ -7,6 +7,9 @@ const appState = {
   currentAnimationTimer: null,
   pendingCategoryChange: null,
 
+  // 스크롤 상태
+  isScrolling: false,
+
   // 슬라이드쇼 상태
   myworkSlides: [],
   teamworkSlides: [],
@@ -19,6 +22,9 @@ const appState = {
 
 // 터치 스크롤 관련 변수
 let touchStartY = 0;
+
+// 스크롤 디바운스 타이머
+let scrollTimer = null;
 
 // DOM 요소 캐시 객체
 const domElements = {
@@ -51,54 +57,11 @@ const domElements = {
   initialized: false,
 };
 
-// 기존 전역 변수들과의 호환성을 위한 별칭 (점진적 마이그레이션용)
-let isLoading = appState.isLoading;
-let isDesignTitleAnimating = appState.isDesignTitleAnimating;
-let currentAnimationTimer = appState.currentAnimationTimer;
-let pendingCategoryChange = appState.pendingCategoryChange;
-let myworkSlides = appState.myworkSlides;
-let teamworkSlides = appState.teamworkSlides;
-let myworkCurrentSlide = appState.myworkCurrentSlide;
-let teamworkCurrentSlide = appState.teamworkCurrentSlide;
-let isAnimating = appState.isAnimating;
-let currentProjectNumber = appState.currentProjectNumber;
+// 별칭 변수들 제거됨 - 이제 appState를 직접 사용
 
 // 상태 업데이트 헬퍼 함수들
 function updateAppState(key, value) {
   appState[key] = value;
-  // 별칭 변수도 동기화
-  switch (key) {
-    case "isLoading":
-      isLoading = value;
-      break;
-    case "isAnimating":
-      isAnimating = value;
-      break;
-    case "isDesignTitleAnimating":
-      isDesignTitleAnimating = value;
-      break;
-    case "currentAnimationTimer":
-      currentAnimationTimer = value;
-      break;
-    case "pendingCategoryChange":
-      pendingCategoryChange = value;
-      break;
-    case "myworkSlides":
-      myworkSlides = value;
-      break;
-    case "teamworkSlides":
-      teamworkSlides = value;
-      break;
-    case "myworkCurrentSlide":
-      myworkCurrentSlide = value;
-      break;
-    case "teamworkCurrentSlide":
-      teamworkCurrentSlide = value;
-      break;
-    case "currentProjectNumber":
-      currentProjectNumber = value;
-      break;
-  }
 }
 
 function getAppState(key) {
@@ -413,14 +376,14 @@ function updateActiveNav(currentPage, scrollDirection = null) {
     }
 
     // 애니메이션이 이미 실행 중이면 중단
-    if (isDesignTitleAnimating) return;
+    if (appState.isDesignTitleAnimating) return;
 
     const mainTitle = domElements.designMainTitle;
     const subTitle = domElements.designSubTitle;
 
     if (mainTitle && subTitle) {
       // 애니메이션 상태 설정
-      isDesignTitleAnimating = true;
+      appState.isDesignTitleAnimating = true;
 
       // 애니메이션 초기 상태로 리셋
       mainTitle.classList.remove("animate-in");
@@ -445,7 +408,7 @@ function updateActiveNav(currentPage, scrollDirection = null) {
 
         // 애니메이션 완료 후 상태 해제
         setTimeout(() => {
-          isDesignTitleAnimating = false;
+          appState.isDesignTitleAnimating = false;
         }, 600); // transition 시간과 동일
       }, 700); // 스크롤 애니메이션 완료 시간과 동일
     }
@@ -668,16 +631,16 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   // 깔끔한 풀페이지 스크롤 시스템
-  let isScrolling = false;
 
-  // 페이지 위치 계산 함수 (수정됨)
+  // 페이지 위치 계산 함수 (정확도 개선)
   function getPagePositions() {
-    const pageHeights = Array.from(pages).map((p) => p.offsetHeight);
+    const pages = domElements.pages; // 이미 캐시되어 있음
+    const positions = [];
 
-    const positions = [0];
-    for (let i = 1; i < pageHeights.length; i++) {
-      positions.push(positions[i - 1] + pageHeights[i - 1]);
-    }
+    pages.forEach((page) => {
+      // offsetTop은 문서 상단(또는 container 상단)으로부터의 정확한 위치
+      positions.push(page.offsetTop);
+    });
 
     return positions;
   }
@@ -735,10 +698,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // 스크롤 이벤트 (데스크톱 전용)
   container.addEventListener("wheel", (e) => {
-    if (isScrolling || isLoading || isTouchDevice()) return;
+    if (appState.isScrolling || appState.isLoading || isTouchDevice()) return;
 
     e.preventDefault(); // 데스크톱 휠에서만 기본 동작 차단
-    isScrolling = true;
+    appState.isScrolling = true;
     closeModal();
 
     const currentPage = getCurrentPage();
@@ -753,27 +716,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // 스크롤 완료 후 상태 해제
     setTimeout(() => {
-      isScrolling = false;
+      appState.isScrolling = false;
     }, 800);
   });
 
-  // 스크롤 완료 감지 및 네비게이션 업데이트
-  container.addEventListener("scrollend", () => {
-    if (!isLoading) {
-      const currentPage = getCurrentPage();
-      updateActiveNav(currentPage);
+  // 스크롤 완료 감지 및 네비게이션 업데이트 (브라우저 호환성 개선)
+  container.addEventListener("scroll", () => {
+    // 이전 타이머가 있으면 취소
+    if (scrollTimer) {
+      clearTimeout(scrollTimer);
     }
+
+    // 스크롤이 멈춘 후 150ms 뒤에 네비게이션 업데이트
+    scrollTimer = setTimeout(() => {
+      if (!appState.isLoading) {
+        const currentPage = getCurrentPage();
+        updateActiveNav(currentPage);
+      }
+    }, 150);
   });
 
   // 모바일 터치 기반 스크롤 구현
   container.addEventListener("touchstart", (e) => {
     // 풀페이지 스크롤 중이거나 로딩 중이면 동작 금지
-    if (isScrolling || isLoading) return;
+    if (appState.isScrolling || appState.isLoading) return;
     touchStartY = e.touches[0].clientY;
   });
 
   container.addEventListener("touchend", (e) => {
-    if (isScrolling || isLoading) return;
+    if (appState.isScrolling || appState.isLoading) return;
 
     const touchEndY = e.changedTouches[0].clientY;
     const swipeDistance = touchEndY - touchStartY;
@@ -781,7 +752,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // 충분한 스와이프 거리가 있어야 동작
     if (Math.abs(swipeDistance) < 50) return;
 
-    isScrolling = true;
+    appState.isScrolling = true;
     closeModal();
     const currentPage = getCurrentPage();
 
@@ -794,19 +765,30 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     setTimeout(() => {
-      isScrolling = false;
+      appState.isScrolling = false;
     }, 800);
   });
 
   // 스크롤 상태 정리 함수
   function resetScrollState() {
-    isScrolling = false;
+    appState.isScrolling = false;
+    // 스크롤 타이머도 정리
+    if (scrollTimer) {
+      clearTimeout(scrollTimer);
+      scrollTimer = null;
+    }
   }
 
   // 페이지가 처음 마운트될 때 HEADER를 활성화
   setTimeout(() => {
     updateActiveNav(0);
   }, 100);
+
+  // 햄버거 메뉴 초기화 (모바일 네비게이션바 작동을 위해)
+  initHamburgerMenu();
+
+  // 윈도우 리사이즈 이벤트 등록
+  window.addEventListener("resize", handleWindowResize);
 
   // 프로필 이미지 BOOK COVER 스타일 흔들림 애니메이션
   const profileImg = document.querySelector(".profile-img");
@@ -896,7 +878,7 @@ function openModal(type, slideNumber) {
     document.body.style.overflow = "hidden";
 
     // 프로젝트별로 올바른 1페이지 표시
-    currentProjectNumber = slideNumber;
+    appState.currentProjectNumber = slideNumber;
 
     // 모든 teamwork 모달 페이지 숨기기
     const allTeamworkPages = modal.querySelectorAll(".character-page");
@@ -928,7 +910,7 @@ function openModal(type, slideNumber) {
 
     // Team Work에서는 화살표 표시
     const arrows = modal.querySelectorAll(
-      ".character-next-arrow, .character-prev-arrow"
+      ".modal-next-arrow, .character-prev-arrow"
     );
     arrows.forEach((arrow) => (arrow.style.display = "flex"));
 
@@ -1040,45 +1022,136 @@ function closeMyworkModal() {
   closeAllModals();
 }
 
-// 프로젝트 모달 페이지 이동 함수들
-function nextProjectPage() {
-  // 현재 프로젝트에 따라 다른 2페이지 보여주기
-  if (currentProjectNumber === 1) {
-    // ROOKie 프로젝트
-    showProjectPage("rookiePage1", "rookiePage2");
-  } else if (currentProjectNumber === 2) {
-    // Metaphor 프로젝트
-    showProjectPage("metaphorPage1", "metaphorPage2");
-  } else if (currentProjectNumber === 3) {
-    // NONGDAM 프로젝트
-    showProjectPage("nongdamPage1", "nongdamPage2");
-  } else if (currentProjectNumber === 4) {
-    // 마지막 팀워크 프로젝트
-    showProjectPage("lastTeamworkPage1", "lastTeamworkPage2");
-  } else if (currentProjectNumber >= 1 && currentProjectNumber <= 6) {
-    // My Work 프로젝트들
-    const myworkPage1Id = `myworkPage${(currentProjectNumber - 1) * 2 + 1}`;
-    const myworkPage2Id = `myworkPage${(currentProjectNumber - 1) * 2 + 2}`;
-    showProjectPage(myworkPage1Id, myworkPage2Id);
+// 범용 모달 페이지 전환 함수
+function navigateModal(modalId, direction) {
+  const modal = document.getElementById(modalId);
+  if (!modal) {
+    console.error(`Modal with id "${modalId}" not found`);
+    return;
   }
+
+  // 현재 활성 페이지 찾기 (character-page 클래스 사용)
+  const currentPage = modal.querySelector(
+    '.character-page:not([style*="display: none"])'
+  );
+  if (!currentPage) {
+    console.error(`No active page found in modal "${modalId}"`);
+    return;
+  }
+
+  // 현재 페이지 인덱스 가져오기 (data-page-index가 없으면 ID 기반으로 계산)
+  let currentIndex = parseInt(currentPage.getAttribute("data-page-index"));
+
+  if (isNaN(currentIndex)) {
+    // data-page-index가 없으면 ID에서 추출
+    const pageId = currentPage.id;
+    if (pageId.includes("Page")) {
+      // characterPage1, characterPage2, characterPage3
+      const match = pageId.match(/(\d+)$/);
+      if (match) {
+        currentIndex = parseInt(match[1]) - 1; // 0-based index
+      }
+    } else if (pageId.includes("mywork")) {
+      // mywork1, mywork2, mywork3, mywork4, mywork5, mywork6
+      const match = pageId.match(/mywork(\d+)/);
+      if (match) {
+        currentIndex = parseInt(match[1]) - 1; // 0-based index
+      }
+    } else {
+      console.error(`Cannot determine page index from ID: ${pageId}`);
+      return;
+    }
+  }
+
+  // 다음/이전 페이지 인덱스 계산
+  const allPages = modal.querySelectorAll(".character-page");
+  const totalPages = allPages.length;
+
+  let nextIndex;
+  if (direction === "next") {
+    nextIndex = (currentIndex + 1) % totalPages;
+  } else if (direction === "prev") {
+    nextIndex = (currentIndex - 1 + totalPages) % totalPages;
+  } else {
+    console.error(`Invalid direction: ${direction}. Use 'next' or 'prev'`);
+    return;
+  }
+
+  // 다음 페이지 찾기 (data-page-index가 있으면 우선 사용, 없으면 ID 기반)
+  let nextPage = modal.querySelector(`[data-page-index="${nextIndex}"]`);
+
+  if (!nextPage) {
+    // ID 기반으로 찾기
+    const allPagesArray = Array.from(allPages);
+    nextPage = allPagesArray.find((page) => {
+      const pageId = page.id;
+      let pageIndex = -1;
+
+      if (pageId.includes("Page")) {
+        const match = pageId.match(/(\d+)$/);
+        if (match) {
+          pageIndex = parseInt(match[1]) - 1;
+        }
+      } else if (pageId.includes("mywork")) {
+        const match = pageId.match(/mywork(\d+)/);
+        if (match) {
+          pageIndex = parseInt(match[1]) - 1;
+        }
+      }
+
+      return pageIndex === nextIndex;
+    });
+  }
+
+  if (!nextPage) {
+    console.error(`Page with index ${nextIndex} not found`);
+    return;
+  }
+
+  // 페이지 전환
+  currentPage.style.display = "none";
+  nextPage.style.display = "block";
+
+  console.log(`Modal ${modalId}: ${currentPage.id} -> ${nextPage.id}`);
+}
+
+// 레거시 호환성을 위한 별칭 함수들
+function nextProjectPage() {
+  // 현재 프로젝트에 따라 적절한 모달 ID 결정
+  let modalId;
+  if (
+    appState.currentProjectNumber >= 1 &&
+    appState.currentProjectNumber <= 4
+  ) {
+    modalId = "projectModal"; // Team Work 모달
+  } else {
+    modalId = "myworkModal"; // My Work 모달
+  }
+
+  navigateModal(modalId, "next");
 }
 
 function prevProjectPage() {
-  // 현재 프로젝트에 따라 1페이지로 돌아가기
-  if (currentProjectNumber === 1) {
-    showProjectPage("rookiePage2", "rookiePage1");
-  } else if (currentProjectNumber === 2) {
-    showProjectPage("metaphorPage2", "metaphorPage1");
-  } else if (currentProjectNumber === 3) {
-    showProjectPage("nongdamPage2", "nongdamPage1");
-  } else if (currentProjectNumber === 4) {
-    showProjectPage("lastTeamworkPage2", "lastTeamworkPage1");
-  } else if (currentProjectNumber >= 1 && currentProjectNumber <= 6) {
-    // My Work 프로젝트들
-    const myworkPage1Id = `myworkPage${(currentProjectNumber - 1) * 2 + 1}`;
-    const myworkPage2Id = `myworkPage${(currentProjectNumber - 1) * 2 + 2}`;
-    showProjectPage(myworkPage2Id, myworkPage1Id);
+  // 현재 프로젝트에 따라 적절한 모달 ID 결정
+  let modalId;
+  if (
+    appState.currentProjectNumber >= 1 &&
+    appState.currentProjectNumber <= 4
+  ) {
+    modalId = "projectModal"; // Team Work 모달
+  } else {
+    modalId = "myworkModal"; // My Work 모달
   }
+
+  navigateModal(modalId, "prev");
+}
+
+function nextCharacterPage() {
+  navigateModal("characterModal", "next");
+}
+
+function prevCharacterPage() {
+  navigateModal("characterModal", "prev");
 }
 
 // 프로젝트 페이지 전환 헬퍼 함수
@@ -1091,8 +1164,6 @@ function showProjectPage(hidePageId, showPageId) {
     showPage.style.display = "block";
   }
 }
-
-// closeBookModal 함수는 아래쪽에 통합 버전이 있음
 
 // Character 모달 관련 함수들
 function openCharacterModal() {
@@ -1110,76 +1181,6 @@ function openCharacterModal() {
     console.log("Character modal opened successfully");
   } else {
     console.error("Character modal element not found!");
-  }
-}
-
-function closeCharacterModal() {
-  closeAllModals();
-}
-
-function nextCharacterPage() {
-  console.log("nextCharacterPage called");
-  const characterModal = document.getElementById("characterModal");
-  const currentPage = characterModal.querySelector(
-    '.character-page:not([style*="display: none"])'
-  );
-
-  console.log("Current page:", currentPage);
-  console.log("Current page ID:", currentPage ? currentPage.id : "null");
-
-  // 현재 페이지 ID를 기반으로 다음 페이지 찾기
-  const currentId = currentPage.id;
-  let nextPageId;
-
-  if (currentId === "characterPage1") {
-    nextPageId = "characterPage2";
-  } else if (currentId === "characterPage2") {
-    nextPageId = "characterPage3";
-  }
-
-  console.log("Next page ID:", nextPageId);
-
-  if (nextPageId) {
-    const nextPage = document.getElementById(nextPageId);
-    console.log("Next page element:", nextPage);
-    if (nextPage) {
-      currentPage.style.display = "none";
-      nextPage.style.display = "block";
-      console.log("Page switched successfully");
-    }
-  }
-}
-
-function prevCharacterPage() {
-  console.log("prevCharacterPage called");
-  const characterModal = document.getElementById("characterModal");
-  const currentPage = characterModal.querySelector(
-    '.character-page:not([style*="display: none"])'
-  );
-
-  console.log("Current page:", currentPage);
-  console.log("Current page ID:", currentPage ? currentPage.id : "null");
-
-  // 현재 페이지 ID를 기반으로 이전 페이지 찾기
-  const currentId = currentPage.id;
-  let prevPageId;
-
-  if (currentId === "characterPage2") {
-    prevPageId = "characterPage1";
-  } else if (currentId === "characterPage3") {
-    prevPageId = "characterPage2";
-  }
-
-  console.log("Previous page ID:", prevPageId);
-
-  if (prevPageId) {
-    const prevPage = document.getElementById(prevPageId);
-    console.log("Previous page element:", prevPage);
-    if (prevPage) {
-      currentPage.style.display = "none";
-      prevPage.style.display = "block";
-      console.log("Page switched successfully");
-    }
   }
 }
 
@@ -1281,15 +1282,17 @@ function handleMyWorkAction() {
   }
 }
 
-// 페이지 위치 계산 함수 (전역)
+// 페이지 위치 계산 함수 (전역, 정확도 개선)
 function getPagePositionsGlobal() {
   const container = document.querySelector(".fullpage-container");
   const pages = document.querySelectorAll(".page");
-  const pageHeights = Array.from(pages).map((p) => p.offsetHeight);
-  const positions = [0];
-  for (let i = 1; i < pageHeights.length; i++) {
-    positions.push(positions[i - 1] + pageHeights[i - 1]);
-  }
+  const positions = [];
+
+  pages.forEach((page) => {
+    // offsetTop은 문서 상단(또는 container 상단)으로부터의 정확한 위치
+    positions.push(page.offsetTop);
+  });
+
   return positions;
 }
 
@@ -1311,12 +1314,13 @@ function skipTeamWork() {
 
 // 전역 슬라이드 함수들
 function nextMyWorkSlide() {
-  if (isAnimating || myworkSlides.length === 0) return;
-  isAnimating = true;
+  if (appState.isAnimating || appState.myworkSlides.length === 0) return;
+  appState.isAnimating = true;
 
-  const currentSlideEl = myworkSlides[myworkCurrentSlide];
-  myworkCurrentSlide = (myworkCurrentSlide + 1) % myworkSlides.length;
-  const nextSlideEl = myworkSlides[myworkCurrentSlide];
+  const currentSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
+  appState.myworkCurrentSlide =
+    (appState.myworkCurrentSlide + 1) % appState.myworkSlides.length;
+  const nextSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
 
   // 현재 슬라이드 아웃
   animateSlideOut(currentSlideEl);
@@ -1330,18 +1334,19 @@ function nextMyWorkSlide() {
     updateMyWorkCounter();
 
     setTimeout(() => {
-      isAnimating = false;
+      appState.isAnimating = false;
     }, 1000);
   }, 800);
 }
 
 function nextTeamWorkSlide() {
-  if (isAnimating || teamworkSlides.length === 0) return;
-  isAnimating = true;
+  if (appState.isAnimating || appState.teamworkSlides.length === 0) return;
+  appState.isAnimating = true;
 
-  const currentSlideEl = teamworkSlides[teamworkCurrentSlide];
-  teamworkCurrentSlide = (teamworkCurrentSlide + 1) % teamworkSlides.length;
-  const nextSlideEl = teamworkSlides[teamworkCurrentSlide];
+  const currentSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
+  appState.teamworkCurrentSlide =
+    (appState.teamworkCurrentSlide + 1) % appState.teamworkSlides.length;
+  const nextSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
 
   // 현재 슬라이드 아웃
   animateSlideOut(currentSlideEl);
@@ -1355,7 +1360,7 @@ function nextTeamWorkSlide() {
     updateTeamWorkCounter();
 
     setTimeout(() => {
-      isAnimating = false;
+      appState.isAnimating = false;
     }, 1000);
   }, 800);
 }
@@ -1452,7 +1457,9 @@ function updateMyWorkCounter() {
     ".mywork-page .current-slide"
   );
   if (currentSlideElement) {
-    const slideNumber = (myworkCurrentSlide + 1).toString().padStart(2, "0");
+    const slideNumber = (appState.myworkCurrentSlide + 1)
+      .toString()
+      .padStart(2, "0");
     currentSlideElement.textContent = slideNumber;
   }
 }
@@ -1462,20 +1469,23 @@ function updateTeamWorkCounter() {
     ".teamwork-page .current-slide"
   );
   if (currentSlideElement) {
-    const slideNumber = (teamworkCurrentSlide + 1).toString().padStart(2, "0");
+    const slideNumber = (appState.teamworkCurrentSlide + 1)
+      .toString()
+      .padStart(2, "0");
     currentSlideElement.textContent = slideNumber;
   }
 }
 
 // 이전 슬라이드 함수들
 function prevMyWorkSlide() {
-  if (isAnimating || myworkSlides.length === 0) return;
-  isAnimating = true;
+  if (appState.isAnimating || appState.myworkSlides.length === 0) return;
+  appState.isAnimating = true;
 
-  const currentSlideEl = myworkSlides[myworkCurrentSlide];
-  myworkCurrentSlide =
-    (myworkCurrentSlide - 1 + myworkSlides.length) % myworkSlides.length;
-  const prevSlideEl = myworkSlides[myworkCurrentSlide];
+  const currentSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
+  appState.myworkCurrentSlide =
+    (appState.myworkCurrentSlide - 1 + appState.myworkSlides.length) %
+    appState.myworkSlides.length;
+  const prevSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
 
   // 현재 슬라이드 아웃
   animateSlideOut(currentSlideEl);
@@ -1489,19 +1499,20 @@ function prevMyWorkSlide() {
     updateMyWorkCounter();
 
     setTimeout(() => {
-      isAnimating = false;
+      appState.isAnimating = false;
     }, 1000);
   }, 800);
 }
 
 function prevTeamWorkSlide() {
-  if (isAnimating || teamworkSlides.length === 0) return;
-  isAnimating = true;
+  if (appState.isAnimating || appState.teamworkSlides.length === 0) return;
+  appState.isAnimating = true;
 
-  const currentSlideEl = teamworkSlides[teamworkCurrentSlide];
-  teamworkCurrentSlide =
-    (teamworkCurrentSlide - 1 + teamworkSlides.length) % teamworkSlides.length;
-  const prevSlideEl = teamworkSlides[teamworkCurrentSlide];
+  const currentSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
+  appState.teamworkCurrentSlide =
+    (appState.teamworkCurrentSlide - 1 + appState.teamworkSlides.length) %
+    appState.teamworkSlides.length;
+  const prevSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
 
   // 현재 슬라이드 아웃
   animateSlideOut(currentSlideEl);
@@ -1515,7 +1526,7 @@ function prevTeamWorkSlide() {
     updateTeamWorkCounter();
 
     setTimeout(() => {
-      isAnimating = false;
+      appState.isAnimating = false;
     }, 1000);
   }, 800);
 }
@@ -1525,8 +1536,8 @@ function prevTeamWorkSlide() {
 // 슬라이드쇼 기능 복구
 function initSlideshow() {
   // 전역 변수들로 슬라이드 요소들 초기화
-  myworkSlides = document.querySelectorAll(".mywork-page .slide");
-  teamworkSlides = document.querySelectorAll(".teamwork-page .slide");
+  appState.myworkSlides = document.querySelectorAll(".mywork-page .slide");
+  appState.teamworkSlides = document.querySelectorAll(".teamwork-page .slide");
   const myworkCounterStrip = document.querySelector(
     ".mywork-page .counter-strip"
   );
@@ -1535,14 +1546,14 @@ function initSlideshow() {
   );
 
   // 전역 변수 초기화
-  myworkCurrentSlide = 0;
-  teamworkCurrentSlide = 0;
-  isAnimating = false;
+  appState.myworkCurrentSlide = 0;
+  appState.teamworkCurrentSlide = 0;
+  appState.isAnimating = false;
 
   // 슬라이드 초기화
   function initSlides() {
     // My Work 슬라이드 초기화
-    myworkSlides.forEach((slide, index) => {
+    appState.myworkSlides.forEach((slide, index) => {
       const textLines = slide.querySelectorAll(".slide__text-line");
       const img = slide.querySelector(".slide__img");
       const subtitle = slide.querySelector(".slide__subtitle");
@@ -1584,7 +1595,7 @@ function initSlideshow() {
     });
 
     // Team Work 슬라이드 초기화
-    teamworkSlides.forEach((slide, index) => {
+    appState.teamworkSlides.forEach((slide, index) => {
       const textLines = slide.querySelectorAll(".slide__text-line");
       const img = slide.querySelector(".slide__img");
       const subtitle = slide.querySelector(".slide__subtitle");
@@ -1634,13 +1645,14 @@ function initSlideshow() {
 
   // My Work 이전 슬라이드로 이동
   function prevMyWorkSlide() {
-    if (isAnimating) return;
-    isAnimating = true;
+    if (appState.isAnimating) return;
+    appState.isAnimating = true;
 
-    const currentSlideEl = myworkSlides[myworkCurrentSlide];
-    myworkCurrentSlide =
-      (myworkCurrentSlide - 1 + myworkSlides.length) % myworkSlides.length;
-    const prevSlideEl = myworkSlides[myworkCurrentSlide];
+    const currentSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
+    appState.myworkCurrentSlide =
+      (appState.myworkCurrentSlide - 1 + appState.myworkSlides.length) %
+      appState.myworkSlides.length;
+    const prevSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
 
     // 현재 슬라이드 아웃
     animateSlideOut(currentSlideEl);
@@ -1654,7 +1666,7 @@ function initSlideshow() {
       updateMyWorkCounter();
 
       setTimeout(() => {
-        isAnimating = false;
+        appState.isAnimating = false;
       }, 1000);
     }, 800);
   }
@@ -1663,14 +1675,15 @@ function initSlideshow() {
 
   // Team Work 이전 슬라이드로 이동
   function prevTeamWorkSlide() {
-    if (isAnimating) return;
-    isAnimating = true;
+    if (appState.isAnimating) return;
+    appState.isAnimating = true;
 
-    const currentSlideEl = teamworkSlides[teamworkCurrentSlide];
-    teamworkCurrentSlide =
-      (teamworkCurrentSlide - 1 + teamworkSlides.length) %
-      teamworkSlides.length;
-    const prevSlideEl = teamworkSlides[teamworkCurrentSlide];
+    const currentSlideEl =
+      appState.teamworkSlides[appState.teamworkCurrentSlide];
+    appState.teamworkCurrentSlide =
+      (appState.teamworkCurrentSlide - 1 + appState.teamworkSlides.length) %
+      appState.teamworkSlides.length;
+    const prevSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
 
     // 현재 슬라이드 아웃
     animateSlideOut(currentSlideEl);
@@ -1684,7 +1697,7 @@ function initSlideshow() {
       updateTeamWorkCounter();
 
       setTimeout(() => {
-        isAnimating = false;
+        appState.isAnimating = false;
       }, 1000);
     }, 800);
   }
@@ -1734,7 +1747,10 @@ function initSlideshow() {
         slideScrollTimeout = setTimeout(() => {
           if (e.deltaY > 0) {
             // 다음 슬라이드로 이동
-            if (myworkCurrentSlide < myworkSlides.length - 1) {
+            if (
+              appState.myworkCurrentSlide <
+              appState.myworkSlides.length - 1
+            ) {
               nextMyWorkSlide();
             } else {
               // 마지막 슬라이드에서 다음 섹션으로 이동
@@ -1745,7 +1761,7 @@ function initSlideshow() {
             }
           } else {
             // 이전 슬라이드로 이동
-            if (myworkCurrentSlide > 0) {
+            if (appState.myworkCurrentSlide > 0) {
               prevMyWorkSlide();
             } else {
               // 첫 번째 슬라이드에서 이전 섹션으로 이동
@@ -1791,7 +1807,10 @@ function initSlideshow() {
         slideScrollTimeout = setTimeout(() => {
           if (e.deltaY > 0) {
             // 다음 슬라이드로 이동
-            if (teamworkCurrentSlide < teamworkSlides.length - 1) {
+            if (
+              appState.teamworkCurrentSlide <
+              appState.teamworkSlides.length - 1
+            ) {
               nextTeamWorkSlide();
             } else {
               // 마지막 슬라이드에서 다음 섹션으로 이동
@@ -1804,7 +1823,7 @@ function initSlideshow() {
             }
           } else {
             // 이전 슬라이드로 이동
-            if (teamworkCurrentSlide > 0) {
+            if (appState.teamworkCurrentSlide > 0) {
               prevTeamWorkSlide();
             } else {
               // 첫 번째 슬라이드에서 이전 섹션으로 이동
@@ -1856,12 +1875,15 @@ function initSlideshow() {
           if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
             if (deltaX > 0) {
               // 오른쪽 스와이프 - 이전 슬라이드
-              if (myworkCurrentSlide > 0) {
+              if (appState.myworkCurrentSlide > 0) {
                 prevMyWorkSlide();
               }
             } else {
               // 왼쪽 스와이프 - 다음 슬라이드
-              if (myworkCurrentSlide < myworkSlides.length - 1) {
+              if (
+                appState.myworkCurrentSlide <
+                appState.myworkSlides.length - 1
+              ) {
                 nextMyWorkSlide();
               }
             }
@@ -1899,12 +1921,15 @@ function initSlideshow() {
           if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
             if (deltaX > 0) {
               // 오른쪽 스와이프 - 이전 슬라이드
-              if (teamworkCurrentSlide > 0) {
+              if (appState.teamworkCurrentSlide > 0) {
                 prevTeamWorkSlide();
               }
             } else {
               // 왼쪽 스와이프 - 다음 슬라이드
-              if (teamworkCurrentSlide < teamworkSlides.length - 1) {
+              if (
+                appState.teamworkCurrentSlide <
+                appState.teamworkSlides.length - 1
+              ) {
                 nextTeamWorkSlide();
               }
             }
@@ -2011,7 +2036,7 @@ function initSlideshow() {
           if (x < leftArea) {
             // 왼쪽 클릭 - 이전 슬라이드 또는 이전 섹션
             if (pageElement.classList.contains("mywork-page")) {
-              if (myworkCurrentSlide === 0) {
+              if (appState.myworkCurrentSlide === 0) {
                 // 첫 번째 슬라이드에서 이전 섹션으로 이동
                 container.scrollTo({
                   top: pages[2].offsetTop, // Team Work 섹션 (페이지 2)
@@ -2021,7 +2046,7 @@ function initSlideshow() {
                 prevSlideFunc();
               }
             } else if (pageElement.classList.contains("teamwork-page")) {
-              if (teamworkCurrentSlide === 0) {
+              if (appState.teamworkCurrentSlide === 0) {
                 // 첫 번째 슬라이드에서 이전 섹션으로 이동
                 container.scrollTo({
                   top: pages[1].offsetTop, // Skills 섹션 (페이지 1)
@@ -2034,7 +2059,10 @@ function initSlideshow() {
           } else if (x > rightArea) {
             // 오른쪽 클릭 - 다음 슬라이드 또는 다음 섹션
             if (pageElement.classList.contains("mywork-page")) {
-              if (myworkCurrentSlide === myworkSlides.length - 1) {
+              if (
+                appState.myworkCurrentSlide ===
+                appState.myworkSlides.length - 1
+              ) {
                 // 마지막 슬라이드에서 다음 섹션으로 이동
                 container.scrollTo({
                   top: pages[4].offsetTop, // Design Work 섹션 (페이지 4)
@@ -2044,7 +2072,10 @@ function initSlideshow() {
                 nextSlideFunc();
               }
             } else if (pageElement.classList.contains("teamwork-page")) {
-              if (teamworkCurrentSlide === teamworkSlides.length - 1) {
+              if (
+                appState.teamworkCurrentSlide ===
+                appState.teamworkSlides.length - 1
+              ) {
                 // 마지막 슬라이드에서 다음 섹션으로 이동
                 container.scrollTo({
                   top: pages[3].offsetTop, // My Work 섹션 (페이지 3)
@@ -2198,6 +2229,16 @@ function initSkillsTooltip() {
     item.addEventListener("mouseleave", () => {
       hideTooltip();
     });
+
+    // 클릭 이벤트 추가
+    item.addEventListener("click", (e) => {
+      const description = item.getAttribute("data-description");
+      if (description) {
+        showTooltip(e, description);
+        // 3초 후 자동 숨김
+        setTimeout(() => hideTooltip(), 3000);
+      }
+    });
   });
 
   function showTooltip(e, text) {
@@ -2307,9 +2348,9 @@ function initDesignWorkCategories() {
   // 제목 애니메이션 함수
   function animateTitleChange(titles) {
     // 이전 애니메이션 타이머가 있으면 취소
-    if (currentAnimationTimer) {
-      clearTimeout(currentAnimationTimer);
-      currentAnimationTimer = null;
+    if (appState.currentAnimationTimer) {
+      clearTimeout(appState.currentAnimationTimer);
+      appState.currentAnimationTimer = null;
     }
 
     // 애니메이션 상태 정리
@@ -2336,10 +2377,10 @@ function initDesignWorkCategories() {
     }, 100);
 
     // 애니메이션 상태 관리
-    isDesignTitleAnimating = true;
-    currentAnimationTimer = setTimeout(() => {
-      isDesignTitleAnimating = false;
-      currentAnimationTimer = null;
+    appState.isDesignTitleAnimating = true;
+    appState.currentAnimationTimer = setTimeout(() => {
+      appState.isDesignTitleAnimating = false;
+      appState.currentAnimationTimer = null;
     }, 700);
   }
 
@@ -2494,9 +2535,3 @@ function handleWindowResize() {
     closeMobileMenu();
   }
 }
-
-// DOM 로드 완료 후 햄버거 메뉴 초기화
-document.addEventListener("DOMContentLoaded", () => {
-  initHamburgerMenu();
-  window.addEventListener("resize", handleWindowResize);
-});

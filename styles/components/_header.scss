@@ -227,18 +227,18 @@ header.nav-open {
   }
 }
 
-// 반응형 브레이크포인트 설정
+// 반응형 브레이크포인트 설정 (모바일 퍼스트)
+// 기본: 모바일 - 햄버거 메뉴 표시
+header {
+  .hamburger-menu { display: flex; }
+  .side-nav { display: none; }
+}
+
+// 데스크탑 이상 (1440px 이상) - 사이드 네비 표시
 @include large-up {
   header {
     .hamburger-menu { display: none; }
     .side-nav { display: block; }
     .mobile-nav-overlay { display: none; }
-  }
-}
-
-@media (max-width: 1439px) {
-  header {
-    .hamburger-menu { display: flex; }
-    .side-nav { display: none; }
   }
 }

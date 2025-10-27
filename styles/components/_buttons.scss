@@ -31,7 +31,7 @@
 
   @include tablet-up {
     position: absolute;
-    bottom: 68px;
+    bottom: 60px;
   }
 
   button {
@@ -43,24 +43,20 @@
     cursor: var(--cursor-accent);
     position: relative;
     overflow: hidden;
-    height: 30px; // 높이 증가
-    padding: 10px 20px; // 패딩 추가로 클릭 영역 확장
-    min-width: 200px; // 최소 너비 설정
+    height: 30px; 
     display: flex;
     align-items: center;
     justify-content: center;
     
     @include tablet-up {
       font-size: 1.6rem;
-      padding: 15px 25px;
-      min-width: 250px;
     }
     
     .button-text,
     .button-text-hover {
       display: block;
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);// line-height를 1로 설정하여 버튼 높이에 맞춤
-      height: 30px; // 전체 높이 사용
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      height: 30px; 
       display: flex;
       align-items: center;
       justify-content: center;

@@ -2,7 +2,7 @@
 .tiger-modal {
   @include hb-modal-base;
   
-  .character-modal-container {
+  .hb-modal-container {
     @include hb-modal-content;
     
     .close {
