@@ -43,7 +43,7 @@
   padding: 30px 40px;
   
   // 태블릿 이상 (768px 이상)
-  @media (min-width: $tablet) {
+  @include tablet-up {
     width: 95%;
     min-height: 660px;
     gap: 20px;
@@ -52,7 +52,7 @@
   }
   
   // 데스크탑 이상 (1024px 이상)
-  @media (min-width: $desktop) {
+  @include desktop-up {
     width: 90%;
     max-width: 1100px;
     min-height: 680px;
@@ -82,7 +82,7 @@
   font-size: 24px;
   
   // 태블릿 이상 (768px 이상)
-  @media (min-width: $tablet) {
+  @include tablet-up {
     top: 20px;
     right: 30px;
     font-size: 28px;
@@ -105,7 +105,7 @@
   height: 100%;
   
   // 태블릿 이상: 더 나은 간격
-  @media (min-width: $tablet) {
+  @include tablet-up {
     gap: 20px;
   }
 }
@@ -150,11 +150,11 @@
     z-index: 2001;
     padding-right: 12px;
 
-    @media (min-width: $tablet) {
+    @include tablet-up {
       width: 40px;
       height: 40px;
     }
-    @media (min-width: $desktop) {
+    @include desktop-up {
       width: 50px;
       height: 50px;
     }
@@ -180,7 +180,7 @@
       height: 100%;
       line-height: 1;
 
-      @media (min-width: $desktop) {
+      @include desktop-up {
         font-size: 20px;
       }
     }
@@ -190,11 +190,11 @@
   .modal-next-arrow {
     right: -34px; 
 
-    @media (min-width: $tablet) {
+    @include tablet-up {
       right: -50px; 
     }
     // 데스크탑 이상
-    @media (min-width: $desktop) {
+    @include desktop-up {
       right: -72px; 
     }
   }
@@ -203,11 +203,11 @@
   .character-prev-arrow {
     left: -34px; 
 
-    @media (min-width: $tablet) {
+    @include tablet-up {
       left: -50px; 
     }
     // 데스크탑 이상
-    @media (min-width: $desktop) {
+    @include desktop-up {
       left: -72px; 
     }
   }
@@ -220,10 +220,10 @@
     font-weight: 700;
     width: 100%;
     font-size: 2rem;
-    @media (min-width: $tablet) {
+    @include tablet-up {
       font-size: 2.2rem;
     }
-    @media (min-width: $desktop) {
+    @include desktop-up {
       font-size: 2.5rem;
     }
     
@@ -231,10 +231,10 @@
       font-weight: 200;
       padding-left: 5px;
       font-size: 1.4rem;
-      @media (min-width: $tablet) {
+      @include tablet-up {
         font-size: 1.6rem;
       }
-      @media (min-width: $desktop) {
+      @include desktop-up {
         font-size: 1.8rem;
       }
     }
@@ -249,11 +249,11 @@
     flex-direction: column;
     gap: 40px;
 
-    @media (min-width: $tablet) {
+    @include tablet-up {
       flex-direction: row;
       height: 530px;
     }
-    @media (min-width: $desktop) {
+    @include desktop-up {
       flex-direction: row;
       height: 530px;
     }
@@ -265,10 +265,10 @@
       flex-direction: column;
       justify-content: space-between;
 
-      @media (min-width: $tablet) {
+      @include tablet-up {
         flex: 0 0 320px;
       }
-      @media (min-width: $desktop) {
+      @include desktop-up {
         flex: 0 0 360px;
       }
       
@@ -284,10 +284,10 @@
           object-fit: contain;
           border-radius: 0;
           border: none;
-          @media (min-width: $tablet) {
+          @include tablet-up {
             width: 320px;
           }
-          @media (min-width: $desktop) {
+          @include desktop-up {
             width: 360px;
           }
         }
@@ -296,10 +296,10 @@
       // 왼쪽 하단: Name + Keyword & Visual Motif
       .character-left-bottom {
         margin-top: 20px;
-        @media (min-width: $tablet) {
+        @include tablet-up {
           margin-top: 10px;
         }
-        @media (min-width: $desktop) {
+        @include desktop-up {
           margin-top: 10px;
         }
         .character-section {
@@ -317,11 +317,11 @@
             line-height: 1.8rem;
             margin: 0;
             text-align: justify;
-            @media (min-width: $tablet) {
+            @include tablet-up {
               font-size: 1.2rem;
               line-height: 1.8rem;
             }
-            @media (min-width: $desktop) {
+            @include desktop-up {
               font-size: 1.4rem;
               line-height: 2rem;
             }
@@ -329,10 +329,10 @@
 
           .mobile-only {
             display: block;
-            @media (min-width: $tablet) {
+            @include tablet-up {
               display: none;
             }
-            @media (min-width: $desktop) {
+            @include desktop-up {
               display: none;
             }
           }
@@ -347,10 +347,10 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      @media (min-width: $tablet) {
+      @include tablet-up {
         display: flex;
       }
-      @media (min-width: $desktop) {
+      @include desktop-up {
         display: flex;
       }
       .character-section {
@@ -368,10 +368,10 @@
           text-align: justify;
           display: block;
           font-size: 1.2rem;
-          @media (min-width: $tablet) {
+          @include tablet-up {
             font-size: 1.2rem;
           }
-          @media (min-width: $desktop) {
+          @include desktop-up {
             font-size: 1.4rem;
           }
         }
@@ -420,11 +420,11 @@
     overflow: scroll;
     overflow-x: overlay;
 
-    @media (min-width: $tablet) {
+    @include tablet-up {
       overflow: hidden;
       overflow-x: hidden;
     }
-    @media (min-width: $desktop) {
+    @include desktop-up {
       overflow: hidden;
       overflow-x: hidden;
     }
@@ -447,10 +447,10 @@
         height: auto; 
         object-fit: contain;  
       }
-      @media (min-width: $tablet) {
+      @include tablet-up {
         display: none;
       }
-      @media (min-width: $desktop) {
+      @include desktop-up {
         display: none;
       }
     }
@@ -488,12 +488,12 @@
       grid-template-columns: auto;
       grid-template-rows: repeat(3, auto);
       max-width: none;
-      @media (min-width: $tablet) {
+      @include tablet-up {
         grid-template-columns: 1fr 1fr;
         max-width: 732px;
         gap: 20px;
       }
-      @media (min-width: $desktop) {
+      @include desktop-up {
         grid-template-columns: 1fr 0.5fr 0.5fr;
         max-width: none;
         gap: 20px;
@@ -505,11 +505,11 @@
         justify-content: center;
         align-items: center;
         height: 250px;
-        @media (min-width: $tablet) {
+        @include tablet-up {
           height: 100%;
           justify-content: start;
         }
-        @media (min-width: $desktop) {
+        @include desktop-up {
           height: 100%;
           justify-content: center;
         }
@@ -521,10 +521,10 @@
           align-items: flex-end;
           justify-content: center;
           max-width: none;
-          @media (min-width: $tablet) {
+          @include tablet-up {
             max-width: 300px;
           }
-          @media (min-width: $desktop) {
+          @include desktop-up {
             max-width: none;
           }
           
@@ -557,10 +557,10 @@
             display: flex;
             align-items: flex-start;
             gap: 8px;
-            @media (min-width: $tablet) {
+            @include tablet-up {
               gap: 10px;
             }
-            @media (min-width: $desktop) {
+            @include desktop-up {
               gap: 10px;
             }
             .item-number {
@@ -573,10 +573,10 @@
               font-size: 1.2rem;
               line-height: 1.4;
 
-              @media (min-width: $tablet) {
+              @include tablet-up {
                 font-size: 1.3rem;
               }
-              @media (min-width: $desktop) {
+              @include desktop-up {
                 font-size: 1.4rem;
               }
             }
@@ -588,10 +588,10 @@
       .character-page3-right {
         height: 100%;
         grid-column: auto;
-        @media (min-width: $tablet) {
+        @include tablet-up {
           grid-column: 1 / 3;
         }
-        @media (min-width: $desktop) {
+        @include desktop-up {
           grid-column: auto;
         }
         
@@ -601,10 +601,10 @@
           justify-content: space-between;
           gap: 8px;
           width: 100%;
-          @media (min-width: $tablet) {
+          @include tablet-up {
             flex-direction: row;
           }
-          @media (min-width: $desktop) {
+          @include desktop-up {
             flex-direction: column;
           }
           

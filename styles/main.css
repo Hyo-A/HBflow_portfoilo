@@ -149,6 +149,7 @@ body button {
     height: 100vh;
     min-height: 100vh;
     padding: 0;
+    scroll-snap-align: start;
   }
 }
 @media (min-width: 1024px) {
@@ -179,7 +180,7 @@ body button {
 }
 
 header {
-  position: fixed;
+  position: relative;
   top: 30px;
   left: 0;
   width: 100%;
@@ -189,14 +190,32 @@ header {
 }
 @media (min-width: 768px) {
   header {
+    position: fixed;
+    padding: 0 50px;
+    max-width: 1000px;
+  }
+}
+@media (min-width: 1024px) {
+  header {
+    position: fixed;
     padding: 0 50px;
     max-width: 1000px;
   }
 }
 header > h1 .logo-img {
-  height: 40px;
+  height: 30px;
   width: auto;
   object-fit: contain;
+}
+@media (min-width: 768px) {
+  header > h1 .logo-img {
+    height: 40px;
+  }
+}
+@media (min-width: 1024px) {
+  header > h1 .logo-img {
+    height: 40px;
+  }
 }
 header .hamburger-menu {
   display: flex;
@@ -919,14 +938,9 @@ header .side-nav .sub-nav,
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 1rem;
   font-family: "Butler_Medium_Stencil";
-}
-@media (min-width: 480px) {
-  .counter-container {
-    font-size: 4rem;
-  }
 }
 @media (min-width: 768px) {
   .counter-container {
@@ -936,7 +950,13 @@ header .side-nav .sub-nav,
 }
 @media (min-width: 1024px) {
   .counter-container {
-    font-size: 9rem;
+    font-size: 6rem;
+    gap: 12px;
+  }
+}
+@media (min-width: 1440px) {
+  .counter-container {
+    font-size: 8rem;
     gap: 12px;
   }
 }
@@ -1366,13 +1386,13 @@ header .side-nav .sub-nav,
 .teamwork-detail-content .teamwork-technologies .tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px;
 }
 .teamwork-detail-content .teamwork-technologies .tech-tags .tech-tag {
   background: var(--color-white);
   border: 1px solid var(--color-gray);
   border-radius: 20px;
-  padding: 6px 20px;
+  padding: 4px 12px;
   transition: all 0.2s ease;
   font-size: 1.2rem;
 }
@@ -1743,13 +1763,13 @@ header .side-nav .sub-nav,
 .mywork-technologies .tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px;
 }
 .mywork-technologies .tech-tags .tech-tag {
   background: var(--color-white);
   border: 1px solid var(--color-gray);
   border-radius: 20px;
-  padding: 6px 12px;
+  padding: 4px 12px;
   transition: all 0.2s ease;
   font-size: 1.2rem;
 }

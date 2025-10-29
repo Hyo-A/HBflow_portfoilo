@@ -69,21 +69,22 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 1rem;
   font-family: 'Butler_Medium_Stencil';
   
-  @media (min-width: $mobile) {
-    font-size: 4rem;
-  }
-  
-  @media (min-width: $tablet) {
+  @include tablet-up {
     font-size: 6rem;
     gap: 8px;
   }
   
-  @media (min-width: $desktop) {
-    font-size: 9rem;
+  @include desktop-up {
+    font-size: 6rem;
+    gap: 12px;
+  }
+
+  @include large-up {
+    font-size: 8rem;
     gap: 12px;
   }
   
@@ -100,16 +101,16 @@
   opacity: 0;
   transform: translateY(20px);
   
-  @media (min-width: $mobile) {
+  @include mobile-up {
     font-size: 1.5rem;
   }
   
-  @media (min-width: $tablet) {
+  @include tablet-up {
     font-size: 2rem;
     margin-bottom: 1.5rem;
   }
   
-  @media (min-width: $desktop) {
+  @include desktop-up {
     font-size: 3rem;
     margin-bottom: 2rem;
   }
@@ -122,17 +123,17 @@
   border-radius: 6px;
   overflow: hidden;
   
-  @media (min-width: $mobile) {
+  @include mobile-up {
     width: 280px;
     height: 6px;
   }
   
-  @media (min-width: $tablet) {
+  @include tablet-up {
     width: 400px;
     height: 8px;
   }
   
-  @media (min-width: $desktop) {
+  @include desktop-up {
     width: 600px;
     height: 11px;
   }
@@ -226,7 +227,7 @@
     opacity: 0;
     transform: translateY(20px);
     
-    @media (min-width: $tablet) {
+    @include tablet-up {
       font-size: 6rem;
     }
   }
@@ -239,7 +240,7 @@
     opacity: 0;
     transform: translateY(20px);
     
-    @media (min-width: $tablet) {
+    @include tablet-up {
       font-size: 1.4rem;
     }
   }
@@ -251,7 +252,7 @@
     border-radius: 2px;
     overflow: hidden;
     
-    @media (min-width: $tablet) {
+    @include tablet-up {
       width: 250px;
     }
   }

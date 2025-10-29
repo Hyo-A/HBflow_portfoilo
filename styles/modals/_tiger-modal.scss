@@ -39,11 +39,11 @@
           p {
             font-size: 1.2rem;
             line-height: 1.6rem;
-            @media (min-width: $tablet) {
+            @include tablet-up {
               font-size: 1.4rem;
               line-height: 1.8rem;
             }
-            @media (min-width: $desktop) {
+            @include desktop-up {
               font-size: 1.6rem;
               line-height: 2rem;
             }
@@ -57,10 +57,10 @@
         align-items: center;
         justify-content: center;
         margin-top: -20px;
-        @media (min-width: $tablet) {
+        @include tablet-up {
           margin-top: -40px;
         }
-        @media (min-width: $desktop) {
+        @include desktop-up {
           margin-top: -58px;
         }
         
@@ -82,10 +82,10 @@
           margin: 0 0 15px 0;
           color: #333;
         }
-        @media (min-width: $tablet) {
+        @include tablet-up {
           font-size: 1.6rem;
         }
-        @media (min-width: $desktop) {
+        @include desktop-up {
           font-size: 1.8rem;
         }
         
@@ -94,12 +94,12 @@
           gap: 20px;
           align-items: start;
           flex-direction: column;
-          @media (min-width: $tablet) {
+          @include tablet-up {
             gap: 10px;
             flex-direction: row;
             align-items: center;
           } 
-          @media (min-width: $desktop) {
+          @include desktop-up {
             gap: 10px;
             flex-direction: row;
             align-items: center;
@@ -116,10 +116,10 @@
             flex-direction: column;
             gap: 15px;
             margin-left: 0px;
-            @media (min-width: $tablet) {
+            @include tablet-up {
               margin-left: 20px;
             } 
-            @media (min-width: $desktop) {
+            @include desktop-up {
               margin-left: 20px;
             } 
             
@@ -132,10 +132,10 @@
                 font-size: 1.2rem;
                 font-weight: bold;
                 flex-shrink: 0;
-                @media (min-width: $tablet) {
+                @include tablet-up {
                   font-size: 1.4rem;
                 }
-                @media (min-width: $desktop) {
+                @include desktop-up {
                   font-size: 1.6rem;
                 }
               }
@@ -143,10 +143,10 @@
               .item-text {
                 font-size: 1.2rem;
                 line-height: 1.4;
-                @media (min-width: $tablet) {
+                @include tablet-up {
                   font-size: 1.4rem;
                 }
-                @media (min-width: $desktop) {
+                @include desktop-up {
                   font-size: 1.6rem;
                 }
               }

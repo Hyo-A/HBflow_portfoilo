@@ -34,12 +34,12 @@
     pointer-events: none;
     font-weight: 500;
 
-    @media (min-width: $tablet) {
+    @include tablet-up {
       font-size: 14rem;
       right: 0%;
       top: 1%;
     }
-    @media (min-width: $desktop) {
+    @include desktop-up {
       font-size: 18rem;
       right: -16%;
       top: 1%;

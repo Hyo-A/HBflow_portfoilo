@@ -1,3 +1,17 @@
+// Preloader 애니메이션 상수
+const PRELOADER_CONFIG = {
+  progressBarDuration: 1.2, // 프로그레스바 애니메이션 시간 (초)
+  gridLineDuration: 0.8, // 격자 라인 애니메이션 시간 (초)
+  gridLineStagger: 0.03, // 격자 라인 스태거 간격
+  counterTitleStagger: 0.05, // 카운터/타이틀 스태거 간격
+};
+
+// 스크롤 애니메이션 설정
+const SCROLL_CONFIG = {
+  pageTransitionDuration: 2, // 페이지 이동 애니메이션 시간 (초) - 조절 가능
+  pageTransitionEase: "power3.inOut", // 이징 함수 (power1, power2, power3, sine, expo 등)
+};
+
 // 전역 상태 관리 객체
 const appState = {
   // 로딩 및 애니메이션 상태
@@ -57,8 +71,6 @@ const domElements = {
   initialized: false,
 };
 
-// 별칭 변수들 제거됨 - 이제 appState를 직접 사용
-
 // 상태 업데이트 헬퍼 함수들
 function updateAppState(key, value) {
   appState[key] = value;
@@ -68,8 +80,12 @@ function getAppState(key) {
   return appState[key];
 }
 
-// 페이지 이동 함수 (터치 스크롤용)
+// 페이지 이동 함수 (터치 스크롤용) - 전역 함수
 function moveToPage(pageIndex) {
+  if (isMobile()) {
+    return; // 모바일에서는 브라우저 기본 스크롤 사용
+  }
+
   if (pageIndex < 0 || pageIndex >= domElements.pages.length) return;
 
   const pageTops = getPagePositions();
@@ -115,38 +131,28 @@ function initializeDOMElements() {
   domElements.initialized = true;
 }
 
-// 격자 라인 동적 생성 함수 (반응형 간격)
+// 격자 라인 동적 생성 함수
 function createGridLines() {
-  const gridContainer = domElements.gridLines;
+  // domElements가 초기화되지 않았을 수 있으므로 직접 DOM에서 찾기
+  let gridContainer =
+    domElements.gridLines || document.querySelector(".grid-lines");
+  if (!gridContainer) return;
 
-  if (!gridContainer) {
-    console.error("격자 컨테이너를 찾을 수 없습니다!");
-    return;
-  }
+  // domElements에도 저장 (다음 호출을 위해)
+  domElements.gridLines = gridContainer;
 
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
+  const gridSpacing = screenWidth <= 480 ? 150 : screenWidth <= 768 ? 200 : 300;
 
-  // 화면 크기에 따른 격자 간격 설정
-  let gridSpacing;
-  if (screenWidth <= 480) {
-    gridSpacing = 150; // 모바일: 150px 간격
-  } else if (screenWidth <= 768) {
-    gridSpacing = 200; // 태블릿: 200px 간격
-  } else {
-    gridSpacing = 300; // 데스크톱: 300px 간격
-  }
-
-  // 기존 격자 라인 제거
   gridContainer.innerHTML = "";
 
-  // 수평선 생성 (반응형 간격, 100px 아래부터 시작)
+  // 수평선 생성
   const horizontalCount = Math.ceil((screenHeight - 100) / gridSpacing) + 1;
-
   for (let i = 0; i < horizontalCount; i++) {
     const line = document.createElement("div");
     line.className = "horizontal-grid-line";
-    line.style.top = `${100 + i * gridSpacing}px`; // 100px 아래부터 시작
+    line.style.top = `${100 + i * gridSpacing}px`;
     line.style.position = "absolute";
     line.style.width = "100%";
     line.style.height = "1px";
@@ -157,9 +163,8 @@ function createGridLines() {
     gridContainer.appendChild(line);
   }
 
-  // 수직선 생성 (반응형 간격)
+  // 수직선 생성
   const verticalCount = Math.ceil(screenWidth / gridSpacing) + 1;
-
   for (let i = 0; i < verticalCount; i++) {
     const line = document.createElement("div");
     line.className = "vertical-grid-line";
@@ -175,6 +180,23 @@ function createGridLines() {
   }
 }
 
+// 격자 라인 선택 및 초기화 함수
+function initGridLines() {
+  const horizontalGridLines = document.querySelectorAll(
+    ".horizontal-grid-line"
+  );
+  const verticalGridLines = document.querySelectorAll(".vertical-grid-line");
+
+  horizontalGridLines.forEach((line) => {
+    line.style.transform = "scaleX(0)";
+  });
+  verticalGridLines.forEach((line) => {
+    line.style.transform = "scaleY(0)";
+  });
+
+  return { horizontalGridLines, verticalGridLines };
+}
+
 // 로딩 표시 후 페이지 이동 함수 (전역 함수)
 function showLoadingAndNavigate(pageIndex) {
   closeModal();
@@ -188,65 +210,22 @@ function showLoadingAndNavigate(pageIndex) {
   const counter = domElements.counter;
   const progressBar = domElements.progressBar;
   const title = domElements.title;
-  // 격자 라인 생성
   createGridLines();
+  const { horizontalGridLines, verticalGridLines } = initGridLines();
 
-  // 격자 라인 생성 후 선택
-  const horizontalGridLines = document.querySelectorAll(
-    ".horizontal-grid-line"
-  );
-  const verticalGridLines = document.querySelectorAll(".vertical-grid-line");
-
-  // 로딩 표시
   preloader.style.display = "flex";
   preloader.style.opacity = "1";
   preloader.style.transform = "translateY(0)";
   preloader.style.zIndex = "1000";
 
-  // ESC 키로 로딩 건너뛰기 기능 추가
-  const handleEscape = (e) => {
-    if (e.key === "Escape") {
-      tl.kill(); // 현재 애니메이션 중단
-      container.scrollTo({
-        top: pages[pageIndex].offsetTop,
-        behavior: "auto",
-      });
-
-      setTimeout(() => {
-        updateActiveNav(pageIndex, "down");
-      }, 500);
-
-      preloader.style.display = "none";
-      updateAppState("isLoading", false);
-      container.classList.remove("loading");
-      setTimeout(() => {
-        container.style.scrollBehavior = "smooth";
-      }, 100);
-
-      document.removeEventListener("keydown", handleEscape);
-    }
-  };
-
-  document.addEventListener("keydown", handleEscape);
-
-  // 스크롤 애니메이션 비활성화
   container.style.scrollBehavior = "auto";
   container.classList.add("loading");
 
-  // 카운터와 타이틀 초기화
   counter.textContent = "0";
   counter.style.opacity = "0";
   counter.style.transform = "translateY(20px)";
   title.style.opacity = "0";
   title.style.transform = "translateY(20px)";
-
-  // 그리드 라인과 점들 초기화
-  horizontalGridLines.forEach((line) => {
-    line.style.transform = "scaleX(0)";
-  });
-  verticalGridLines.forEach((line) => {
-    line.style.transform = "scaleY(0)";
-  });
 
   // 프로그레스바 초기화
   progressBar.style.width = "0";
@@ -284,14 +263,14 @@ function showLoadingAndNavigate(pageIndex) {
     y: 0,
     duration: 0.3,
     ease: "power2.out",
-    stagger: 0.05,
+    stagger: PRELOADER_CONFIG.counterTitleStagger,
   })
     .to(
       horizontalGridLines,
       {
         scaleX: 1,
-        duration: 0.5,
-        stagger: 0.03,
+        duration: PRELOADER_CONFIG.gridLineDuration,
+        stagger: PRELOADER_CONFIG.gridLineStagger,
         ease: "power1.inOut",
       },
       "-=0.2"
@@ -300,8 +279,8 @@ function showLoadingAndNavigate(pageIndex) {
       verticalGridLines,
       {
         scaleY: 1,
-        duration: 0.5,
-        stagger: 0.03,
+        duration: PRELOADER_CONFIG.gridLineDuration,
+        stagger: PRELOADER_CONFIG.gridLineStagger,
         ease: "power1.inOut",
       },
       "-=0.4"
@@ -310,7 +289,7 @@ function showLoadingAndNavigate(pageIndex) {
       progressBar,
       {
         width: "100%",
-        duration: 1.5,
+        duration: PRELOADER_CONFIG.progressBarDuration,
         ease: "power1.inOut",
         onUpdate: function () {
           const progress = Math.round(this.progress() * 100);
@@ -434,6 +413,14 @@ window.addEventListener("resize", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
+  // 모바일 환경에서 JavaScript 스크롤 제어 완전히 비활성화
+  if (isMobile()) {
+    const container = document.querySelector(".fullpage-container");
+    if (container) {
+      container.style.scrollBehavior = "auto";
+    }
+  }
+
   // HISTORY 바 애니메이션
   const bars = document.querySelectorAll(".history-bar .bar");
 
@@ -514,31 +501,22 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }, 3000);
 
-  //preloader
-  // 격자 라인 생성 (첫 페이지 로드 시)
   createGridLines();
-
-  // Elements
   const preloader = document.querySelector(".preloader");
   const counter = document.querySelector(".counter");
   const progressBar = document.querySelector(".progress-bar-fill");
   const title = document.querySelector(".title");
-  const horizontalGridLines = document.querySelectorAll(
-    ".horizontal-grid-line"
-  );
-  const verticalGridLines = document.querySelectorAll(".vertical-grid-line");
 
-  // 프리로더를 표시 상태로 변경 (초기 로딩 시작)
   if (preloader) {
     preloader.style.display = "flex";
     preloader.style.opacity = "1";
     preloader.style.zIndex = "1000";
-
-    // 카운터와 타이틀 초기화
     if (counter) counter.style.opacity = "0";
     if (title) title.style.opacity = "0";
     if (progressBar) progressBar.style.width = "0";
   }
+
+  const { horizontalGridLines, verticalGridLines } = initGridLines();
 
   // Initialize GSAP timeline
   const tl = gsap.timeline();
@@ -547,45 +525,42 @@ window.addEventListener("DOMContentLoaded", () => {
   tl.to([counter, title], {
     opacity: 1,
     y: 0,
-    duration: 0.5,
+    duration: 0.3,
     ease: "power2.out",
-    stagger: 0.1,
+    stagger: PRELOADER_CONFIG.counterTitleStagger,
   })
-
-    // Animate horizontal grid lines
-    .to(horizontalGridLines, {
-      scaleX: 1,
-      duration: 0.8,
-      stagger: 0.05,
-      ease: "power1.inOut",
-    })
-
-    // Animate vertical grid lines
+    .to(
+      horizontalGridLines,
+      {
+        scaleX: 1,
+        duration: PRELOADER_CONFIG.gridLineDuration,
+        stagger: PRELOADER_CONFIG.gridLineStagger,
+        ease: "power1.inOut",
+      },
+      "-=0.2"
+    )
     .to(
       verticalGridLines,
       {
         scaleY: 1,
-        duration: 0.8,
-        stagger: 0.05,
+        duration: PRELOADER_CONFIG.gridLineDuration,
+        stagger: PRELOADER_CONFIG.gridLineStagger,
         ease: "power1.inOut",
       },
-      "-=0.6"
+      "-=0.4"
     )
-
-    // Animate loading progress
     .to(
       progressBar,
       {
         width: "100%",
-        duration: 2,
+        duration: PRELOADER_CONFIG.progressBarDuration,
         ease: "power1.inOut",
         onUpdate: function () {
-          // Update counter based on progress
           const progress = Math.round(this.progress() * 100);
           counter.textContent = progress;
         },
       },
-      "-=1.5"
+      "-=0.8"
     )
 
     // Transition to main content - 깔끔하게 사라지도록 수정
@@ -682,43 +657,44 @@ window.addEventListener("DOMContentLoaded", () => {
     return closestPage;
   }
 
-  // 페이지 이동 함수
+  // 페이지 이동 함수 (GSAP으로 시간 조절 가능한 스크롤 애니메이션)
+  // 모바일에서는 브라우저 기본 스크롤을 사용하도록 함수 자체를 비활성화
   function moveToPage(pageIndex) {
+    // 모바일에서는 강제 페이지 이동 비활성화
+    if (isMobile()) {
+      return; // 모바일에서는 브라우저 기본 스크롤 사용
+    }
+
     if (pageIndex < 0 || pageIndex >= pages.length) return;
 
     const pageTops = getPagePositions();
-    container.scrollTo({
-      top: pageTops[pageIndex],
-      behavior: "smooth",
+    const targetScrollTop = pageTops[pageIndex];
+    const startScrollTop = container.scrollTop;
+
+    // GSAP으로 부드러운 스크롤 애니메이션 (시간 조절 가능)
+    // scrollTop을 직접 애니메이션하기 위해 객체로 래핑
+    const scrollObj = { scroll: startScrollTop };
+
+    gsap.to(scrollObj, {
+      scroll: targetScrollTop,
+      duration: SCROLL_CONFIG.pageTransitionDuration, // 상수로 관리되는 이동 시간
+      ease: SCROLL_CONFIG.pageTransitionEase, // 이징 함수
+      onUpdate: () => {
+        container.scrollTop = scrollObj.scroll;
+      },
+      onComplete: () => {
+        // 애니메이션 완료 후 정확한 위치로 스냅 (CSS scroll-snap 보완)
+        container.scrollTop = targetScrollTop;
+      },
     });
   }
 
   // DOM 요소 초기화
   initializeDOMElements();
 
-  // 스크롤 이벤트 (데스크톱 전용)
-  container.addEventListener("wheel", (e) => {
-    if (appState.isScrolling || appState.isLoading || isTouchDevice()) return;
-
-    e.preventDefault(); // 데스크톱 휠에서만 기본 동작 차단
-    appState.isScrolling = true;
-    closeModal();
-
-    const currentPage = getCurrentPage();
-
-    if (e.deltaY > 0 && currentPage < pages.length - 1) {
-      // 아래로 스크롤
-      moveToPage(currentPage + 1);
-    } else if (e.deltaY < 0 && currentPage > 0) {
-      // 위로 스크롤
-      moveToPage(currentPage - 1);
-    }
-
-    // 스크롤 완료 후 상태 해제
-    setTimeout(() => {
-      appState.isScrolling = false;
-    }, 800);
-  });
+  // CSS scroll-snap 사용: wheel 이벤트 리스너 제거
+  // 브라우저가 자동으로 스크롤을 처리하고 CSS scroll-snap이 페이지 스냅을 처리함
+  // 터치 이벤트(touchstart/touchend)는 아래에서 별도로 처리됨
 
   // 스크롤 완료 감지 및 네비게이션 업데이트 (브라우저 호환성 개선)
   container.addEventListener("scroll", () => {
@@ -727,8 +703,14 @@ window.addEventListener("DOMContentLoaded", () => {
       clearTimeout(scrollTimer);
     }
 
-    // 스크롤이 멈춘 후 150ms 뒤에 네비게이션 업데이트
+    // 스크롤이 멈춘 후 150ms 뒤에 처리
     scrollTimer = setTimeout(() => {
+      // 스크롤 완료 시 isScrolling 상태 해제
+      if (appState.isScrolling) {
+        appState.isScrolling = false;
+      }
+
+      // 네비게이션 업데이트
       if (!appState.isLoading) {
         const currentPage = getCurrentPage();
         updateActiveNav(currentPage);
@@ -736,38 +718,46 @@ window.addEventListener("DOMContentLoaded", () => {
     }, 150);
   });
 
-  // 모바일 터치 기반 스크롤 구현
-  container.addEventListener("touchstart", (e) => {
-    // 풀페이지 스크롤 중이거나 로딩 중이면 동작 금지
-    if (appState.isScrolling || appState.isLoading) return;
-    touchStartY = e.touches[0].clientY;
-  });
+  // 모바일이 아닐 때만 풀페이지 스와이프 감지 로직을 등록합니다
+  // 모바일에서는 브라우저의 기본 터치 스크롤을 사용하도록 합니다
+  if (!isMobile()) {
+    // 터치 스크롤 관련 변수 초기화는 유지
+    // 모바일이 아니지만 터치 디바이스일 때 (예: 태블릿, 터치스크린 노트북)
 
-  container.addEventListener("touchend", (e) => {
-    if (appState.isScrolling || appState.isLoading) return;
+    container.addEventListener(
+      "touchstart",
+      (e) => {
+        // 풀페이지 스크롤 중이거나 로딩 중이면 동작 금지
+        if (appState.isScrolling || appState.isLoading) return;
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
 
-    const touchEndY = e.changedTouches[0].clientY;
-    const swipeDistance = touchEndY - touchStartY;
+    container.addEventListener("touchend", (e) => {
+      // 모바일이 아니지만 터치 디바이스일 때
+      if (appState.isScrolling || appState.isLoading) return;
 
-    // 충분한 스와이프 거리가 있어야 동작
-    if (Math.abs(swipeDistance) < 50) return;
+      const touchEndY = e.changedTouches[0].clientY;
+      const swipeDistance = touchEndY - touchStartY;
 
-    appState.isScrolling = true;
-    closeModal();
-    const currentPage = getCurrentPage();
+      // 충분한 스와이프 거리가 있어야 동작
+      if (Math.abs(swipeDistance) < 50) return;
 
-    if (swipeDistance < 0 && currentPage < pages.length - 1) {
-      // 위로 스와이프 (페이지 다운)
-      moveToPage(currentPage + 1);
-    } else if (swipeDistance > 0 && currentPage > 0) {
-      // 아래로 스와이프 (페이지 업)
-      moveToPage(currentPage - 1);
-    }
+      appState.isScrolling = true;
+      closeModal();
+      const currentPage = getCurrentPage();
 
-    setTimeout(() => {
-      appState.isScrolling = false;
-    }, 800);
-  });
+      if (swipeDistance < 0 && currentPage < pages.length - 1) {
+        // 위로 스와이프 (페이지 다운)
+        moveToPage(currentPage + 1);
+      } else if (swipeDistance > 0 && currentPage > 0) {
+        // 아래로 스와이프 (페이지 업)
+        moveToPage(currentPage - 1);
+      }
+      // 스크롤 완료는 scroll 이벤트에서 감지됨
+    });
+  }
 
   // 스크롤 상태 정리 함수
   function resetScrollState() {

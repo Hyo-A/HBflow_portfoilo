@@ -127,10 +127,10 @@
           
           .or-contact {
             font-size: 1.2rem;
-            @media (min-width: $tablet) {
+            @include tablet-up {
               font-size: 1.4rem;
             }
-            @media (min-width: $desktop) {
+            @include desktop-up {
               font-size: 1.6rem;
             }
           }
@@ -142,11 +142,11 @@
       width: 100%;
       margin-top: 2rem;
       
-      @media (min-width: $tablet) {
+      @include tablet-up {
         width: 300px;
         margin-top: 0;
       }
-      @media (min-width: $desktop) {
+      @include desktop-up {
         width: 500px;
         margin-top: 0;
       }
@@ -174,7 +174,7 @@
     left: auto;
     text-align: start;
 
-    @media (min-width: $tablet) {
+    @include tablet-up {
       text-align: center;
       font-size: 1.6rem;
       position: absolute;
@@ -183,7 +183,7 @@
       text-align: left;
       margin-top: 0;
     }
-    @media (min-width: $desktop) {
+    @include desktop-up {
       text-align: center;
       font-size: 1.6rem;
       position: absolute;
