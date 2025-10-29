@@ -2229,18 +2229,6 @@ function initSkillsTooltip() {
     item.addEventListener("mouseleave", () => {
       hideTooltip();
     });
-
-    // 꾹 눌렀을 때만 말풍선 표시 (모바일용 touchstart/touchend)
-    item.addEventListener("touchstart", (e) => {
-      const description = item.getAttribute("data-description");
-      if (description) {
-        showTooltip(e, description);
-      }
-    });
-
-    item.addEventListener("touchend", () => {
-      hideTooltip();
-    });
   });
 
   function showTooltip(e, text) {

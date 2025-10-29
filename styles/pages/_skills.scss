@@ -162,16 +162,6 @@
         padding: 16px 20px;
         font-size: 1.4rem;
       }
-      
-      &::after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        border: 5px solid transparent;
-        border-top-color: rgba(0, 0, 0, 0.75);
-      }
     }
   }
   
