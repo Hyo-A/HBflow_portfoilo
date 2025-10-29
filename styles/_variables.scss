@@ -112,49 +112,6 @@ $large: 1440px;
 // ============================================
 // MIXINS - style.scss에서 이동됨
 // ============================================
-
-
-// 슬라이드 카운터 스타일 믹스인
-@mixin slide-counter-style {
-  .slide-counter {
-    position: absolute;
-    bottom: 68px;
-    right: 50px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    z-index: 10;
-    font-family: 'Butler_Medium', 'Pretendard', sans-serif;
-  }
-
-  .counter-display {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-  
-  .current-slide {
-    font-size: 5rem;
-    font-weight: 500;
-    color: var(--color-dark2);
-  }
-  
-  .counter-separator {
-    font-size: 2rem;
-    font-weight: 500;
-    color: var(--color-gray);
-  }
-  
-  .total-slides {
-    font-size: 2rem;
-    font-weight: 500;
-    color: var(--color-gray);
-  }
-}
-
 // 커서 스타일 믹스인
 @mixin cursor-style {
   .cursor,

@@ -6,7 +6,7 @@
   .slide-counter {
     width: 100%;
     position: relative;
-    bottom: 36px;
+    bottom: 0;
     display: flex;
     justify-content: end;
     gap: 8px;
@@ -19,6 +19,7 @@
     
     @include tablet-up {
       position: absolute;
+      bottom: 36px;
     }
   }
 }

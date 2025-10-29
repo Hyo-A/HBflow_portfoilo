@@ -25,7 +25,7 @@
 // Skip 버튼
 .skip-button {
   position: relative;
-  bottom: 0;
+  bottom: -30px;
   left: 0;
   z-index: 100; // z-index 증가로 다른 요소들과의 충돌 방지
 

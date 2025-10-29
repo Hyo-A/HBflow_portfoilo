@@ -2217,6 +2217,8 @@ function closeBookModal() {
 function initSkillsTooltip() {
   const tooltipContainer = document.getElementById("tooltip");
   const skillItems = document.querySelectorAll(".skill-item");
+  const container =
+    domElements.container || document.querySelector(".fullpage-container");
 
   skillItems.forEach((item) => {
     item.addEventListener("mouseenter", (e) => {
@@ -2230,6 +2232,35 @@ function initSkillsTooltip() {
       hideTooltip();
     });
   });
+
+  // 페이지 스크롤 시 말풍선 숨기기 (데스크톱 휠)
+  if (container) {
+    container.addEventListener(
+      "wheel",
+      () => {
+        hideTooltip();
+      },
+      { passive: true }
+    );
+
+    // 페이지 스크롤 시 말풍선 숨기기 (스크롤 이벤트)
+    container.addEventListener(
+      "scroll",
+      () => {
+        hideTooltip();
+      },
+      { passive: true }
+    );
+
+    // 모바일 터치 스크롤 시작 시 말풍선 숨기기
+    container.addEventListener(
+      "touchstart",
+      () => {
+        hideTooltip();
+      },
+      { passive: true }
+    );
+  }
 
   function showTooltip(e, text) {
     const rect = e.target.getBoundingClientRect();
