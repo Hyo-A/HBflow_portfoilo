@@ -126,9 +126,11 @@
           }
           
           .or-contact {
-            font-size: 1.4rem;
-            
-            @include tablet-up {
+            font-size: 1.2rem;
+            @media (min-width: $tablet) {
+              font-size: 1.4rem;
+            }
+            @media (min-width: $desktop) {
               font-size: 1.6rem;
             }
           }
@@ -140,7 +142,11 @@
       width: 100%;
       margin-top: 2rem;
       
-      @include tablet-up {
+      @media (min-width: $tablet) {
+        width: 300px;
+        margin-top: 0;
+      }
+      @media (min-width: $desktop) {
         width: 500px;
         margin-top: 0;
       }
@@ -166,9 +172,19 @@
     position: relative;
     bottom: auto;
     left: auto;
-    text-align: center;
-    
-    @include tablet-up {
+    text-align: start;
+
+    @media (min-width: $tablet) {
+      text-align: center;
+      font-size: 1.6rem;
+      position: absolute;
+      bottom: 68px;
+      left: 50px;
+      text-align: left;
+      margin-top: 0;
+    }
+    @media (min-width: $desktop) {
+      text-align: center;
       font-size: 1.6rem;
       position: absolute;
       bottom: 68px;
@@ -183,7 +199,7 @@
     bottom: auto;
     right: auto;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     gap: 20px;
     margin-top: 1rem;
     
@@ -193,6 +209,7 @@
       right: 42px;
       gap: 40px;
       margin-top: 0;
+      justify-content: center;
     }
     
     a {

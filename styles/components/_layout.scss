@@ -42,13 +42,18 @@
   min-height: auto;
   width: 100vw;
   max-width: 100vw;
-  overflow-x: hidden;
   position: relative;
-  
-  // 태블릿 이상에서는 기존 100vh 유지
-  @include tablet-up {
+  padding: 20px 0;
+
+  @media (min-width: $tablet) {
     height: 100vh;
     min-height: 100vh;
+    padding: 0;
+  }
+  @media (min-width: $desktop) {
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0;
   }
 }
 

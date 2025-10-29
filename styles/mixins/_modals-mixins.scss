@@ -39,13 +39,13 @@
   width: 94%;
   gap: 15px;
   border-radius: 8px;
-  height: 620px;
+  min-height: 600px;
   padding: 30px 40px;
   
   // 태블릿 이상 (768px 이상)
   @media (min-width: $tablet) {
     width: 95%;
-    height: 660px;
+    min-height: 660px;
     gap: 20px;
     border-radius: 12px;
     padding: 40px 60px;
@@ -55,7 +55,7 @@
   @media (min-width: $desktop) {
     width: 90%;
     max-width: 1100px;
-    height: 680px;
+    min-height: 680px;
     padding: 60px 100px;
     gap: 40px;
     border-radius: 12px;
@@ -217,31 +217,60 @@
 @mixin character-modal-title {
   .character-modal-title {
     text-align: left;
-    font-size: 2.5rem;
     font-weight: 700;
     width: 100%;
+    font-size: 2rem;
+    @media (min-width: $tablet) {
+      font-size: 2.2rem;
+    }
+    @media (min-width: $desktop) {
+      font-size: 2.5rem;
+    }
     
     span {
-      font-size: 1.8rem;
       font-weight: 200;
       padding-left: 5px;
+      font-size: 1.4rem;
+      @media (min-width: $tablet) {
+        font-size: 1.6rem;
+      }
+      @media (min-width: $desktop) {
+        font-size: 1.8rem;
+      }
     }
   }
 }
 
 @mixin character-modal-page1-layout {
-  // 1페이지는 display: block이어야 하므로, 내부에 flex wrapper 생성
+  flex-direction: column;
+  justify-content: space-between;
   .character-page1-content {
     display: flex;
-    height: 530px;
+    flex-direction: column;
     gap: 40px;
-    
+
+    @media (min-width: $tablet) {
+      flex-direction: row;
+      height: 530px;
+    }
+    @media (min-width: $desktop) {
+      flex-direction: row;
+      height: 530px;
+    }
+
     // 왼쪽 섹션: 캐릭터 이미지 + Name + Keyword
     .character-left-section {
-      flex: 0 0 360px;
+      flex: 0 0 320px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
+      @media (min-width: $tablet) {
+        flex: 0 0 320px;
+      }
+      @media (min-width: $desktop) {
+        flex: 0 0 360px;
+      }
       
       .character-main-image {
         display: flex;
@@ -249,38 +278,63 @@
         justify-content: center;
         
         img {
-          width: 100%;
+          width: 320px;
           height: auto;
           max-height: 100%;
           object-fit: contain;
           border-radius: 0;
           border: none;
+          @media (min-width: $tablet) {
+            width: 320px;
+          }
+          @media (min-width: $desktop) {
+            width: 360px;
+          }
         }
       }
       
       // 왼쪽 하단: Name + Keyword & Visual Motif
       .character-left-bottom {
-        margin-top: 10px;
-        
+        margin-top: 20px;
+        @media (min-width: $tablet) {
+          margin-top: 10px;
+        }
+        @media (min-width: $desktop) {
+          margin-top: 10px;
+        }
         .character-section {
-          margin-bottom: 15px;
-          
-          &:last-child {
-            margin-bottom: 0;
-          }
-          
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
           .section-title {
             font-size: 1.4rem;
             font-weight: 600;
-            margin-bottom: 8px;
-            margin-top: 0;
           }
           
           .section-content {
-            font-size: 1.4rem;
-            line-height: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8rem;
             margin: 0;
             text-align: justify;
+            @media (min-width: $tablet) {
+              font-size: 1.2rem;
+              line-height: 1.8rem;
+            }
+            @media (min-width: $desktop) {
+              font-size: 1.4rem;
+              line-height: 2rem;
+            }
+          }
+
+          .mobile-only {
+            display: block;
+            @media (min-width: $tablet) {
+              display: none;
+            }
+            @media (min-width: $desktop) {
+              display: none;
+            }
           }
         }
       }
@@ -289,11 +343,16 @@
     // 오른쪽 섹션: 텍스트 + 스케치
     .character-right-section {
       flex: 1;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      
+      @media (min-width: $tablet) {
+        display: flex;
+      }
+      @media (min-width: $desktop) {
+        display: flex;
+      }
       .character-section {
         .section-title {
           font-size: 1.4rem;
@@ -304,11 +363,17 @@
         }
         
         .section-content {
-          font-size: 1.4rem;
           line-height: 2rem;
           margin: 0;
           text-align: justify;
           display: block;
+          font-size: 1.2rem;
+          @media (min-width: $tablet) {
+            font-size: 1.2rem;
+          }
+          @media (min-width: $desktop) {
+            font-size: 1.4rem;
+          }
         }
         
         .sketch-container {
@@ -343,11 +408,61 @@
   }
 }
 
+@mixin character-modal-page2 {
+  flex-direction: column;
+  justify-content: space-between;
+
+  .character-left-section {
+    width: 100%;  
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    overflow-x: overlay;
+
+    @media (min-width: $tablet) {
+      overflow: hidden;
+      overflow-x: hidden;
+    }
+    @media (min-width: $desktop) {
+      overflow: hidden;
+      overflow-x: hidden;
+    }
+    
+    .character-main-image2 {
+      width: 100%;  // 부모의 100%
+      
+      img {
+        width: 100%;
+        height: auto;  // 추가 필요!
+        object-fit: contain;  // 이미지 비율 유지
+      }
+    }
+    .character-main-image3 {
+      width: 100%;  
+      display: block;
+      img {
+        padding: 10px;
+        width: 100%;
+        height: auto; 
+        object-fit: contain;  
+      }
+      @media (min-width: $tablet) {
+        display: none;
+      }
+      @media (min-width: $desktop) {
+        display: none;
+      }
+    }
+  }
+}
+
 @mixin character-modal-page3 {
+  flex-direction: column;
+  justify-content: space-between;
   .character-page3-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
     
     .character-modal-title {
@@ -366,19 +481,38 @@
     // 3페이지 3열 그리드 레이아웃
     .character-page3-grid {
       display: grid;
-      grid-template-columns: 1.8fr 0.8fr 1fr;
-      grid-template-rows: 1fr;
-      gap: 20px;
+      gap: 10px;
       width: 100%;
       align-items: end;
       position: relative;
+      grid-template-columns: auto;
+      grid-template-rows: repeat(3, auto);
+      max-width: none;
+      @media (min-width: $tablet) {
+        grid-template-columns: 1fr 1fr;
+        max-width: 732px;
+        gap: 20px;
+      }
+      @media (min-width: $desktop) {
+        grid-template-columns: 1fr 0.5fr 0.5fr;
+        max-width: none;
+        gap: 20px;
+      }
       
       // 1. 왼쪽: 큰 이미지 1개
       .character-page3-left {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
+        height: 250px;
+        @media (min-width: $tablet) {
+          height: 100%;
+          justify-content: start;
+        }
+        @media (min-width: $desktop) {
+          height: 100%;
+          justify-content: center;
+        }
         
         .character-main-image-large {
           width: 100%;
@@ -386,6 +520,13 @@
           display: flex;
           align-items: flex-end;
           justify-content: center;
+          max-width: none;
+          @media (min-width: $tablet) {
+            max-width: 300px;
+          }
+          @media (min-width: $desktop) {
+            max-width: none;
+          }
           
           img {
             width: 100%;
@@ -415,8 +556,13 @@
           .description-item {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            
+            gap: 8px;
+            @media (min-width: $tablet) {
+              gap: 10px;
+            }
+            @media (min-width: $desktop) {
+              gap: 10px;
+            }
             .item-number {
               font-size: 1.4rem;
               font-weight: bold;
@@ -424,8 +570,15 @@
             }
             
             .item-text {
-              font-size: 1.4rem;
+              font-size: 1.2rem;
               line-height: 1.4;
+
+              @media (min-width: $tablet) {
+                font-size: 1.3rem;
+              }
+              @media (min-width: $desktop) {
+                font-size: 1.4rem;
+              }
             }
           }
         }
@@ -434,13 +587,26 @@
       // 3. 오른쪽: 작은 이미지 3개 (세로 정렬)
       .character-page3-right {
         height: 100%;
+        grid-column: auto;
+        @media (min-width: $tablet) {
+          grid-column: 1 / 3;
+        }
+        @media (min-width: $desktop) {
+          grid-column: auto;
+        }
         
         .character-goods-images-vertical {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           justify-content: space-between;
           gap: 8px;
           width: 100%;
+          @media (min-width: $tablet) {
+            flex-direction: row;
+          }
+          @media (min-width: $desktop) {
+            flex-direction: column;
+          }
           
           .goods-image-item {
             img {

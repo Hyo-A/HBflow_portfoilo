@@ -1110,7 +1110,7 @@ function navigateModal(modalId, direction) {
 
   // 페이지 전환
   currentPage.style.display = "none";
-  nextPage.style.display = "block";
+  nextPage.style.display = "flex";
 
   console.log(`Modal ${modalId}: ${currentPage.id} -> ${nextPage.id}`);
 }
@@ -2230,14 +2230,16 @@ function initSkillsTooltip() {
       hideTooltip();
     });
 
-    // 클릭 이벤트 추가
-    item.addEventListener("click", (e) => {
+    // 꾹 눌렀을 때만 말풍선 표시 (모바일용 touchstart/touchend)
+    item.addEventListener("touchstart", (e) => {
       const description = item.getAttribute("data-description");
       if (description) {
         showTooltip(e, description);
-        // 3초 후 자동 숨김
-        setTimeout(() => hideTooltip(), 3000);
       }
+    });
+
+    item.addEventListener("touchend", () => {
+      hideTooltip();
     });
   });
 

@@ -19,12 +19,14 @@
 
 // 2페이지: 이모티콘 이미지 (기본 레이아웃)
 #characterPage2 {
+  height: auto;
   @include character-modal-title; // 공통 title 스타일
-  // 별도 레이아웃 불필요 (기본 레이아웃 사용)
+  @include character-modal-page2;
 }
 
 // 3페이지: 굿즈 소개 (grid 기반)
 #characterPage3 {
+  height: auto;
   @include character-modal-title; // 공통 title 스타일
   @include character-modal-page3;
 }

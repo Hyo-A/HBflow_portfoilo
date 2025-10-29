@@ -52,6 +52,33 @@
       padding: 0;
     }
     
+    // 배경 텍스트
+    .design-bg-title {
+      position: absolute;
+      top: 600px;
+      right: -10px;
+      font-size: 8rem;
+      color: var(--color-gray2);
+      font-family: 'Butler_Medium_Stencil', 'Pretendard', sans-serif;
+      z-index: 0;
+      user-select: none;
+      pointer-events: none;
+      font-weight: 500;
+      transition: all 0.5s ease;
+      
+      @media (min-width: $tablet) {
+        font-size: 14rem;
+        right: 1%;
+        top: 60px;
+      }
+      @media (min-width: $desktop) {
+        font-size: 18rem;
+        right: 1%;
+        top: 60px;
+      }
+    }
+    
+
     // 중앙 내용박스
     .design-content-box {
       width: 100%;
@@ -69,34 +96,6 @@
         gap: 20px;
       }
 
-      
-      // 배경 텍스트
-      .design-bg-title {
-        position: absolute;
-        top: -10%;
-        right: -5%;
-        font-size: 8rem;
-        color: var(--color-gray2);
-        font-family: 'Butler_Medium_Stencil', 'Pretendard', sans-serif;
-        z-index: 0;
-        user-select: none;
-        pointer-events: none;
-        font-weight: 500;
-        transition: all 0.5s ease;
-        
-        @include tablet-up {
-          font-size: 12rem;
-          top: -12%;
-          right: -8%;
-        }
-        
-        @include desktop-up {
-          font-size: 18rem;
-          top: -15%;
-          right: -13%;
-        }
-      }
-      
       // 카테고리 버튼들
       .category-buttons {
         display: flex;
@@ -115,7 +114,6 @@
         .category-btn {
           width: 80px;
           height: 28px;
-          padding-bottom: 2px;
           border: none;
           border-radius: 16px;
           font-size: 1.2rem;

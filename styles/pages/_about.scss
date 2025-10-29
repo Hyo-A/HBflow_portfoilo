@@ -24,8 +24,8 @@
   // 배경 텍스트
   .about-bg-title {
     position: absolute;
-    top: 5%;
-    right: -10%;
+    top: 170px;
+    right: auto;
     font-size: 8rem;
     color: var(--color-gray2);
     font-family: 'Butler_Medium_Stencil', 'Pretendard', sans-serif;
@@ -33,8 +33,13 @@
     user-select: none;
     pointer-events: none;
     font-weight: 500;
-    
-    @include tablet-up {
+
+    @media (min-width: $tablet) {
+      font-size: 14rem;
+      right: 0%;
+      top: 1%;
+    }
+    @media (min-width: $desktop) {
       font-size: 18rem;
       right: -16%;
       top: 1%;

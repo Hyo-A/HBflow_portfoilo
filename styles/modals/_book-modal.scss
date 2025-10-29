@@ -29,10 +29,16 @@
     .book-modal-image {
       img {
         width: auto;
-        height: 600px;
         object-fit: contain;
         border-radius: 0;
         box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+        height: 300px;
+        @media (min-width: $tablet) {
+          height: 450px;
+        }
+        @media (min-width: $desktop) {
+          height: 600px;
+        }
       }
     }
   }

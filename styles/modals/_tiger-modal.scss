@@ -24,63 +24,29 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      
-      .teamwork-modal-title {
-        text-align: left;
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin: 0;
-        padding: 0;
-        
-        span {
-          font-size: 1.8rem;
-          font-weight: 200;
-          padding-left: 5px;
-        }
-      }
-      
-      // 정보 영역
-      .tiger-left-bottom {
-        .tiger-info-item {
-          p {
-            font-size: 1.2rem;
-            line-height: 2rem;
-          }
-        }
-      }
-      
-      // 호랑이 메인 이미지
-      .tiger-main-image {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: -58px;
-        
-        img {
-          width: 100%;
-          height: auto;
-          max-height: 300px;
-          object-fit: contain;
-          border-radius: 0;
-          border: none;
-        }
-      }
+      @include character-modal-title; // 공통 title 스타일
     }
     
     // 오른쪽 섹션: 프로젝트 설명 + 굿즈
     .teamwork-right-section {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 30px;
       
       // 정보 영역
       .tiger-left-bottom {
         .tiger-info-item {
           p {
-            width: 600px;
-            font-size: 1.6rem;
-            line-height: 2rem;
-            font-weight: 300;
+            font-size: 1.2rem;
+            line-height: 1.6rem;
+            @media (min-width: $tablet) {
+              font-size: 1.4rem;
+              line-height: 1.8rem;
+            }
+            @media (min-width: $desktop) {
+              font-size: 1.6rem;
+              line-height: 2rem;
+            }
           }
         }
       }
@@ -90,7 +56,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: -58px;
+        margin-top: -20px;
+        @media (min-width: $tablet) {
+          margin-top: -40px;
+        }
+        @media (min-width: $desktop) {
+          margin-top: -58px;
+        }
         
         img {
           width: 100%;
@@ -105,22 +77,51 @@
       // 캐릭터 굿즈 섹션
       .tiger-applications {
         h4 {
-          font-size: 1.8rem;
+          font-size: 1.4rem;
           font-weight: 800;
           margin: 0 0 15px 0;
           color: #333;
         }
+        @media (min-width: $tablet) {
+          font-size: 1.6rem;
+        }
+        @media (min-width: $desktop) {
+          font-size: 1.8rem;
+        }
         
         .tiger-app-images {
           display: flex;
-          gap: 10px;
-          align-items: center;
-          
+          gap: 20px;
+          align-items: start;
+          flex-direction: column;
+          @media (min-width: $tablet) {
+            gap: 10px;
+            flex-direction: row;
+            align-items: center;
+          } 
+          @media (min-width: $desktop) {
+            gap: 10px;
+            flex-direction: row;
+            align-items: center;
+          } 
+
+          .tiger-app-images-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+          }
+
           .tiger-app-text {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-left: 20px;
+            margin-left: 0px;
+            @media (min-width: $tablet) {
+              margin-left: 20px;
+            } 
+            @media (min-width: $desktop) {
+              margin-left: 20px;
+            } 
             
             .description-item {
               display: flex;
@@ -128,14 +129,26 @@
               gap: 10px;
               
               .item-number {
-                font-size: 1.6rem;
+                font-size: 1.2rem;
                 font-weight: bold;
                 flex-shrink: 0;
+                @media (min-width: $tablet) {
+                  font-size: 1.4rem;
+                }
+                @media (min-width: $desktop) {
+                  font-size: 1.6rem;
+                }
               }
               
               .item-text {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
                 line-height: 1.4;
+                @media (min-width: $tablet) {
+                  font-size: 1.4rem;
+                }
+                @media (min-width: $desktop) {
+                  font-size: 1.6rem;
+                }
               }
             }
           }
