@@ -3602,7 +3602,7 @@ header .side-nav .sub-nav,
 .teamwork-page .slide-counter {
   width: 100%;
   position: relative;
-  bottom: 0;
+  bottom: 36px;
   display: flex;
   justify-content: end;
   gap: 8px;
@@ -3748,7 +3748,7 @@ header .side-nav .sub-nav,
 .teamwork-page .slide-counter .slide-counter {
   width: 100%;
   position: relative;
-  bottom: 0;
+  bottom: 36px;
   display: flex;
   justify-content: end;
   gap: 8px;
@@ -3802,7 +3802,7 @@ header .side-nav .sub-nav,
 .mywork-page .slide-counter {
   width: 100%;
   position: relative;
-  bottom: 0;
+  bottom: 36px;
   display: flex;
   justify-content: end;
   gap: 8px;
@@ -3948,7 +3948,7 @@ header .side-nav .sub-nav,
 .mywork-page .slide-counter .slide-counter {
   width: 100%;
   position: relative;
-  bottom: 0;
+  bottom: 36px;
   display: flex;
   justify-content: end;
   gap: 8px;
