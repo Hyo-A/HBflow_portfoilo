@@ -311,14 +311,12 @@
         .date-item {
           font-size: 1rem;
           color: var(--color-dark2);
-          opacity: 1;
-          transform: none;
+          opacity: 0;
+          transform: translateY(10px);
           transition: opacity 0.8s ease-out, transform 0.8s ease-out;
           
           @include tablet-up {
             font-size: 1.4rem;
-            opacity: 0;
-            transform: translateY(10px);
           }
           
           &.date-1 {

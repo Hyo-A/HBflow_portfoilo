@@ -314,6 +314,14 @@ function updateActiveNav(currentPage, scrollDirection = null) {
   // 모든 네비게이션 아이템에서 active 클래스 제거
   const allNavItems = domElements.allNavItems;
 
+  if (!allNavItems || allNavItems.length === 0) {
+    // 다시 찾아보기
+    domElements.allNavItems = document.querySelectorAll(".nav-item");
+    if (domElements.allNavItems.length === 0) {
+      return;
+    }
+  }
+
   allNavItems.forEach((item, index) => {
     item.classList.remove("active");
   });
@@ -398,9 +406,74 @@ function updateActiveNav(currentPage, scrollDirection = null) {
 function updateProgressBar(currentPage) {
   const progressBar = domElements.rightGreenBar;
   const pages = domElements.pages;
-  const totalPages = pages.length;
+  const container = domElements.container;
 
-  const progressPercentage = ((currentPage + 1) / totalPages) * 100;
+  if (!progressBar) {
+    return;
+  }
+
+  let progressPercentage;
+
+  // 모바일에서는 스크롤 위치에 따라 연속적으로 업데이트
+  if (isMobile()) {
+    // container와 window/document 모두 확인
+    const containerScrollTop = container ? container.scrollTop : 0;
+    const containerScrollHeight = container ? container.scrollHeight : 0;
+    const containerClientHeight = container ? container.clientHeight : 0;
+
+    // window와 document의 스크롤 위치 확인 (여러 방법 시도)
+    const windowScrollTop =
+      window.pageYOffset ||
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+
+    const documentScrollHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight,
+      containerScrollHeight
+    );
+    const windowHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+
+    // container가 실제로 스크롤 가능한지 확인
+    const containerMaxScroll = containerScrollHeight - containerClientHeight;
+    const documentMaxScroll = documentScrollHeight - windowHeight;
+
+    // 더 큰 스크롤 가능 범위를 가진 것을 사용
+    let scrollTop, maxScroll;
+
+    // container가 스크롤 가능하고 더 큰 범위를 가지면 container 사용
+    if (containerMaxScroll > 0 && containerMaxScroll >= documentMaxScroll) {
+      scrollTop = containerScrollTop;
+      maxScroll = containerMaxScroll;
+    } else if (documentMaxScroll > 0) {
+      // window/document 사용
+      scrollTop = windowScrollTop;
+      maxScroll = documentMaxScroll;
+
+      // container도 스크롤이 있다면 그것도 확인
+      if (container && containerScrollTop > 0) {
+        scrollTop = Math.max(scrollTop, containerScrollTop);
+      }
+    } else {
+      // 둘 다 스크롤 불가능
+      scrollTop = 0;
+      maxScroll = 0;
+    }
+
+    if (maxScroll > 0) {
+      progressPercentage = (scrollTop / maxScroll) * 100;
+      progressPercentage = Math.max(0, Math.min(100, progressPercentage));
+    } else {
+      progressPercentage = 0;
+    }
+  } else {
+    // 데스크톱에서는 페이지 단위로 업데이트
+    const totalPages = pages.length;
+    progressPercentage = ((currentPage + 1) / totalPages) * 100;
+  }
 
   progressBar.style.height = `${progressPercentage}%`;
 }
@@ -518,61 +591,83 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const { horizontalGridLines, verticalGridLines } = initGridLines();
 
-  // Initialize GSAP timeline
-  const tl = gsap.timeline();
+  // 폰트 로딩 대기 함수
+  function waitForFonts(callback) {
+    // Font Loading API 지원 확인
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready
+        .then(() => {
+          // 폰트가 로드된 후 약간의 지연을 주어 브라우저 렌더링 완료 보장
+          setTimeout(callback, 50);
+        })
+        .catch(() => {
+          // 폰트 로딩 실패 시에도 진행 (fallback 폰트 사용)
+          setTimeout(callback, 100);
+        });
+    } else {
+      // Font Loading API 미지원 브라우저는 짧은 지연 후 진행
+      setTimeout(callback, 300);
+    }
+  }
 
-  // Show counter and title
-  tl.to([counter, title], {
-    opacity: 1,
-    y: 0,
-    duration: 0.3,
-    ease: "power2.out",
-    stagger: PRELOADER_CONFIG.counterTitleStagger,
-  })
-    .to(
-      horizontalGridLines,
-      {
-        scaleX: 1,
-        duration: PRELOADER_CONFIG.gridLineDuration,
-        stagger: PRELOADER_CONFIG.gridLineStagger,
-        ease: "power1.inOut",
-      },
-      "-=0.2"
-    )
-    .to(
-      verticalGridLines,
-      {
-        scaleY: 1,
-        duration: PRELOADER_CONFIG.gridLineDuration,
-        stagger: PRELOADER_CONFIG.gridLineStagger,
-        ease: "power1.inOut",
-      },
-      "-=0.4"
-    )
-    .to(
-      progressBar,
-      {
-        width: "100%",
-        duration: PRELOADER_CONFIG.progressBarDuration,
-        ease: "power1.inOut",
-        onUpdate: function () {
-          const progress = Math.round(this.progress() * 100);
-          counter.textContent = progress;
-        },
-      },
-      "-=0.8"
-    )
+  // 폰트 로딩 완료 후 로딩 애니메이션 시작
+  waitForFonts(() => {
+    // Initialize GSAP timeline
+    const tl = gsap.timeline();
 
-    // Transition to main content - 깔끔하게 사라지도록 수정
-    .to(preloader, {
-      opacity: 0,
+    // Show counter and title
+    tl.to([counter, title], {
+      opacity: 1,
+      y: 0,
       duration: 0.3,
       ease: "power2.out",
-      delay: 0.2,
+      stagger: PRELOADER_CONFIG.counterTitleStagger,
     })
-    .set(preloader, {
-      display: "none",
-    });
+      .to(
+        horizontalGridLines,
+        {
+          scaleX: 1,
+          duration: PRELOADER_CONFIG.gridLineDuration,
+          stagger: PRELOADER_CONFIG.gridLineStagger,
+          ease: "power1.inOut",
+        },
+        "-=0.2"
+      )
+      .to(
+        verticalGridLines,
+        {
+          scaleY: 1,
+          duration: PRELOADER_CONFIG.gridLineDuration,
+          stagger: PRELOADER_CONFIG.gridLineStagger,
+          ease: "power1.inOut",
+        },
+        "-=0.4"
+      )
+      .to(
+        progressBar,
+        {
+          width: "100%",
+          duration: PRELOADER_CONFIG.progressBarDuration,
+          ease: "power1.inOut",
+          onUpdate: function () {
+            const progress = Math.round(this.progress() * 100);
+            counter.textContent = progress;
+          },
+        },
+        "-=0.8"
+      )
+
+      // Transition to main content - 깔끔하게 사라지도록 수정
+      .to(preloader, {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out",
+        delay: 0.2,
+      })
+      .set(preloader, {
+        display: "none",
+      });
+  });
 
   // 네비게이션 클릭 시 이동
   const navItems = document.querySelectorAll(".side-nav ul li[data-page]");
@@ -586,8 +681,30 @@ window.addEventListener("DOMContentLoaded", () => {
 
       const pageIndex = parseInt(li.getAttribute("data-page"));
 
-      // 로딩 시작 (네비게이션 클릭은 항상 아래로 이동)
-      showLoadingAndNavigate(pageIndex);
+      // 모바일에서는 로딩 없이 바로 스크롤 이동
+      if (isMobile()) {
+        closeMobileMenu(); // 모바일 메뉴 닫기
+        closeModal(); // 모달 닫기
+
+        // 페이지로 바로 스크롤 이동
+        const targetPage = pages[pageIndex];
+        if (targetPage) {
+          // scrollIntoView를 사용하여 더 안정적인 스크롤
+          targetPage.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+          });
+
+          // 네비게이션 업데이트 (스크롤 완료 후)
+          setTimeout(() => {
+            updateActiveNav(pageIndex);
+          }, 500);
+        }
+      } else {
+        // 데스크톱에서는 로딩 화면 표시
+        showLoadingAndNavigate(pageIndex);
+      }
     });
   });
 
@@ -600,8 +717,30 @@ window.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // 로딩 시작
-      showLoadingAndNavigate(2);
+      // 모바일에서는 로딩 없이 바로 스크롤 이동
+      if (isMobile()) {
+        closeMobileMenu(); // 모바일 메뉴 닫기
+        closeModal(); // 모달 닫기
+
+        // MY WORK 페이지로 바로 스크롤 이동
+        const targetPage = pages[2];
+        if (targetPage) {
+          // scrollIntoView를 사용하여 더 안정적인 스크롤
+          targetPage.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+          });
+
+          // 네비게이션 업데이트 (스크롤 완료 후)
+          setTimeout(() => {
+            updateActiveNav(2);
+          }, 500);
+        }
+      } else {
+        // 데스크톱에서는 로딩 화면 표시
+        showLoadingAndNavigate(2);
+      }
     });
   }
 
@@ -620,8 +759,52 @@ window.addEventListener("DOMContentLoaded", () => {
     return positions;
   }
 
-  // 현재 페이지 계산 함수 (MY WORK 디버깅만 유지)
+  // 현재 페이지 계산 함수
   function getCurrentPage() {
+    // 모바일에서는 다른 방식으로 계산
+    if (isMobile()) {
+      const pages = domElements.pages;
+
+      if (!pages || pages.length === 0) {
+        return 0;
+      }
+
+      let currentPage = 0;
+      let maxVisible = 0;
+      const windowHeight = window.innerHeight;
+
+      // 각 페이지가 얼마나 보이는지 계산하여 가장 많이 보이는 페이지를 현재 페이지로 판단
+      pages.forEach((page, index) => {
+        const rect = page.getBoundingClientRect();
+
+        // window 기준으로 보이는 높이 계산 (모바일에서는 window가 스크롤됨)
+        const visibleTop = Math.max(rect.top, 0);
+        const visibleBottom = Math.min(rect.bottom, windowHeight);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+        if (visibleHeight > maxVisible) {
+          maxVisible = visibleHeight;
+          currentPage = index;
+        }
+
+        // 페이지가 화면 중앙에 가까운 경우 우선 선택
+        const pageCenter = rect.top + rect.height / 2;
+        const windowCenter = windowHeight / 2;
+        const distanceFromCenter = Math.abs(pageCenter - windowCenter);
+
+        // 중앙에 가까우면서 충분히 보이는 경우
+        if (
+          visibleHeight > windowHeight * 0.3 &&
+          distanceFromCenter < windowHeight * 0.5
+        ) {
+          currentPage = index;
+        }
+      });
+
+      return currentPage;
+    }
+
+    // 데스크톱에서는 기존 방식 사용
     const pageTops = getPagePositions();
     const scrollTop = container.scrollTop;
 
@@ -697,13 +880,21 @@ window.addEventListener("DOMContentLoaded", () => {
   // 터치 이벤트(touchstart/touchend)는 아래에서 별도로 처리됨
 
   // 스크롤 완료 감지 및 네비게이션 업데이트 (브라우저 호환성 개선)
-  container.addEventListener("scroll", () => {
+  function handleScroll() {
+    // 모바일에서는 프로그레스 바를 즉시 업데이트
+    if (isMobile() && !appState.isLoading) {
+      const currentPage = getCurrentPage();
+      updateProgressBar(currentPage);
+    }
     // 이전 타이머가 있으면 취소
     if (scrollTimer) {
       clearTimeout(scrollTimer);
     }
 
-    // 스크롤이 멈춘 후 150ms 뒤에 처리
+    // 모바일과 데스크톱에서 다른 디바운스 시간 사용
+    const debounceTime = isMobile() ? 100 : 150;
+
+    // 스크롤이 멈춘 후 디바운스 시간 뒤에 처리 (네비게이션 업데이트)
     scrollTimer = setTimeout(() => {
       // 스크롤 완료 시 isScrolling 상태 해제
       if (appState.isScrolling) {
@@ -715,8 +906,88 @@ window.addEventListener("DOMContentLoaded", () => {
         const currentPage = getCurrentPage();
         updateActiveNav(currentPage);
       }
-    }, 150);
+    }, debounceTime);
+  }
+
+  // 컨테이너 스크롤 이벤트
+  container.addEventListener("scroll", () => handleScroll("container"), {
+    passive: true,
   });
+
+  // 모바일에서는 모든 가능한 스크롤 소스에 이벤트 리스너 추가
+  if (isMobile()) {
+    // window 스크롤
+    window.addEventListener(
+      "scroll",
+      () => {
+        handleScroll("window");
+      },
+      { passive: true }
+    );
+
+    // document 스크롤
+    document.addEventListener(
+      "scroll",
+      () => {
+        handleScroll("document");
+      },
+      { passive: true }
+    );
+
+    // document.documentElement 스크롤
+    document.documentElement.addEventListener(
+      "scroll",
+      () => {
+        handleScroll("documentElement");
+      },
+      { passive: true }
+    );
+
+    // body 스크롤
+    document.body.addEventListener(
+      "scroll",
+      () => {
+        handleScroll("body");
+      },
+      { passive: true }
+    );
+
+    // 터치 이벤트로 스크롤 감지 (모바일에서 스크롤 이벤트가 발생하지 않을 때)
+    let lastTouchY = 0;
+    let touchScrollTimer = null;
+
+    document.addEventListener(
+      "touchmove",
+      (e) => {
+        const currentTouchY = e.touches[0].clientY;
+        if (lastTouchY !== 0) {
+          const deltaY = currentTouchY - lastTouchY;
+          if (Math.abs(deltaY) > 5) {
+            if (!appState.isLoading) {
+              const currentPage = getCurrentPage();
+              updateProgressBar(currentPage);
+            }
+          }
+        }
+        lastTouchY = currentTouchY;
+
+        // 터치가 끝나면 리셋
+        clearTimeout(touchScrollTimer);
+        touchScrollTimer = setTimeout(() => {
+          lastTouchY = 0;
+        }, 100);
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "touchend",
+      () => {
+        lastTouchY = 0;
+      },
+      { passive: true }
+    );
+  }
 
   // 모바일이 아닐 때만 풀페이지 스와이프 감지 로직을 등록합니다
   // 모바일에서는 브라우저의 기본 터치 스크롤을 사용하도록 합니다
@@ -932,8 +1203,6 @@ function openModal(type, slideNumber) {
     const category = slideNumber; // slideNumber가 실제로는 category임
     const projectNum = arguments[2] || 1; // 세 번째 인자가 프로젝트 번호
 
-    console.log("Design work modal opening:", { category, projectNum });
-
     if (category === "character") {
       // 프로젝트 번호에 따라 다른 모달 열기
       if (projectNum === 1) {
@@ -1016,7 +1285,6 @@ function closeMyworkModal() {
 function navigateModal(modalId, direction) {
   const modal = document.getElementById(modalId);
   if (!modal) {
-    console.error(`Modal with id "${modalId}" not found`);
     return;
   }
 
@@ -1025,10 +1293,78 @@ function navigateModal(modalId, direction) {
     '.character-page:not([style*="display: none"])'
   );
   if (!currentPage) {
-    console.error(`No active page found in modal "${modalId}"`);
     return;
   }
 
+  // Teamwork 모달인 경우 프로젝트별 페이지 전환 처리
+  if (
+    modalId === "projectModal" &&
+    appState.currentProjectNumber >= 1 &&
+    appState.currentProjectNumber <= 4
+  ) {
+    const currentPageId = currentPage.id;
+
+    // 현재 프로젝트의 페이지 ID 패턴 결정
+    let projectPagePrefix = "";
+    switch (appState.currentProjectNumber) {
+      case 1:
+        projectPagePrefix = "rookiePage";
+        break;
+      case 2:
+        projectPagePrefix = "metaphorPage";
+        break;
+      case 3:
+        projectPagePrefix = "nongdamPage";
+        break;
+      case 4:
+        projectPagePrefix = "lastTeamworkPage";
+        break;
+    }
+
+    // 현재 페이지 번호 추출
+    const currentMatch = currentPageId.match(
+      new RegExp(`${projectPagePrefix}(\\d+)`)
+    );
+    if (!currentMatch) {
+      return;
+    }
+
+    const currentPageNum = parseInt(currentMatch[1]);
+
+    // 다음/이전 페이지 번호 계산
+    let nextPageNum;
+    if (direction === "next") {
+      nextPageNum = currentPageNum + 1;
+      // 2페이지를 넘어가면 1페이지로 순환하지 않고 종료
+      if (nextPageNum > 2) {
+        return; // 마지막 페이지에서 더 이상 진행하지 않음
+      }
+    } else if (direction === "prev") {
+      nextPageNum = currentPageNum - 1;
+      // 1페이지 미만으로 가면 종료
+      if (nextPageNum < 1) {
+        return; // 첫 페이지에서 더 이상 되돌아가지 않음
+      }
+    } else {
+      return;
+    }
+
+    // 다음 페이지 찾기
+    const nextPageId = `${projectPagePrefix}${nextPageNum}`;
+    const nextPage = document.getElementById(nextPageId);
+
+    if (!nextPage) {
+      return;
+    }
+
+    // 페이지 전환
+    currentPage.style.display = "none";
+    nextPage.style.display = "flex";
+
+    return;
+  }
+
+  // 일반 모달 (Character, My Work 등) 처리
   // 현재 페이지 인덱스 가져오기 (data-page-index가 없으면 ID 기반으로 계산)
   let currentIndex = parseInt(currentPage.getAttribute("data-page-index"));
 
@@ -1048,7 +1384,6 @@ function navigateModal(modalId, direction) {
         currentIndex = parseInt(match[1]) - 1; // 0-based index
       }
     } else {
-      console.error(`Cannot determine page index from ID: ${pageId}`);
       return;
     }
   }
@@ -1063,7 +1398,6 @@ function navigateModal(modalId, direction) {
   } else if (direction === "prev") {
     nextIndex = (currentIndex - 1 + totalPages) % totalPages;
   } else {
-    console.error(`Invalid direction: ${direction}. Use 'next' or 'prev'`);
     return;
   }
 
@@ -1094,15 +1428,12 @@ function navigateModal(modalId, direction) {
   }
 
   if (!nextPage) {
-    console.error(`Page with index ${nextIndex} not found`);
     return;
   }
 
   // 페이지 전환
   currentPage.style.display = "none";
   nextPage.style.display = "flex";
-
-  console.log(`Modal ${modalId}: ${currentPage.id} -> ${nextPage.id}`);
 }
 
 // 레거시 호환성을 위한 별칭 함수들
@@ -1161,16 +1492,12 @@ function openCharacterModal() {
   closeAllModals();
 
   const modal = document.getElementById("characterModal");
-  console.log("Character modal element:", modal);
   if (modal) {
     modal.classList.add("show");
     modal.style.display = "block";
     modal.style.visibility = "visible";
     modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
-    console.log("Character modal opened successfully");
-  } else {
-    console.error("Character modal element not found!");
   }
 }
 
@@ -1180,16 +1507,12 @@ function openTigerModal() {
   closeAllModals();
 
   const modal = document.getElementById("tigerModal");
-  console.log("Tiger modal element:", modal);
   if (modal) {
     modal.classList.add("show");
     modal.style.display = "block";
     modal.style.visibility = "visible";
     modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
-    console.log("Tiger modal opened successfully");
-  } else {
-    console.error("Tiger modal element not found!");
   }
 }
 
@@ -1224,7 +1547,35 @@ function copyEmail() {
 }
 
 function goToTop() {
-  document.querySelector(".fullpage-container").scrollTop = 0;
+  const container = document.querySelector(".fullpage-container");
+  const pages = document.querySelectorAll(".page");
+
+  if (!container) return;
+
+  // 모바일에서는 첫 번째 페이지로 부드럽게 스크롤
+  if (isMobile()) {
+    if (pages && pages.length > 0 && pages[0]) {
+      pages[0].scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+
+      // 네비게이션 업데이트
+      setTimeout(() => {
+        updateActiveNav(0);
+      }, 500);
+    } else {
+      // 폴백: 직접 스크롤
+      container.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  } else {
+    // 데스크톱에서는 로딩 화면 표시
+    showLoadingAndNavigate(0);
+  }
 }
 
 // Skip 버튼 전역 함수들
@@ -2179,18 +2530,12 @@ function openBookModal(imageSrc, bookNumber) {
   const modal = document.getElementById("bookModal");
   const modalImage = document.getElementById("bookModalImage");
 
-  console.log("Book modal element:", modal);
-  console.log("Book modal image element:", modalImage);
-
   if (modal && modalImage) {
     modalImage.src = imageSrc;
     modal.style.display = "block";
     modal.style.visibility = "visible";
     modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
-    console.log("Book modal opened successfully");
-  } else {
-    console.error("Book modal elements not found!");
   }
 }
 

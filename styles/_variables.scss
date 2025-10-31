@@ -8,6 +8,7 @@
   src: url('../fonts/Butler_Ultra_Light.otf') format('opentype');
   font-weight: 200;
   font-style: normal;
+  font-display: swap; // 폰트 로드 전 fallback 폰트 표시
 }
 
 @font-face {
@@ -15,6 +16,7 @@
   src: url('../fonts/Butler_Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -22,6 +24,7 @@
   src: url('../fonts/Butler_Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -29,6 +32,7 @@
   src: url('../fonts/Butler_Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -36,6 +40,7 @@
   src: url('../fonts/Butler_Bold.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -43,6 +48,7 @@
   src: url('../fonts/Butler_Regular_Stencil.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
+  font-display: swap; // 로딩 화면에 사용되는 폰트
 }
 
 @font-face {
@@ -50,6 +56,7 @@
   src: url('../fonts/Butler_Ultra_Light_Stencil.otf') format('opentype');
   font-weight: 200;
   font-style: normal;
+  font-display: swap;
 }
 
 // 브레이크포인트 (모바일 퍼스트)
