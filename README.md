@@ -5,6 +5,7 @@
 지금 보여드리는 작업물에 그치지 않는 더욱 멋진 프로젝트를 만들어가겠다 약속드립니다.
 
 
+
 ## 🛠️ 기술 스택 (Tech Stack)
 
 ### 🎨 Design & Tools
@@ -49,6 +50,8 @@
 
 ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
 
+
+
 ### 💻 웹 개발 프로젝트 (Web Development Projects)
 
 ### Teamwork
@@ -69,9 +72,9 @@
 
 ### Designwork
 1. 목으로 말해요 기롱이[이모티콘 디자인]
-<div align="center"> <img src="imgs/기롱이/기롱1.jpg" alt="기롱이 캐릭터와 컬러가이드" width="400"/> <img src="imgs/기롱이/기롱3.jpg" alt="기롱이 이모티콘 시안" width="400"/> </div>
+<div align="start"><img src="imgs/기롱이/기롱3.jpg" alt="기롱이 이모티콘 시안" width="800"/> </div>
 2. 학과별 캐릭터[강릉중앙고]
-<div align="center"> <img src="imgs/호랑이/호랑이1.png" alt="학과별 캐릭터 호랑이" width="600"/> </div>
+<div align="start"> <img src="imgs/호랑이/호랑이1.png" alt="학과별 캐릭터 호랑이" width="600"/> </div>
    
 
 
