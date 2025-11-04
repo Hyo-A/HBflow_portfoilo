@@ -36,6 +36,42 @@
     height: auto;
     display: block;
     object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  // 전체화면 모드
+  &.fullscreen-mode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    
+    img {
+      width: 100vw;
+      max-width: 100vw;
+      height: auto;
+      object-fit: contain;
+      cursor: pointer;
+      display: block;
+      
+      &:hover {
+        transform: none;
+      }
+    }
   }
 }
 

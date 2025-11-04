@@ -1199,6 +1199,9 @@ function openModal(type, slideNumber) {
     modal.style.visibility = "visible";
     modal.style.opacity = "1";
     document.body.style.overflow = "hidden";
+
+    // 이미지 클릭 이벤트 초기화
+    initTeamworkImageFullscreen();
   } else if (type === "designwork") {
     const category = slideNumber; // slideNumber가 실제로는 category임
     const projectNum = arguments[2] || 1; // 세 번째 인자가 프로젝트 번호
@@ -2889,5 +2892,88 @@ function closeMobileMenu() {
 function handleWindowResize() {
   if (window.innerWidth > 1440) {
     closeMobileMenu();
+  }
+}
+
+// Teamwork 모달 이미지 전체화면 기능
+function initTeamworkImageFullscreen() {
+  // 모든 teamwork 모달 1페이지의 이미지 스크롤 박스 찾기
+  const imageScrollBoxes = document.querySelectorAll(
+    "#projectModal .project-image-scroll-box"
+  );
+
+  imageScrollBoxes.forEach((box) => {
+    const img = box.querySelector("img");
+    if (img) {
+      // 기존 이벤트 리스너를 제거하기 위해 요소 복제
+      const newImg = img.cloneNode(true);
+      img.parentNode.replaceChild(newImg, img);
+
+      // 이미지 클릭 이벤트 추가
+      newImg.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleImageFullscreen(box);
+      });
+
+      // 전체화면 모드에서 박스 자체를 클릭해도 닫히도록 (이미지가 아닌 영역 클릭 시)
+      box.addEventListener("click", (e) => {
+        // 이미지가 아닌 박스 영역을 클릭한 경우에만 (전체화면 모드일 때)
+        if (box.classList.contains("fullscreen-mode") && e.target === box) {
+          toggleImageFullscreen(box);
+        }
+      });
+    }
+  });
+}
+
+// 이미지 전체화면 토글 함수
+function toggleImageFullscreen(imageScrollBox) {
+  if (!imageScrollBox) return;
+
+  const isFullscreen = imageScrollBox.classList.contains("fullscreen-mode");
+
+  if (isFullscreen) {
+    // 전체화면 모드 해제
+    imageScrollBox.classList.remove("fullscreen-mode");
+
+    // 원래 위치로 복원
+    const originalParent = imageScrollBox._originalParent;
+    const originalNextSibling = imageScrollBox._originalNextSibling;
+
+    if (originalParent && originalParent.parentNode) {
+      // 원래 부모가 여전히 DOM에 존재하는지 확인
+      if (
+        originalNextSibling &&
+        originalNextSibling.parentNode === originalParent
+      ) {
+        originalParent.insertBefore(imageScrollBox, originalNextSibling);
+      } else {
+        originalParent.appendChild(imageScrollBox);
+      }
+
+      // 참조 제거
+      delete imageScrollBox._originalParent;
+      delete imageScrollBox._originalNextSibling;
+    }
+
+    document.body.style.overflow = "hidden"; // 모달이 열려있으므로 다시 hidden
+  } else {
+    // 전체화면 모드 활성화
+    // 원래 위치 정보 저장 (직접 참조로 저장 - 더 안정적)
+    const parentElement = imageScrollBox.parentElement;
+    const nextSibling = imageScrollBox.nextElementSibling;
+
+    if (parentElement) {
+      // 원래 부모와 형제 요소를 직접 참조로 저장
+      imageScrollBox._originalParent = parentElement;
+      imageScrollBox._originalNextSibling = nextSibling;
+    }
+
+    // body에 직접 추가 (transform 영향 받지 않도록)
+    document.body.appendChild(imageScrollBox);
+
+    // 전체화면 모드 클래스 추가
+    imageScrollBox.classList.add("fullscreen-mode");
+    document.body.style.overflow = "auto"; // 스크롤 가능하도록
   }
 }
