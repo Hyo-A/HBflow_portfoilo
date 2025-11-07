@@ -1152,7 +1152,7 @@ header .side-nav .sub-nav,
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
+  cursor: var(--cursor-accent);
 }
 .character-modal.show,
 .teamwork-modal.show,
@@ -1168,7 +1168,7 @@ header .side-nav .sub-nav,
   position: relative;
   background-color: white;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  cursor: default;
+  cursor: var(--cursor-default);
   overflow: visible;
   display: flex;
   top: 20px;
@@ -1261,6 +1261,7 @@ header .side-nav .sub-nav,
   background-color: #f8f8f8;
   position: relative;
   margin: 20px auto;
+  cursor: var(--cursor-accent);
 }
 .project-image-scroll-box::-webkit-scrollbar {
   width: 8px;
@@ -1281,7 +1282,7 @@ header .side-nav .sub-nav,
   height: auto;
   display: block;
   object-fit: cover;
-  cursor: pointer;
+  cursor: var(--cursor-accent);
   transition: transform 0.3s ease;
 }
 .project-image-scroll-box.fullscreen-mode {
@@ -1536,6 +1537,7 @@ header .side-nav .sub-nav,
   justify-content: space-between;
   width: 100%;
   gap: 10px;
+  cursor: var(--cursor-default);
   height: 100%;
 }
 @media (min-width: 768px) {
@@ -1577,6 +1579,7 @@ header .side-nav .sub-nav,
   padding: 0;
   box-shadow: none;
   overflow: visible;
+  cursor: var(--cursor-default);
 }
 .mywork-modal .mywork-modal-content .close {
   position: absolute;
@@ -1597,6 +1600,7 @@ header .side-nav .sub-nav,
   width: 100%;
   height: 100%;
   position: relative;
+  cursor: var(--cursor-default);
 }
 .mywork-modal-page:first-child {
   display: block;
@@ -1608,6 +1612,7 @@ header .side-nav .sub-nav,
   justify-content: space-between;
   width: 100%;
   gap: 10px;
+  cursor: var(--cursor-default);
   height: 100%;
 }
 @media (min-width: 768px) {
@@ -1890,7 +1895,7 @@ header .side-nav .sub-nav,
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
+  cursor: var(--cursor-accent);
 }
 .character-modal.show {
   display: flex;
@@ -1901,7 +1906,7 @@ header .side-nav .sub-nav,
   position: relative;
   background-color: white;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  cursor: default;
+  cursor: var(--cursor-default);
   overflow: visible;
   display: flex;
   top: 20px;
@@ -1942,6 +1947,7 @@ header .side-nav .sub-nav,
   width: 100%;
   height: 100%;
   position: relative;
+  cursor: var(--cursor-default);
 }
 .character-modal .hb-modal-container .modal-next-arrow,
 .character-modal .hb-modal-container .character-prev-arrow {
@@ -2538,7 +2544,7 @@ header .side-nav .sub-nav,
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
+  cursor: var(--cursor-accent);
 }
 .tiger-modal.show {
   display: flex;
@@ -2549,7 +2555,7 @@ header .side-nav .sub-nav,
   position: relative;
   background-color: white;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  cursor: default;
+  cursor: var(--cursor-default);
   overflow: visible;
   display: flex;
   top: 20px;

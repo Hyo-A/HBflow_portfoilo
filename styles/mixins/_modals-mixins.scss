@@ -13,7 +13,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer; // 오버레이 클릭으로 닫기
+  cursor: var(--cursor-accent); // 오버레이 클릭으로 닫기
 
   &.show {
     display: flex;
@@ -27,7 +27,7 @@
   position: relative;
   background-color: white;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  cursor: default; 
+  cursor: var(--cursor-default); 
   overflow: visible;
 
   display: flex;
@@ -100,6 +100,7 @@
   justify-content: space-between;
   width: 100%;
   gap: 10px;
+  cursor: var(--cursor-default);
   
   // 모바일: height 자동 조정
   height: 100%;
@@ -129,6 +130,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+    cursor: var(--cursor-default);
   }
   
   // 화살표 버튼들 (공통)

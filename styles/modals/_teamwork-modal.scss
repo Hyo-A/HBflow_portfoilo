@@ -11,6 +11,7 @@
   background-color: #f8f8f8;
   position: relative;
   margin: 20px auto;
+  cursor: var(--cursor-accent);
   
   // 스크롤바 스타일링
   &::-webkit-scrollbar {
@@ -36,7 +37,7 @@
     height: auto;
     display: block;
     object-fit: cover;
-    cursor: pointer;
+    cursor: var(--cursor-accent);
     transition: transform 0.3s ease;
   }
   
