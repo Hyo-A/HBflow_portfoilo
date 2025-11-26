@@ -4,7 +4,7 @@
   src: url("../fonts/Butler_Ultra_Light.otf") format("opentype");
   font-weight: 200;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 @font-face {
   font-family: "Butler_Light";
@@ -25,21 +25,21 @@
   src: url("../fonts/Butler_Medium.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 @font-face {
   font-family: "Butler_Bold";
   src: url("../fonts/Butler_Bold.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 @font-face {
   font-family: "Butler_Medium_Stencil";
   src: url("../fonts/Butler_Regular_Stencil.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 @font-face {
   font-family: "Butler_Ultra_Light_Stencil";
@@ -5516,3 +5516,5 @@ body {
     display: block !important;
   }
 }
+
+/*# sourceMappingURL=main.css.map */

@@ -18,10 +18,14 @@
   <meta name="twitter:description" content="편집 디자이너에서 웹 퍼블리셔가 되고 싶은 장효아의 포트폴리오입니다." />
   <meta name="twitter:image" content="./imgs/hbflow_logo.png" />
   
-  <!-- 폰트 preload: 로딩 화면에서 사용되는 중요한 폰트를 우선 로드 -->
+  <!-- 폰트 preload: 로딩 화면 및 초기 렌더링에 필요한 폰트를 우선 로드 -->
   <link rel="preload" href="./fonts/Butler_Medium_Stencil.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="./fonts/Butler_Ultra_Light.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="./fonts/Butler_Medium.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="./fonts/Butler_Bold.otf" as="font" type="font/otf" crossorigin>
   
+  <!-- CDN 연결 최적화 -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>

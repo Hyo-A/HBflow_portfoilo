@@ -8,7 +8,7 @@
   src: url('../fonts/Butler_Ultra_Light.otf') format('opentype');
   font-weight: 200;
   font-style: normal;
-  font-display: swap; // 폰트 로드 전 fallback 폰트 표시
+  font-display: block; // 로딩 화면용: 폰트 로드될 때까지 대기
 }
 
 @font-face {
@@ -32,7 +32,7 @@
   src: url('../fonts/Butler_Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block; // 내비게이션용: 폰트 로드될 때까지 대기
 }
 
 @font-face {
@@ -40,7 +40,7 @@
   src: url('../fonts/Butler_Bold.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: block; // 강조 텍스트용: 폰트 로드될 때까지 대기 (깜빡임 방지)
 }
 
 @font-face {
@@ -48,7 +48,7 @@
   src: url('../fonts/Butler_Regular_Stencil.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
-  font-display: swap; // 로딩 화면에 사용되는 폰트
+  font-display: block; // 로딩 화면용: 폰트 로드될 때까지 대기 (가장 중요!)
 }
 
 @font-face {
