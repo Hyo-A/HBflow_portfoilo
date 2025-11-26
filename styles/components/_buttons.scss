@@ -26,7 +26,7 @@
 .navigation-buttons {
   position: relative;
   left: 0;
-  bottom: -22px;
+  bottom: -60px;
   z-index: 100;
   display: flex;
   justify-content: space-between;
@@ -129,7 +129,7 @@
   
   a {
     color: var(--color-dark2);
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-family: 'Pretendard', sans-serif;
     text-decoration: none;
     position: relative;

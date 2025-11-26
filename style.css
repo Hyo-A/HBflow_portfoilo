@@ -615,7 +615,7 @@ header.nav-open .side-nav .PROJECT_li {
 .navigation-buttons {
   position: relative;
   left: 0;
-  bottom: -22px;
+  bottom: -60px;
   z-index: 100;
   display: flex;
   justify-content: space-between;
@@ -720,7 +720,7 @@ header.nav-open .side-nav .PROJECT_li {
 }
 .contact-links a {
   color: var(--color-dark2);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-family: "Pretendard", sans-serif;
   text-decoration: none;
   position: relative;
@@ -3762,7 +3762,7 @@ header .side-nav .sub-nav,
   position: relative;
   bottom: 16px;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   gap: 8px;
   align-items: center;
   font-size: 1.2rem;
@@ -3775,6 +3775,7 @@ header .side-nav .sub-nav,
   .teamwork-page .slide-counter {
     position: absolute;
     bottom: 36px;
+    justify-content: end;
   }
 }
 .teamwork-page .slide .slide__more {
@@ -4028,7 +4029,7 @@ header .side-nav .sub-nav,
   position: relative;
   bottom: 16px;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   gap: 8px;
   align-items: center;
   font-size: 1.2rem;
@@ -4041,6 +4042,7 @@ header .side-nav .sub-nav,
   .teamwork-page .slide-counter .slide-counter {
     position: absolute;
     bottom: 36px;
+    justify-content: end;
   }
 }
 .teamwork-page .controls {
@@ -4082,7 +4084,7 @@ header .side-nav .sub-nav,
   position: relative;
   bottom: 16px;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   gap: 8px;
   align-items: center;
   font-size: 1.2rem;
@@ -4095,6 +4097,7 @@ header .side-nav .sub-nav,
   .mywork-page .slide-counter {
     position: absolute;
     bottom: 36px;
+    justify-content: end;
   }
 }
 .mywork-page .slide .slide__more {
@@ -4348,7 +4351,7 @@ header .side-nav .sub-nav,
   position: relative;
   bottom: 16px;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   gap: 8px;
   align-items: center;
   font-size: 1.2rem;
@@ -4361,6 +4364,7 @@ header .side-nav .sub-nav,
   .mywork-page .slide-counter .slide-counter {
     position: absolute;
     bottom: 36px;
+    justify-content: end;
   }
 }
 .mywork-page .slide-info {
