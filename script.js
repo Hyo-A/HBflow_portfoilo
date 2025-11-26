@@ -612,7 +612,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // 폰트 로딩 완료 후 애니메이션 시작
   checkCriticalFonts().then(() => {
-    // 폰트 로드 완료! 이제 counter와 title을 표시
+    // 폰트 로드 완료! 이제 텍스트를 넣고 표시
+    counter.textContent = "0";
+    title.textContent = "HBFLOW SHOWCASE";
+
     const counterContainer = document.querySelector(".counter-container");
     if (counterContainer) counterContainer.style.visibility = "visible";
     if (title) title.style.visibility = "visible";
