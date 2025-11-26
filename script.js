@@ -591,61 +591,83 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const { horizontalGridLines, verticalGridLines } = initGridLines();
 
-  // GSAP timeline으로 로딩 애니메이션 시작
-  const tl = gsap.timeline();
+  // 폰트 로딩 확인 함수
+  async function checkCriticalFonts() {
+    if (!document.fonts) {
+      // Font Loading API 미지원 시 짧은 대기
+      return new Promise((resolve) => setTimeout(resolve, 100));
+    }
 
-  // Show counter and title
-  tl.to([counter, title], {
-    opacity: 1,
-    y: 0,
-    duration: 0.3,
-    ease: "power2.out",
-    stagger: PRELOADER_CONFIG.counterTitleStagger,
-  })
-    .to(
-      horizontalGridLines,
-      {
-        scaleX: 1,
-        duration: PRELOADER_CONFIG.gridLineDuration,
-        stagger: PRELOADER_CONFIG.gridLineStagger,
-        ease: "power1.inOut",
-      },
-      "-=0.2"
-    )
-    .to(
-      verticalGridLines,
-      {
-        scaleY: 1,
-        duration: PRELOADER_CONFIG.gridLineDuration,
-        stagger: PRELOADER_CONFIG.gridLineStagger,
-        ease: "power1.inOut",
-      },
-      "-=0.4"
-    )
-    .to(
-      progressBar,
-      {
-        width: "100%",
-        duration: PRELOADER_CONFIG.progressBarDuration,
-        ease: "power1.inOut",
-        onUpdate: function () {
-          const progress = Math.round(this.progress() * 100);
-          counter.textContent = progress;
-        },
-      },
-      "-=0.8"
-    )
+    try {
+      // 중요 폰트들만 확인
+      await Promise.race([
+        document.fonts.load("500 16px Butler_Medium_Stencil"),
+        document.fonts.load("200 16px Butler_Ultra_Light"),
+        new Promise((resolve) => setTimeout(resolve, 1000)), // 최대 1초 대기
+      ]);
+    } catch (error) {
+      // 오류 발생 시 무시하고 진행
+    }
+  }
 
-    // Transition to main content - 깔끔하게 사라지도록 수정
-    .to(preloader, {
-      opacity: 0,
+  // 폰트 로딩 완료 후 애니메이션 시작
+  checkCriticalFonts().then(() => {
+    // GSAP timeline으로 로딩 애니메이션 시작
+    const tl = gsap.timeline();
+
+    // Show counter and title
+    tl.to([counter, title], {
+      opacity: 1,
+      y: 0,
       duration: 0.3,
       ease: "power2.out",
-      delay: 0.2,
+      stagger: PRELOADER_CONFIG.counterTitleStagger,
     })
-    .set(preloader, {
-      display: "none",
-    });
+      .to(
+        horizontalGridLines,
+        {
+          scaleX: 1,
+          duration: PRELOADER_CONFIG.gridLineDuration,
+          stagger: PRELOADER_CONFIG.gridLineStagger,
+          ease: "power1.inOut",
+        },
+        "-=0.2"
+      )
+      .to(
+        verticalGridLines,
+        {
+          scaleY: 1,
+          duration: PRELOADER_CONFIG.gridLineDuration,
+          stagger: PRELOADER_CONFIG.gridLineStagger,
+          ease: "power1.inOut",
+        },
+        "-=0.4"
+      )
+      .to(
+        progressBar,
+        {
+          width: "100%",
+          duration: PRELOADER_CONFIG.progressBarDuration,
+          ease: "power1.inOut",
+          onUpdate: function () {
+            const progress = Math.round(this.progress() * 100);
+            counter.textContent = progress;
+          },
+        },
+        "-=0.8"
+      )
+
+      // Transition to main content - 깔끔하게 사라지도록 수정
+      .to(preloader, {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out",
+        delay: 0.2,
+      })
+      .set(preloader, {
+        display: "none",
+      });
+  }); // checkCriticalFonts().then() 종료
 
   // 네비게이션 클릭 시 이동
   const navItems = document.querySelectorAll(".side-nav ul li[data-page]");
