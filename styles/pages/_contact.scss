@@ -165,9 +165,9 @@
   }
   
   .copyright {
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--color-dark2);
+    font-size: 1.2rem;
+    font-weight: 200;
+    color: var(--color-gray);
     margin-top: 2rem;
     position: relative;
     bottom: auto;
@@ -176,7 +176,7 @@
 
     @include tablet-up {
       text-align: center;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       position: absolute;
       bottom: 68px;
       left: 50px;
