@@ -72,6 +72,7 @@
   font-size: 4rem;
   margin-bottom: 1rem;
   font-family: 'Butler_Medium_Stencil';
+  visibility: hidden; // 폰트 로드 전까지 완전히 숨김
   
   @include tablet-up {
     font-size: 6rem;
@@ -100,6 +101,7 @@
   margin-bottom: 1rem;
   opacity: 0;
   transform: translateY(20px);
+  visibility: hidden; // 폰트 로드 전까지 완전히 숨김
   
   @include mobile-up {
     font-size: 1.5rem;

@@ -612,6 +612,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // 폰트 로딩 완료 후 애니메이션 시작
   checkCriticalFonts().then(() => {
+    // 폰트 로드 완료! 이제 counter와 title을 표시
+    const counterContainer = document.querySelector(".counter-container");
+    if (counterContainer) counterContainer.style.visibility = "visible";
+    if (title) title.style.visibility = "visible";
+
     // GSAP timeline으로 로딩 애니메이션 시작
     const tl = gsap.timeline();
 
