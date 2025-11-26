@@ -6,7 +6,7 @@
   .slide-counter {
     width: 100%;
     position: relative;
-    bottom: 36px;
+    bottom: 16px;
     display: flex;
     justify-content: end;
     gap: 8px;
@@ -41,12 +41,68 @@
     }
     right: 1rem;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     
     @include tablet-up {
       right: 2rem;
     }
     
+    .slide-goto-btn {
+      background-color: var(--color-gray2);
+      color: var(--color-dark);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      font-family: 'Pretendard', sans-serif;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: var(--cursor-accent);
+      white-space: nowrap;
+      
+      @include tablet-up {
+        font-size: 1.3rem;
+        padding: 7px 16px;
+        gap: 4px;
+      }
+      
+      @include desktop-up {
+        font-size: 1.4rem;
+        padding: 8px 18px;
+        gap: 5px;
+      }
+      
+      &:hover {
+        background-color: var(--color-dark);
+        color: var(--color-accent);
+        
+        .site-arrow-icon {
+          color: var(--color-accent)
+        }
+      }
+      
+      .site-arrow-icon {
+        color: var(--color-dark);
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        
+        @include tablet-up {
+          font-size: 1.4rem;
+        }
+        
+        @include desktop-up {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    
     .more-btn {
+      width: 80px;
       background-color: var(--color-gray2);
       color: var(--color-dark);
       border: none;
@@ -62,11 +118,13 @@
       cursor: var(--cursor-accent);
       
       @include tablet-up {
+        width: 100px;
         font-size: 1.4rem;
         padding: 7px 18px;
       }
       
       @include desktop-up {
+        width: 100px;
         font-size: 1.6rem;
         padding: 8px 20px;
       }

@@ -591,83 +591,61 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const { horizontalGridLines, verticalGridLines } = initGridLines();
 
-  // 폰트 로딩 대기 함수
-  function waitForFonts(callback) {
-    // Font Loading API 지원 확인
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready
-        .then(() => {
-          // 폰트가 로드된 후 약간의 지연을 주어 브라우저 렌더링 완료 보장
-          setTimeout(callback, 50);
-        })
-        .catch(() => {
-          // 폰트 로딩 실패 시에도 진행 (fallback 폰트 사용)
-          setTimeout(callback, 100);
-        });
-    } else {
-      // Font Loading API 미지원 브라우저는 짧은 지연 후 진행
-      setTimeout(callback, 300);
-    }
-  }
+  // GSAP timeline으로 로딩 애니메이션 시작
+  const tl = gsap.timeline();
 
-  // 폰트 로딩 완료 후 로딩 애니메이션 시작
-  waitForFonts(() => {
-    // Initialize GSAP timeline
-    const tl = gsap.timeline();
+  // Show counter and title
+  tl.to([counter, title], {
+    opacity: 1,
+    y: 0,
+    duration: 0.3,
+    ease: "power2.out",
+    stagger: PRELOADER_CONFIG.counterTitleStagger,
+  })
+    .to(
+      horizontalGridLines,
+      {
+        scaleX: 1,
+        duration: PRELOADER_CONFIG.gridLineDuration,
+        stagger: PRELOADER_CONFIG.gridLineStagger,
+        ease: "power1.inOut",
+      },
+      "-=0.2"
+    )
+    .to(
+      verticalGridLines,
+      {
+        scaleY: 1,
+        duration: PRELOADER_CONFIG.gridLineDuration,
+        stagger: PRELOADER_CONFIG.gridLineStagger,
+        ease: "power1.inOut",
+      },
+      "-=0.4"
+    )
+    .to(
+      progressBar,
+      {
+        width: "100%",
+        duration: PRELOADER_CONFIG.progressBarDuration,
+        ease: "power1.inOut",
+        onUpdate: function () {
+          const progress = Math.round(this.progress() * 100);
+          counter.textContent = progress;
+        },
+      },
+      "-=0.8"
+    )
 
-    // Show counter and title
-    tl.to([counter, title], {
-      opacity: 1,
-      y: 0,
+    // Transition to main content - 깔끔하게 사라지도록 수정
+    .to(preloader, {
+      opacity: 0,
       duration: 0.3,
       ease: "power2.out",
-      stagger: PRELOADER_CONFIG.counterTitleStagger,
+      delay: 0.2,
     })
-      .to(
-        horizontalGridLines,
-        {
-          scaleX: 1,
-          duration: PRELOADER_CONFIG.gridLineDuration,
-          stagger: PRELOADER_CONFIG.gridLineStagger,
-          ease: "power1.inOut",
-        },
-        "-=0.2"
-      )
-      .to(
-        verticalGridLines,
-        {
-          scaleY: 1,
-          duration: PRELOADER_CONFIG.gridLineDuration,
-          stagger: PRELOADER_CONFIG.gridLineStagger,
-          ease: "power1.inOut",
-        },
-        "-=0.4"
-      )
-      .to(
-        progressBar,
-        {
-          width: "100%",
-          duration: PRELOADER_CONFIG.progressBarDuration,
-          ease: "power1.inOut",
-          onUpdate: function () {
-            const progress = Math.round(this.progress() * 100);
-            counter.textContent = progress;
-          },
-        },
-        "-=0.8"
-      )
-
-      // Transition to main content - 깔끔하게 사라지도록 수정
-      .to(preloader, {
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.out",
-        delay: 0.2,
-      })
-      .set(preloader, {
-        display: "none",
-      });
-  });
+    .set(preloader, {
+      display: "none",
+    });
 
   // 네비게이션 클릭 시 이동
   const navItems = document.querySelectorAll(".side-nav ul li[data-page]");
@@ -1617,12 +1595,30 @@ function handleTeamWorkAction() {
   }
 }
 
+// TeamWork 이전 액션 핸들러 (모바일: 이전 슬라이드, 데스크톱: 이전 섹션)
+function handleTeamWorkBackAction() {
+  if (isMobile()) {
+    prevTeamWorkSlide();
+  } else {
+    backToSkills();
+  }
+}
+
 // MyWork 액션 핸들러 (모바일: 다음 슬라이드, 데스크톱: 스킵)
 function handleMyWorkAction() {
   if (isMobile()) {
     nextMyWorkSlide();
   } else {
     skipMyWork();
+  }
+}
+
+// MyWork 이전 액션 핸들러 (모바일: 이전 슬라이드, 데스크톱: 이전 섹션)
+function handleMyWorkBackAction() {
+  if (isMobile()) {
+    prevMyWorkSlide();
+  } else {
+    backToTeamWork();
   }
 }
 
@@ -1656,15 +1652,64 @@ function skipTeamWork() {
   }, 100);
 }
 
+// Team Work에서 Skills로 돌아가기
+function backToSkills() {
+  const container = document.querySelector(".fullpage-container");
+  const positions = getPagePositionsGlobal();
+
+  // Skills 페이지로 이동 (페이지 인덱스 1)
+  container.scrollTo({
+    top: positions[1],
+    behavior: "smooth",
+  });
+
+  // 네비게이션 활성화
+  setTimeout(() => {
+    updateActiveNav(1);
+  }, 100);
+}
+
+// My Work에서 Team Work로 돌아가기
+function backToTeamWork() {
+  const container = document.querySelector(".fullpage-container");
+  const positions = getPagePositionsGlobal();
+
+  // Team Work 페이지로 이동 (페이지 인덱스 2)
+  container.scrollTo({
+    top: positions[2],
+    behavior: "smooth",
+  });
+
+  // 네비게이션 활성화
+  setTimeout(() => {
+    updateActiveNav(2);
+  }, 100);
+}
+
 // 전역 슬라이드 함수들
-function nextMyWorkSlide() {
-  if (appState.isAnimating || appState.myworkSlides.length === 0) return;
+// 공통 슬라이드 전환 함수
+function transitionSlide(config) {
+  const {
+    slides,
+    currentSlideKey,
+    direction, // 'next' or 'prev'
+    updateCounter,
+  } = config;
+
+  if (appState.isAnimating || slides.length === 0) return;
   appState.isAnimating = true;
 
-  const currentSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
-  appState.myworkCurrentSlide =
-    (appState.myworkCurrentSlide + 1) % appState.myworkSlides.length;
-  const nextSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
+  const currentSlideEl = slides[appState[currentSlideKey]];
+
+  // 다음 또는 이전 슬라이드 인덱스 계산
+  if (direction === "next") {
+    appState[currentSlideKey] = (appState[currentSlideKey] + 1) % slides.length;
+  } else {
+    appState[currentSlideKey] =
+      (appState[currentSlideKey] - 1 + slides.length) % slides.length;
+  }
+
+  const nextSlideEl = slides[appState[currentSlideKey]];
 
   // 현재 슬라이드 아웃
   animateSlideOut(currentSlideEl);
@@ -1675,38 +1720,31 @@ function nextMyWorkSlide() {
     animateSlideIn(nextSlideEl);
 
     // 카운터 업데이트
-    updateMyWorkCounter();
+    updateCounter();
 
     setTimeout(() => {
       appState.isAnimating = false;
-    }, 1000);
-  }, 800);
+    }, 600);
+  }, 400);
+}
+
+// My Work 슬라이드 전환 함수들
+function nextMyWorkSlide() {
+  transitionSlide({
+    slides: appState.myworkSlides,
+    currentSlideKey: "myworkCurrentSlide",
+    direction: "next",
+    updateCounter: updateMyWorkCounter,
+  });
 }
 
 function nextTeamWorkSlide() {
-  if (appState.isAnimating || appState.teamworkSlides.length === 0) return;
-  appState.isAnimating = true;
-
-  const currentSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
-  appState.teamworkCurrentSlide =
-    (appState.teamworkCurrentSlide + 1) % appState.teamworkSlides.length;
-  const nextSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
-
-  // 현재 슬라이드 아웃
-  animateSlideOut(currentSlideEl);
-
-  setTimeout(() => {
-    currentSlideEl.classList.remove("active");
-    nextSlideEl.classList.add("active");
-    animateSlideIn(nextSlideEl);
-
-    // 카운터 업데이트
-    updateTeamWorkCounter();
-
-    setTimeout(() => {
-      appState.isAnimating = false;
-    }, 1000);
-  }, 800);
+  transitionSlide({
+    slides: appState.teamworkSlides,
+    currentSlideKey: "teamworkCurrentSlide",
+    direction: "next",
+    updateCounter: updateTeamWorkCounter,
+  });
 }
 
 // 슬라이드 애니메이션 함수들
@@ -1981,75 +2019,25 @@ function initSlideshow() {
     });
   }
 
-  // 슬라이드 인 애니메이션 - 전역 함수 사용
-
-  // 슬라이드 아웃 애니메이션 - 전역 함수 사용
-
-  // My Work 다음 슬라이드로 이동 - 전역 함수 사용
-
   // My Work 이전 슬라이드로 이동
   function prevMyWorkSlide() {
-    if (appState.isAnimating) return;
-    appState.isAnimating = true;
-
-    const currentSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
-    appState.myworkCurrentSlide =
-      (appState.myworkCurrentSlide - 1 + appState.myworkSlides.length) %
-      appState.myworkSlides.length;
-    const prevSlideEl = appState.myworkSlides[appState.myworkCurrentSlide];
-
-    // 현재 슬라이드 아웃
-    animateSlideOut(currentSlideEl);
-
-    setTimeout(() => {
-      currentSlideEl.classList.remove("active");
-      prevSlideEl.classList.add("active");
-      animateSlideIn(prevSlideEl);
-
-      // 카운터 업데이트
-      updateMyWorkCounter();
-
-      setTimeout(() => {
-        appState.isAnimating = false;
-      }, 1000);
-    }, 800);
+    transitionSlide({
+      slides: appState.myworkSlides,
+      currentSlideKey: "myworkCurrentSlide",
+      direction: "prev",
+      updateCounter: updateMyWorkCounter,
+    });
   }
-
-  // Team Work 다음 슬라이드로 이동 - 전역 함수 사용
 
   // Team Work 이전 슬라이드로 이동
   function prevTeamWorkSlide() {
-    if (appState.isAnimating) return;
-    appState.isAnimating = true;
-
-    const currentSlideEl =
-      appState.teamworkSlides[appState.teamworkCurrentSlide];
-    appState.teamworkCurrentSlide =
-      (appState.teamworkCurrentSlide - 1 + appState.teamworkSlides.length) %
-      appState.teamworkSlides.length;
-    const prevSlideEl = appState.teamworkSlides[appState.teamworkCurrentSlide];
-
-    // 현재 슬라이드 아웃
-    animateSlideOut(currentSlideEl);
-
-    setTimeout(() => {
-      currentSlideEl.classList.remove("active");
-      prevSlideEl.classList.add("active");
-      animateSlideIn(prevSlideEl);
-
-      // 카운터 업데이트
-      updateTeamWorkCounter();
-
-      setTimeout(() => {
-        appState.isAnimating = false;
-      }, 1000);
-    }, 800);
+    transitionSlide({
+      slides: appState.teamworkSlides,
+      currentSlideKey: "teamworkCurrentSlide",
+      direction: "prev",
+      updateCounter: updateTeamWorkCounter,
+    });
   }
-
-  // My Work 카운터 업데이트 - 전역 함수 사용
-
-  // Team Work 카운터 업데이트 - 전역 함수 사용
-
   // 스크롤 이벤트 - 개선된 버전
   let slideScrollTimeout;
   let slideScrollThreshold = 60; // 슬라이드 스크롤 임계값 (px)
@@ -2061,126 +2049,92 @@ function initSlideshow() {
   const container = domElements.container;
   const pages = domElements.pages;
 
+  // 공통 휠 이벤트 핸들러 함수
+  function createWheelHandler(config) {
+    return (e) => {
+      // 모바일에서는 슬라이드 wheel 이벤트 비활성화
+      if (isMobile()) {
+        return;
+      }
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const currentTime = Date.now();
+
+      // 슬라이드 스크롤 디바운싱
+      if (currentTime - lastSlideScrollTime < slideScrollDebounceDelay) {
+        return;
+      }
+
+      // 슬라이드 스크롤 임계값 체크
+      if (Math.abs(e.deltaY) < slideScrollThreshold) {
+        return;
+      }
+
+      lastSlideScrollTime = currentTime;
+
+      clearTimeout(slideScrollTimeout);
+      slideScrollTimeout = setTimeout(() => {
+        // 현재 슬라이드 값을 함수로 가져오기 (동적 값)
+        const currentSlide = config.getCurrentSlide();
+        const slides = config.getSlides();
+
+        if (e.deltaY > 0) {
+          // 다음 슬라이드로 이동
+          if (currentSlide < slides.length - 1) {
+            config.nextSlide();
+          } else {
+            // 마지막 슬라이드에서 다음 섹션으로 이동
+            container.scrollTo({
+              top: config.nextSection,
+              behavior: "smooth",
+            });
+          }
+        } else {
+          // 이전 슬라이드로 이동
+          if (currentSlide > 0) {
+            config.prevSlide();
+          } else {
+            // 첫 번째 슬라이드에서 이전 섹션으로 이동
+            container.scrollTo({
+              top: config.prevSection,
+              behavior: "smooth",
+            });
+          }
+        }
+      }, 60); // 슬라이드 전환 딜레이 최적화
+    };
+  }
+
+  // My Work 페이지 휠 이벤트
   if (myworkPage) {
     myworkPage.addEventListener(
       "wheel",
-      (e) => {
-        // 모바일에서는 슬라이드 wheel 이벤트 비활성화
-        if (isMobile()) {
-          return;
-        }
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        const currentTime = Date.now();
-
-        // 슬라이드 스크롤 디바운싱
-        if (currentTime - lastSlideScrollTime < slideScrollDebounceDelay) {
-          return;
-        }
-
-        // 슬라이드 스크롤 임계값 체크
-        if (Math.abs(e.deltaY) < slideScrollThreshold) {
-          return;
-        }
-
-        lastSlideScrollTime = currentTime;
-
-        clearTimeout(slideScrollTimeout);
-        slideScrollTimeout = setTimeout(() => {
-          if (e.deltaY > 0) {
-            // 다음 슬라이드로 이동
-            if (
-              appState.myworkCurrentSlide <
-              appState.myworkSlides.length - 1
-            ) {
-              nextMyWorkSlide();
-            } else {
-              // 마지막 슬라이드에서 다음 섹션으로 이동
-              container.scrollTo({
-                top: pages[4].offsetTop, // Design Work 섹션 (페이지 4)
-                behavior: "smooth",
-              });
-            }
-          } else {
-            // 이전 슬라이드로 이동
-            if (appState.myworkCurrentSlide > 0) {
-              prevMyWorkSlide();
-            } else {
-              // 첫 번째 슬라이드에서 이전 섹션으로 이동
-              container.scrollTo({
-                top: pages[2].offsetTop, // Team Work 섹션 (페이지 2)
-                behavior: "smooth",
-              });
-            }
-          }
-        }, 60); // 슬라이드 전환 딜레이 최적화
-      },
+      createWheelHandler({
+        getCurrentSlide: () => appState.myworkCurrentSlide,
+        getSlides: () => appState.myworkSlides,
+        nextSlide: nextMyWorkSlide,
+        prevSlide: prevMyWorkSlide,
+        nextSection: pages[4].offsetTop, // Design Work 섹션
+        prevSection: pages[2].offsetTop, // Team Work 섹션
+      }),
       { passive: false }
     );
   }
 
+  // Team Work 페이지 휠 이벤트
   if (teamworkPage) {
     teamworkPage.addEventListener(
       "wheel",
-      (e) => {
-        // 모바일에서는 슬라이드 wheel 이벤트 비활성화
-        if (isMobile()) {
-          return;
-        }
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        const currentTime = Date.now();
-
-        // 슬라이드 스크롤 디바운싱
-        if (currentTime - lastSlideScrollTime < slideScrollDebounceDelay) {
-          return;
-        }
-
-        // 슬라이드 스크롤 임계값 체크
-        if (Math.abs(e.deltaY) < slideScrollThreshold) {
-          return;
-        }
-
-        lastSlideScrollTime = currentTime;
-
-        clearTimeout(slideScrollTimeout);
-        slideScrollTimeout = setTimeout(() => {
-          if (e.deltaY > 0) {
-            // 다음 슬라이드로 이동
-            if (
-              appState.teamworkCurrentSlide <
-              appState.teamworkSlides.length - 1
-            ) {
-              nextTeamWorkSlide();
-            } else {
-              // 마지막 슬라이드에서 다음 섹션으로 이동
-              const positions = getPagePositionsGlobal();
-
-              container.scrollTo({
-                top: positions[3], // My Work 섹션 (페이지 3)
-                behavior: "smooth",
-              });
-            }
-          } else {
-            // 이전 슬라이드로 이동
-            if (appState.teamworkCurrentSlide > 0) {
-              prevTeamWorkSlide();
-            } else {
-              // 첫 번째 슬라이드에서 이전 섹션으로 이동
-              const positions = getPagePositionsGlobal();
-
-              container.scrollTo({
-                top: positions[1], // Skills 섹션 (페이지 1)
-                behavior: "smooth",
-              });
-            }
-          }
-        }, 120); // 슬라이드 전환 딜레이 최적화
-      },
+      createWheelHandler({
+        getCurrentSlide: () => appState.teamworkCurrentSlide,
+        getSlides: () => appState.teamworkSlides,
+        nextSlide: nextTeamWorkSlide,
+        prevSlide: prevTeamWorkSlide,
+        nextSection: getPagePositionsGlobal()[3], // My Work 섹션
+        prevSection: getPagePositionsGlobal()[1], // Skills 섹션
+      }),
       { passive: false }
     );
   }
@@ -2313,11 +2267,15 @@ function initSlideshow() {
         const boxX = e.clientX - boxRect.left;
         const boxY = e.clientY - boxRect.top;
 
-        // Skip 버튼 영역 확인
+        // Skip 버튼과 Back 버튼 영역 확인
         const skipButton = pageElement.querySelector(".skip-button");
+        const backButton = pageElement.querySelector(".back-button");
         const skipRect = skipButton.getBoundingClientRect();
+        const backRect = backButton ? backButton.getBoundingClientRect() : null;
         const skipX = e.clientX - skipRect.left;
         const skipY = e.clientY - skipRect.top;
+        const backX = backRect ? e.clientX - backRect.left : -1;
+        const backY = backRect ? e.clientY - backRect.top : -1;
 
         isOverProjectBox =
           boxX >= 0 &&
@@ -2331,6 +2289,13 @@ function initSlideshow() {
           skipY >= 0 &&
           skipY <= skipRect.height;
 
+        const isOverBackButton =
+          backRect &&
+          backX >= 0 &&
+          backX <= backRect.width &&
+          backY >= 0 &&
+          backY <= backRect.height;
+
         // 커서 위치 업데이트 (부모 기준 보정)
         cursor.style.left = x + "px";
         cursor.style.top = y + "px";
@@ -2340,7 +2305,7 @@ function initSlideshow() {
         const leftArea = pageWidth * 0.3; // 왼쪽 30% 영역
         const rightArea = pageWidth * 0.7; // 오른쪽 70% 영역
 
-        if (!isOverProjectBox && !isOverSkipButton) {
+        if (!isOverProjectBox && !isOverSkipButton && !isOverBackButton) {
           if (x < leftArea) {
             // 왼쪽 영역 - 이전 화살표
             cursor.classList.remove("next");
@@ -2357,7 +2322,7 @@ function initSlideshow() {
             document.body.classList.remove("custom-cursor-active");
           }
         } else {
-          // 프로젝트 박스나 skip 버튼 위에서는 커서 숨김
+          // 프로젝트 박스나 skip/back 버튼 위에서는 커서 숨김
           cursor.classList.remove("prev", "next", "active");
           document.body.classList.remove("custom-cursor-active");
         }
@@ -2365,9 +2330,12 @@ function initSlideshow() {
 
       // 마우스 클릭 이벤트
       pageElement.addEventListener("click", (e) => {
-        // Skip 버튼 클릭인 경우 커스텀 커서 로직 무시
-        if (e.target.closest(".skip-button")) {
-          return; // Skip 버튼의 onclick 이벤트가 실행되도록 함
+        // Skip 버튼이나 Back 버튼 클릭인 경우 커스텀 커서 로직 무시
+        if (
+          e.target.closest(".skip-button") ||
+          e.target.closest(".back-button")
+        ) {
+          return; // 버튼의 onclick 이벤트가 실행되도록 함
         }
 
         const rect = pageElement.getBoundingClientRect();

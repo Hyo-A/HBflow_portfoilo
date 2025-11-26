@@ -22,22 +22,30 @@
   }
 }
 
-// Skip 버튼
-.skip-button {
+// 네비게이션 버튼 컨테이너
+.navigation-buttons {
   position: relative;
-  bottom: -30px;
   left: 0;
-  z-index: 100; // z-index 증가로 다른 요소들과의 충돌 방지
+  bottom: -22px;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
 
   @include tablet-up {
     position: absolute;
     bottom: 60px;
   }
+}
 
+// Skip 버튼 & Back 버튼 공통 스타일
+.skip-button,
+.back-button {
   button {
     background: transparent;
     border: none;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-family: 'Pretendard', sans-serif;
     text-transform: uppercase;
     cursor: var(--cursor-accent);
@@ -179,6 +187,20 @@
 .button-text .arrow-icon,
 .button-text-hover .arrow-icon {
   margin-left: 12px;
+}
+
+// Skip 버튼의 화살표 시계방향 90도 회전 (아래 방향)
+.skip-button {
+  .arrow-icon {
+    transform: rotate(90deg);
+  }
+}
+
+// Back 버튼의 화살표 시계방향 270도 회전 (위 방향)
+.back-button {
+  .arrow-icon {
+    transform: rotate(270deg);
+  }
 }
 
 // Contact 폼 버튼들

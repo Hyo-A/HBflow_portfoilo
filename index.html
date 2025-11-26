@@ -17,6 +17,11 @@
   <meta name="twitter:title" content="HBflow - Portfolio" />
   <meta name="twitter:description" content="편집 디자이너에서 웹 퍼블리셔가 되고 싶은 장효아의 포트폴리오입니다." />
   <meta name="twitter:image" content="./imgs/hbflow_logo.png" />
+  
+  <!-- 폰트 preload: 로딩 화면에서 사용되는 중요한 폰트를 우선 로드 -->
+  <link rel="preload" href="./fonts/Butler_Medium_Stencil.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="./fonts/Butler_Ultra_Light.otf" as="font" type="font/otf" crossorigin>
+  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -82,8 +87,8 @@
           <div class="about-text">
             <h2>About me</h2>
             <p>안녕하세요! 디자인의 완성도를 코드로 구현하며 가치를 만들어내는 장효아입니다.<br>
-              지난 2년이 넘는 기간동안 편집 디자이너로서 제품을 만들고, 서비스를 제공함에 있어서 즐거움을 느껴왔습니다.<br>
-              이제는 사용자와의 직접적인 상호작용이 필요한 UX&UI를 제작함을 원하고있고,<br>
+              지난 <b>2년이 넘는 기간동안 편집 디자이너</b>로서 제품을 만들고, 서비스를 제공함에 있어서 즐거움을 느껴왔습니다.<br>
+              이제는 사용자와의 직접적인 상호작용이 필요한 <b>UX&UI</b>를 제작함을 원하고있고,<br>
               팀원들과 함께 작업했던 프로젝트에 애정을 가지고 있습니다.
               <br><br>
               프론트앤드 공부를 한 기간은 길지 않지만, 빠르게 성장하였고 알찬 경험을 하였다 자부합니다.<br>
@@ -268,6 +273,10 @@
                 <div class="slide__subtitle">야구 팬들을 위핸 커머스 + OTT 융합 플랫폼</div>
               </div>
               <div class="slide__more">
+                <a href="https://rookie-dd013.web.app/" target="_blank" class="goto-site-btn slide-goto-btn" onclick="event.stopPropagation()">
+                  Go to Site
+                  <span class="site-arrow-icon">→</span>
+                </a>
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
             </div>
@@ -283,6 +292,10 @@
                 <div class="slide__subtitle">KPOP팬을 위한 뮤직 플랫폼</div>
               </div>
               <div class="slide__more">
+                <a href="https://metaphor-8079a.web.app" target="_blank" class="goto-site-btn slide-goto-btn" onclick="event.stopPropagation()">
+                  Go to Site
+                  <span class="site-arrow-icon">→</span>
+                </a>
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
             </div>
@@ -298,6 +311,10 @@
                 <div class="slide__subtitle">못난이 채소 판매 전문 커머스 사이트</div>
               </div>
               <div class="slide__more">
+                <a href="https://nongdam.netlify.app/index.html" target="_blank" class="goto-site-btn slide-goto-btn" onclick="event.stopPropagation()">
+                  Go to Site
+                  <span class="site-arrow-icon">→</span>
+                </a>
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
             </div>
@@ -313,16 +330,28 @@
                 <div class="slide__subtitle">반려동물 육아 도움이 앱</div>
               </div>
               <div class="slide__more">
+                <a href="https://www.figma.com/proto/cJr6PeSaGW7VWhJCcH2Heb/Myportfoilo?node-id=92-30252&t=iEJn3SbLZ3G8TnjO-0&scaling=min-zoom&content-scaling=fixed&page-id=92%3A88" target="_blank" class="goto-site-btn slide-goto-btn" onclick="event.stopPropagation()">
+                  Go to Figma Prototype
+                  <span class="site-arrow-icon">→</span>
+                </a>
                 <button class="more-btn">more<span class="plus-icon">+</span></button>
               </div>
             </div>
           </div>
           
-          <div class="skip-button">
-            <button onclick="handleTeamWorkAction()">
-              <span class="button-text"><span class="mobile-text">NEXT TEAM WORK</span><span class="desktop-text">SKIP TEAM WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
-              <span class="button-text-hover"><span class="mobile-text">NEXT TEAM WORK</span><span class="desktop-text">SKIP TEAM WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
-            </button>
+          <div class="navigation-buttons">
+            <div class="back-button">
+              <button onclick="handleTeamWorkBackAction()">
+                <span class="button-text"><span class="mobile-text">PREV TEAM WORK</span><span class="desktop-text">BACK TO SKILLS</span> <img src="imgs/arrow.png" alt="←" class="arrow-icon"></span>
+                <span class="button-text-hover"><span class="mobile-text">PREV TEAM WORK</span><span class="desktop-text">BACK TO SKILLS</span> <img src="imgs/arrow.png" alt="←" class="arrow-icon"></span>
+              </button>
+            </div>
+            <div class="skip-button">
+              <button onclick="handleTeamWorkAction()">
+                <span class="button-text"><span class="mobile-text">NEXT TEAM WORK</span><span class="desktop-text">SKIP TEAM WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
+                <span class="button-text-hover"><span class="mobile-text">NEXT TEAM WORK</span><span class="desktop-text">SKIP TEAM WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
+              </button>
+            </div>
           </div>
           
           <div class="slide-counter">
@@ -441,11 +470,19 @@
               </div>
             </div>
             
-            <div class="skip-button">
-              <button onclick="handleMyWorkAction()">
-                <span class="button-text"><span class="mobile-text">NEXT MY WORK</span><span class="desktop-text">SKIP MY WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
-                <span class="button-text-hover"><span class="mobile-text">NEXT MY WORK</span><span class="desktop-text">SKIP MY WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
-              </button>
+            <div class="navigation-buttons">
+              <div class="back-button">
+                <button onclick="handleMyWorkBackAction()">
+                  <span class="button-text"><span class="mobile-text">PREV MY WORK</span><span class="desktop-text">BACK TO TEAM WORK</span> <img src="imgs/arrow.png" alt="←" class="arrow-icon"></span>
+                  <span class="button-text-hover"><span class="mobile-text">PREV MY WORK</span><span class="desktop-text">BACK TO TEAM WORK</span> <img src="imgs/arrow.png" alt="←" class="arrow-icon"></span>
+                </button>
+              </div>
+              <div class="skip-button">
+                <button onclick="handleMyWorkAction()">
+                  <span class="button-text"><span class="mobile-text">NEXT MY WORK</span><span class="desktop-text">SKIP MY WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
+                  <span class="button-text-hover"><span class="mobile-text">NEXT MY WORK</span><span class="desktop-text">SKIP MY WORK</span> <img src="imgs/arrow.png" alt="→" class="arrow-icon"></span>
+                </button>
+              </div>
             </div>
             
             <div class="slide-counter">
@@ -775,7 +812,7 @@
                   <li>persist 미들웨어로 새로고침 후에도 상태를 유지해 끊김 없는 팬 활동을 보장</li>
                   <li>마이페이지에서 일반 사용자는 ROOKie 파트너를 신청할 수 있고, ROOKie 파트너 사용자는 상품등록 요청을 할 수 있음</li>
                   <li>쇼핑 관련 현황과, 내가 좋아요한 동영상을 확인</li>
-                  <li>사이트 로고, 구조적 디자인 설계</li>
+                  <li>팀의 디자이너로서 PPT, 사이트 로고, 구조적 디자인 총괄</li>
                 </ul>
               </div>
               
@@ -956,7 +993,7 @@
                 <ul class="feature-list">
                   <li>이벤트 프로모션 페이지를 담당하여 룰렛 돌리기 게임을 제작</li>
                   <li>팀원들과의 UI/UX 회의 참여 및 전체 디자인 피드백</li>
-                  <li>PPT 제작 총괄 및 디자인 툴이 필요한 로고, 배너 제작</li>
+                  <li>팀의 디자이너 역할, PPT 제작 총괄 및 로고, 배너 제작</li>
                   <li>기획, 디자인, 구현, 발표 후에 팀원들과 다시 모여서 피드백 받은 내용을 2차 디벨롭</li>
                   <li>2차 디벨롭으로 디테일한 마우스 오버 효과나, 부자연스러운 반응형 수정</li>
                 </ul>

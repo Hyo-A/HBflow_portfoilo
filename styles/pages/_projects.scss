@@ -159,6 +159,7 @@
         letter-spacing: -0.02em;
         transform: translateY(100%);
         opacity: 0;
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
         
         @include tablet-up {
           font-size: 4.2rem;
@@ -166,10 +167,6 @@
         
         @include large-up {
           font-size: 4.5rem;
-        }
-        
-        @include desktop-up {
-          transition: transform 1s ease, opacity 1s ease;
         }
     }
     
